@@ -31,7 +31,7 @@ const useTimeLeft = (target) => {
     return () => clearInterval(interval);
   }, []);
 
-  return timeLeft;
+  return timeLeft || [0,0,0,0];
 };
 
 export default useTimeLeft;
