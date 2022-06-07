@@ -1,15 +1,16 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import useFetch from "./Hooks/useFetch.js";
 import useTimeLeft from "./Hooks/useTimeLeft.js";
-import { NativeBaseProvider } from "native-base";
+// import useFetch from "./Hooks/useFetch.js";
 import LoginPage from "./Components/Pages/LoginPage.js";
+import { StyleSheet, Text, View } from "react-native";
+import { NativeBaseProvider } from "native-base";
+import { StatusBar } from "expo-status-bar";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const showHeaders = true;
 
 function Home() {
   const timeLeft = useTimeLeft("December 17, 2022 03:24:00");
@@ -28,7 +29,7 @@ function Home() {
 
 function HomeInterface() {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={Home}></Tab.Screen>
         <Tab.Screen name="Chao geng" component={Home}></Tab.Screen>
@@ -42,10 +43,10 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Welcome" component={LoginPage} />
-        <Stack.Screen name="Interface" component={HomeInterface} />
-      </Stack.Navigator>
+        <Stack.Navigator>
+          <Stack.Screen name="Welcome" component={LoginPage} options={{headerShown: showHeaders}}/>
+          <Stack.Screen name="Interface" component={HomeInterface}  options={{headerShown: false}}/>
+        </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
   );
