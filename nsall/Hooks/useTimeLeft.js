@@ -31,6 +31,9 @@ const useTimeLeft = (target) => {
     updateTimeLeft();
     const interval = setInterval(() => {
       updateTimeLeft();
+			// const currentTime = new Date();
+			// const remainingTime = targetTime - currentTime;
+			// setTimeleft(returnTimings(remainingTime));
     }, 1000);
     return () => clearInterval(interval);
   }, []);

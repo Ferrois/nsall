@@ -1,40 +1,22 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import useTimeLeft from "./Hooks/useTimeLeft.js";
-// import useFetch from "./Hooks/useFetch.js";
 import LoginPage from "./Components/Pages/LoginPage.js";
-import { StyleSheet, Text, View } from "react-native";
 import { NativeBaseProvider } from "native-base";
-import { StatusBar } from "expo-status-bar";
+import HomePage from "./Components/Pages/HomePage.js";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const showHeaders = true;
 
-function Home() {
-  const timeLeft = useTimeLeft("December 17, 2022 03:24:00");
-  return (
-    <View style={styles.container}>
-      <Text>our brand new ns app - ferrois</Text>
-      <Text>Target date: December 17, 2022 03:24:00</Text>
-      <Text>
-        {timeLeft[0]}days, {timeLeft[1]}hours, {timeLeft[2]}minutes,{" "}
-        {timeLeft[3]}seconds
-      </Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
 function HomeInterface() {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home}></Tab.Screen>
-        <Tab.Screen name="Chao geng" component={Home}></Tab.Screen>
-        <Tab.Screen name="Utilities" component={Home}></Tab.Screen>
-        <Tab.Screen name="Settings" component={Home}></Tab.Screen>
+        <Tab.Screen name="Home" component={HomePage}></Tab.Screen>
+        <Tab.Screen name="Chao geng" component={HomePage}></Tab.Screen>
+        <Tab.Screen name="Utilities" component={HomePage}></Tab.Screen>
+        <Tab.Screen name="Settings" component={HomePage}></Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -52,11 +34,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
