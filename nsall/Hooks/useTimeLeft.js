@@ -16,7 +16,7 @@ const returnTimings = (milliseconds) => {
   const seconds = Math.floor(currentMilliseconds / 1000);
   currentMilliseconds = currentMilliseconds - seconds * 1000;
   //return an array of stuff
-  return [days, hours, minutes, seconds];
+  return [days, hours, minutes, seconds, milliseconds];
 };
 
 const useTimeLeft = (target) => {
@@ -38,7 +38,7 @@ const useTimeLeft = (target) => {
     return () => clearInterval(interval);
   }, []);
 
-  return timeLeft || [0, 0, 0, 0];
+  return timeLeft || [0, 0, 0, 0, 0];
 };
 
 export default useTimeLeft;
