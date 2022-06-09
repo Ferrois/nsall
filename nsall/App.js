@@ -1,31 +1,85 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import useFetch from './Hooks/useFetch.js'
-import useTimeLeft from './Hooks/useTimeLeft.js';
-import LoginPage from './Components/Pages/LoginPage.js';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LoginPage from "./Components/Pages/LoginPage.js";
+import { NativeBaseProvider } from "native-base";
+import HomePage from "./Components/Pages/HomePage.js";
+import { LinearGradient } from "expo-linear-gradient";
+import Icon from "react-native-vector-icons/Ionicons";
+import Anticon from "react-native-vector-icons/AntDesign";
+import Feathericon from "react-native-vector-icons/Feather";
 
-export default function App() {
-  const [data] = useFetch("https://jsonplaceholder.typicode.com/todos")
-  const timeLeft = useTimeLeft("December 17, 2022 03:24:00");
+//Navigation options
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+const showHeaders = true;
+
+//Native Base configuration (themes etc.)
+const config = {
+  dependencies: {
+    "linear-gradient": LinearGradient,
+  },
+};
+
+//Navigators
+function HomeInterface() {
   return (
-    // <View style={styles.container}>
-    //   <Text>our brand new ns app - ferrois</Text>
-    //   <Text>Target date: December 17, 2022 03:24:00</Text>
-    //   <Text>{timeLeft[0]}days, {timeLeft[1]}hours, {timeLeft[2]}minutes, {timeLeft[3]}seconds</Text>
-    //   <Text>{data && data.map((obj)=>{return(<Text key={obj.id}>id:{obj.id}  </Text>)})}</Text>
-    //   <StatusBar style="auto" />
-    // </View>
-    <LoginPage>
-      
-    </LoginPage>
+    <NavigationContainer independent={true}>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomePage} 
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home" color={"light.700"} size={30} />
+          ),
+        }}/>
+        <Tab.Screen
+          name="Leaves"
+          component={HomePage}
+          options={{
+            tabBarLabel: "form",
+            tabBarIcon: ({ color, size }) => (
+              <Anticon name="form" color={"light.700"} size={30} />
+            ),
+          }}
+        />
+        <Tab.Screen name="Utilities" component={HomePage} 
+        options={{
+          tabBarLabel: 'more-horizontal',
+          tabBarIcon: ({ color, size }) => (
+            <Feathericon 
+            name="more-horizontal" color={"light.700"} size={30} />
+          ),
+        }}/>
+        <Tab.Screen name="Setting" component={HomePage} 
+        options={{
+          tabBarLabel: 'setting',
+          tabBarIcon: ({ color, size }) => (
+            <Anticon name="setting" color={"light.700"} size={30} />
+          ),
+        }}/>
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NativeBaseProvider config={config}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Welcome"
+            component={LoginPage}
+            options={{ headerShown: showHeaders }}
+          />
+          <Stack.Screen
+            name="Interface"
+            component={HomeInterface}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
+  );
+}
