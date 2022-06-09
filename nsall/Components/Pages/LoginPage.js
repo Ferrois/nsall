@@ -1,8 +1,7 @@
 import { Box, Button, Icon, Input, Stack, Text } from "native-base";
 import React from "react";
 
-
-export default function LoginPage({navigation}) {
+export default function LoginPage({ navigation }) {
   function handleLogin() {
     // Sets the current Stack to Interface, so that user cannot press the android back thing to back into login
     navigation.reset({
@@ -44,12 +43,13 @@ export default function LoginPage({navigation}) {
           />
         }
         placeholder="Password"
-      /><Box>
-      <Text color={"red.500"}>Login page</Text>
-      <Button onPress={() => handleLogin()}>
-        <Text>Bring you to app interface</Text>
-      </Button>
-    </Box>
+      />
+      <Box>
+        <Text color={"red.500"}>Login page</Text>
+        <Button onPress={() => handleLogin()}>
+          <Text>Bring you to app interface</Text>
+        </Button>
+      </Box>
     </Stack>
   );
 }
