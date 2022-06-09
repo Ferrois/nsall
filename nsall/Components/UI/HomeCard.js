@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { Box, Card, VStack } from "native-base";
-=======
-import { Card} from "native-base";
->>>>>>> 7f84ffe477c8246dc29149c7ca7e27d3dfa61514
+import { Box, Card, HStack, Text, VStack } from "native-base";
 import React from "react";
 
 export default function HomeCard(props) {
@@ -17,7 +13,10 @@ export default function HomeCard(props) {
       padding={"2"}
     >
       <VStack>
-        <Box>{props.icon || null}</Box>
+        <HStack alignItems={"center"}>
+          {props.icon || null}
+          <Text marginLeft={"2"} fontSize={"lg"}>{props.title}</Text>
+        </HStack>
         {props.children}
       </VStack>
     </Box>

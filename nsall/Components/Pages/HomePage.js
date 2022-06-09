@@ -1,14 +1,14 @@
 import {
   Box,
-  StatusBar,
-  View,
   Text,
   Center,
   ScrollView,
   Progress,
+  Icon,
 } from "native-base";
 import useTimeLeft from "../../Hooks/useTimeLeft";
 import HomeCard from "../UI/HomeCard";
+import Ionicons from "react-native-vector-icons/Ionicons"
 
 // const pageData = [{}]
 
@@ -29,7 +29,7 @@ function HomePage() {
       <Center>
         <ScrollView w="100%">
           <Center>
-            <HomeCard>
+            <HomeCard icon={<Icon as={Ionicons} name="time-outline" size={"4xl"} color="yellow.600"/>} title="Countdown">
               <Text style={{ fontSize: 16, fontFamily: "sans-serif" }}>
                 {timeLeft[4]}vdfa{100 - (timeLeft[4] * 100) / 63072000000}
               </Text>
