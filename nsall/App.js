@@ -9,6 +9,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Anticon from "react-native-vector-icons/AntDesign";
 import Feathericon from "react-native-vector-icons/Feather";
 import ProfilesPage from "./Components/Pages/ProfilesPage.js";
+import { useEffect } from "react";
+import useFont from "./Hooks/useFont.js";
 
 //Navigation options
 const Tab = createBottomTabNavigator();
@@ -77,6 +79,9 @@ function HomeInterface() {
 }
 
 export default function App() {
+  useEffect(() => {
+    useFont(() => console.log("Fonts Loaded"));
+  }, []);
   return (
     <NativeBaseProvider config={config}>
       <NavigationContainer>

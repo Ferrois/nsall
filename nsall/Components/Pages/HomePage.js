@@ -5,10 +5,11 @@ import {
   ScrollView,
   Progress,
   Icon,
+  VStack,
 } from "native-base";
 import useTimeLeft from "../../Hooks/useTimeLeft";
 import HomeCard from "../UI/HomeCard";
-import Ionicons from "react-native-vector-icons/Ionicons"
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 // const pageData = [{}]
 
@@ -29,20 +30,38 @@ function HomePage() {
       <Center>
         <ScrollView w="100%">
           <Center>
-            <HomeCard icon={<Icon as={Ionicons} name="time-outline" size={"4xl"} color="yellow.600"/>} title="Countdown">
-              <Text style={{ fontSize: 16, fontFamily: "sans-serif" }}>
-                {timeLeft[4]}vdfa{100 - (timeLeft[4] * 100) / 63072000000}
+            <Text color={'white'} fontFamily="Poppins" fontSize={"5xl"} mb="5">Home</Text>
+            <HomeCard
+              icon={
+                <Icon
+                  as={Ionicons}
+                  name="time-outline"
+                  size={"4xl"}
+                  color="yellow.600"
+                />
+              }
+              title="Countdown"
+            >
+              <Text
+                fontSize={"md"}
+                color={"muted.500"}
+                ml="4"
+                mb="1"
+                mt="2"
+                fontFamily={"Poppins"}
+              >
+                Progress. . .
               </Text>
               <Center w="100%">
-                <Box w="100%">
-                  <Progress
-                    size="xl"
-                    shadow={2}
-                    mb={4}
-                    value={(1 - timeLeft[4] / 63072000000) * 100}
-                    mx="4"
-                  />
-                </Box>
+                  <Box w="100%">
+                    <Progress
+                      size="md"
+                      shadow={2}
+                      mb={4}
+                      value={(1 - timeLeft[4] / 63072000000) * 100}
+                      mx="4"
+                    />
+                  </Box>
               </Center>
             </HomeCard>
           </Center>

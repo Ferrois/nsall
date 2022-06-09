@@ -15,7 +15,7 @@ export default function HomeCard(props) {
       <VStack>
         <HStack alignItems={"center"}>
           {props.icon || null}
-          <Text marginLeft={"2"} fontSize={"lg"}>{props.title}</Text>
+          <Text marginLeft={"2"} fontSize={"lg"} fontFamily={"Poppins"}>{props.title}</Text>
         </HStack>
         {props.children}
       </VStack>
