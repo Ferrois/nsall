@@ -5,11 +5,10 @@ import HomeCard from "../UI/HomeCard";
 const pageData = ["asdf", "asdf", "asdf", "asdf", "asdf", "asdf", "asdf"];
 
 function HomePage() {
-  // const timeLeft = useTimeLeft("December 17, 2022 03:24:00");
+  const timeLeft = useTimeLeft("December 17, 2022 03:24:00");
   return (
     <Center>
       <ScrollView>
-<<<<<<< HEAD
         {pageData.map((str) => {
           return (
             <HomeCard>
@@ -17,7 +16,6 @@ function HomePage() {
             </HomeCard>
           );
         })}
-=======
         <HomeCard>
           <Text style={{fontSize: 16, fontFamily: 'sans-serif'}}>{timeLeft[4]}vdfa{100-timeLeft[4]*100/63072000000}</Text>
           <Center w="100%">
@@ -26,7 +24,6 @@ function HomePage() {
         </Box>
       </Center>
         </HomeCard>
->>>>>>> 50f849129b07feff822bd9689e1943985a76fa48
       </ScrollView>
     </Center>
   );
