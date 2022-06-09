@@ -1,13 +1,14 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginPage from "./Components/Pages/LoginPage.js";
 import { NativeBaseProvider } from "native-base";
+import LoginPage from "./Components/Pages/LoginPage.js";
 import HomePage from "./Components/Pages/HomePage.js";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
 import Anticon from "react-native-vector-icons/AntDesign";
 import Feathericon from "react-native-vector-icons/Feather";
+import ProfilesPage from "./Components/Pages/ProfilesPage.js";
 
 //Navigation options
 const Tab = createBottomTabNavigator();
@@ -26,38 +27,50 @@ function HomeInterface() {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomePage} 
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({color,size}) => (
-            <Icon name="home" color={color} size={size} />
-          ),
-        }}/>
+        <Tab.Screen
+          name="Home"
+          component={HomePage}
+          options={{
+            tabBarLabel: "Home",
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="home" color={color} size={size} />
+            ),
+            headerShown: false,
+          }}
+        />
         <Tab.Screen
           name="Leaves"
           component={HomePage}
           options={{
             tabBarLabel: "Form",
-            tabBarIcon: ({color,size}) => (
+            tabBarIcon: ({ color, size }) => (
               <Anticon name="form" color={color} size={size} />
             ),
+            headerShown: false,
           }}
         />
-        <Tab.Screen name="Utilities" component={HomePage} 
-        options={{
-          tabBarLabel: 'Utilities',
-          tabBarIcon: ({color,size}) => (
-            <Feathericon 
-            name="more-horizontal" color={color} size={size} />
-          ),
-        }}/>
-        <Tab.Screen name="Setting" component={HomePage} 
-        options={{
-          tabBarLabel: 'Setting',
-          tabBarIcon: ({color,size}) => (
-            <Anticon name="setting" color={color} size={size} />
-          ),
-        }}/>
+        <Tab.Screen
+          name="Utilities"
+          component={HomePage}
+          options={{
+            tabBarLabel: "Utilities",
+            tabBarIcon: ({ color, size }) => (
+              <Feathericon name="more-horizontal" color={color} size={size} />
+            ),
+            headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfilesPage}
+          options={{
+            tabBarLabel: "Profile",
+            tabBarIcon: ({ color, size }) => (
+              <Anticon name="setting" color={color} size={size} />
+            ),
+            headerShown: false,
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

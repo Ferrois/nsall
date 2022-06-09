@@ -1,18 +1,21 @@
-<<<<<<< HEAD
-import { Card } from "native-base";
-import React from "react";
-
-export default function HomeCard(props) {
-  return <Card width={"xs"}>{props.children}</Card>;
-=======
-import { Card} from "native-base";
+import { Box, Card, VStack } from "native-base";
 import React from "react";
 
 export default function HomeCard(props) {
   return (
-    <Card>
-      {props.children}
-    </Card>
+    <Box
+      width={"xs"}
+      bg={"light.100"}
+      marginTop="1"
+      shadow="5"
+      minH={"48"}
+      rounded="sm"
+      padding={"2"}
+    >
+      <VStack>
+        <Box>{props.icon || null}</Box>
+        {props.children}
+      </VStack>
+    </Box>
   );
->>>>>>> 50f849129b07feff822bd9689e1943985a76fa48
 }
