@@ -1,25 +1,28 @@
-import { Box, StatusBar, View, Center, Text, ScrollView } from "native-base";
-import { StyleSheet } from "react-native";
+import { Box, StatusBar, View, Text, Center, ScrollView } from "native-base";
 import useTimeLeft from "../../Hooks/useTimeLeft";
+import HomeCard from "../UI/HomeCard";
+
+const pageData = [
+  "asdf",
+  "asdf",
+  "asdf",
+  "asdf",
+  "asdf",
+  "asdf",
+  "asdf" 
+]
 
 function HomePage() {
-  // const timeLeft = useTimeLeft("December 17, 2022 03:24:00");
+  const timeLeft = useTimeLeft("December 17, 2022 03:24:00");
   return (
     <Center>
-      <ScrollView minHeight={"12"}>
-
+      <ScrollView>
+        <HomeCard>
+          <Text>Fuck u</Text>
+        </HomeCard>
       </ScrollView>
     </Center>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default HomePage;

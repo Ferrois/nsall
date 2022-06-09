@@ -29,33 +29,33 @@ function HomeInterface() {
         <Tab.Screen name="Home" component={HomePage} 
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={"light.700"} size={30} />
+          tabBarIcon: ({color,size}) => (
+            <Icon name="home" color={color} size={size} />
           ),
         }}/>
         <Tab.Screen
           name="Leaves"
           component={HomePage}
           options={{
-            tabBarLabel: "form",
-            tabBarIcon: ({ color, size }) => (
-              <Anticon name="form" color={"light.700"} size={30} />
+            tabBarLabel: "Form",
+            tabBarIcon: ({color,size}) => (
+              <Anticon name="form" color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen name="Utilities" component={HomePage} 
         options={{
-          tabBarLabel: 'more-horizontal',
-          tabBarIcon: ({ color, size }) => (
+          tabBarLabel: 'Utilities',
+          tabBarIcon: ({color,size}) => (
             <Feathericon 
-            name="more-horizontal" color={"light.700"} size={30} />
+            name="more-horizontal" color={color} size={size} />
           ),
         }}/>
         <Tab.Screen name="Setting" component={HomePage} 
         options={{
-          tabBarLabel: 'setting',
-          tabBarIcon: ({ color, size }) => (
-            <Anticon name="setting" color={"light.700"} size={30} />
+          tabBarLabel: 'Setting',
+          tabBarIcon: ({color,size}) => (
+            <Anticon name="setting" color={color} size={size} />
           ),
         }}/>
       </Tab.Navigator>
