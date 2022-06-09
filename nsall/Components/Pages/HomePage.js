@@ -1,5 +1,5 @@
-import { Box, StatusBar, View } from "native-base";
-import { StyleSheet, Text } from "react-native";
+import { Box, StatusBar, View ,Text} from "native-base";
+import { ProgressBarAndroidBase, StyleSheet,  } from "react-native";
 import useTimeLeft from "../../Hooks/useTimeLeft";
 
 function HomePage() {
@@ -20,7 +20,8 @@ function HomePage() {
           },
         }}
       >
-        <Text>
+
+        <Text color={"white"}>
           {timeLeft[0]}days, {timeLeft[1]}hours, {timeLeft[2]}minutes,{" "}
           {timeLeft[3]}seconds
         </Text>
