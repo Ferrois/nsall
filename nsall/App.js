@@ -23,7 +23,7 @@ function HomeInterface() {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomePage} />
+        <Tab.Screen name="Home" component={HomePage}/>
         <Tab.Screen name="Chao geng" component={HomePage} />
         <Tab.Screen name="Utilities" component={HomePage} />
         <Tab.Screen name="Settings" component={HomePage} />
