@@ -4,18 +4,19 @@ import React from "react";
 export default function HomeCard(props) {
   return (
     <Box
-      width={"xs"}
+      width="90%"
       bg={"light.100"}
-      marginTop="1"
+      marginTop="4"
       shadow="5"
       minH={"48"}
-      rounded="sm"
+      rounded="2xl"
       padding={"2"}
+      maxWidth={"lg"}
     >
       <VStack>
         <HStack alignItems={"center"}>
           {props.icon || null}
-          <Text marginLeft={"2"} fontSize={"lg"} fontFamily={"Poppins"}>{props.title}</Text>
+          <Text marginLeft={"2"} fontSize={"2xl"} fontFamily={"Poppins"}>{props.title}</Text>
         </HStack>
         {props.children}
       </VStack>

@@ -11,6 +11,9 @@ import Feathericon from "react-native-vector-icons/Feather";
 import ProfilesPage from "./Components/Pages/ProfilesPage.js";
 import { useEffect } from "react";
 import useFont from "./Hooks/useFont.js";
+import Home from "./Components/Pages/HomePage.js";
+import LeavesPage from "./Components/Pages/LeavesPage.js";
+import NSafePage from "./Components/Pages/NSafePage.js";
 
 //Navigation options
 const Tab = createBottomTabNavigator();
@@ -31,7 +34,7 @@ function HomeInterface() {
       <Tab.Navigator>
         <Tab.Screen
           name="Home"
-          component={HomePage}
+          component={Home}
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color, size }) => (
@@ -42,7 +45,7 @@ function HomeInterface() {
         />
         <Tab.Screen
           name="Leaves"
-          component={HomePage}
+          component={LeavesPage}
           options={{
             tabBarLabel: "Form",
             tabBarIcon: ({ color, size }) => (
@@ -53,7 +56,7 @@ function HomeInterface() {
         />
         <Tab.Screen
           name="Utilities"
-          component={HomePage}
+          component={NSafePage}
           options={{
             tabBarLabel: "Utilities",
             tabBarIcon: ({ color, size }) => (
@@ -68,7 +71,7 @@ function HomeInterface() {
           options={{
             tabBarLabel: "Profile",
             tabBarIcon: ({ color, size }) => (
-              <Anticon name="setting" color={color} size={size} />
+              <Anticon name="user" color={color} size={size} />
             ),
             headerShown: false,
           }}
