@@ -10,7 +10,7 @@ export default function HomeCard(props) {
       shadow="5"
       minH={"48"}
       rounded="2xl"
-      padding={"2"}
+      padding={"3"}
       maxWidth={"lg"}
     >
       <VStack>

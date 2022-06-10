@@ -69,7 +69,7 @@ function HomeInterface() {
           name="Profile"
           component={ProfilesPage}
           options={{
-            tabBarLabel: "Profile",
+            tabBarLabel: "User",
             tabBarIcon: ({ color, size }) => (
               <Anticon name="user" color={color} size={size} />
             ),

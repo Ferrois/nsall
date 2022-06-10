@@ -20,6 +20,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import IpptCalPage from "./IpptCalPage";
 
 //Naviagator in the home widgets
 const Stack = createNativeStackNavigator();
@@ -50,8 +51,8 @@ function Home() {
         />
         <Stack.Screen
           name="IpptCal"
-          component={HomePage}
-          options={{ headerShown: false }}
+          component={IpptCalPage}
+          options={{ headerShown: true,headerBackVisible:true, title:"IPPT Score Calculator" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -212,7 +213,7 @@ function IpptCard({ navigation }) {
           fontFamily={"Poppins"}
           pr="4"
         >
-          40 / 60 Points
+          40 / 60 Pts
         </Text>
       </HStack>
       <Center w="100%">

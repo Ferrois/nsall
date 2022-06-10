@@ -1,8 +1,8 @@
-import { Box, Center, HStack, Image, Text } from "native-base";
+import { Box, Button, Center, HStack, Image, Text } from "native-base";
 import React from "react";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
-export default function Profile() {
+export default function Profile({navigation}) {
   return (
     <Box
       flex={1}
@@ -47,6 +47,7 @@ export default function Profile() {
           >
             <HStack>
               <Text>put some info here like his ethnic or name </Text>
+              <Button onPress={()=>navigation.navigate("Settings")}></Button>
             </HStack>
           </Box>
         </Animated.View>
