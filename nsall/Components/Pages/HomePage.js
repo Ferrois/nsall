@@ -5,7 +5,6 @@ import {
   ScrollView,
   Progress,
   Icon,
-  VStack,
 } from "native-base";
 import useTimeLeft from "../../Hooks/useTimeLeft";
 import HomeCard from "../UI/HomeCard";
@@ -20,9 +19,9 @@ function HomePage() {
       flex={1}
       bg={{
         linearGradient: {
-          colors: ["#47039E", "#FFBA7A"],
-          start: [1, 0],
-          end: [0, 1],
+          colors: ["emerald.500", "cyan.400"],
+          start: [0.8, 0],
+          end: [0.2, 0.9],
         },
       }}
       safeArea
