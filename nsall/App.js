@@ -14,6 +14,7 @@ import useFont from "./Hooks/useFont.js";
 import Home from "./Components/Pages/HomePage.js";
 import LeavesPage from "./Components/Pages/LeavesPage.js";
 import NSafePage from "./Components/Pages/NSafePage.js";
+import UtilsPage from "./Components/Pages/UtilsPage.js";
 
 //Navigation options
 const Tab = createBottomTabNavigator();
@@ -67,7 +68,7 @@ function HomeInterface() {
         />
         <Tab.Screen
           name="Utilities"
-          component={NSafePage}
+          component={UtilsPage}
           options={{
             tabBarLabel: "Utilities",
             tabBarIcon: ({ color, size }) => (

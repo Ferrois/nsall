@@ -1,5 +1,5 @@
-import { Box, Center, Text, View,  } from "native-base";
-import {StyleSheet} from "react-native"
+import { Box, Center, Text, View } from "native-base";
+import { StyleSheet } from "react-native";
 import React from "react";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -23,10 +23,11 @@ export default function NSafePage() {
     // </Box>
     <View style={style.body}>
       <MapView
+        provider={PROVIDER_GOOGLE}
         style={style.map}
         initialRegion={{
-          latitude: lat,
-          longitude: lng,
+          latitude: 50,
+          longitude: 50,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
