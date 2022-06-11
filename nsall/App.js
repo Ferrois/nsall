@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, Text } from "native-base";
 import LoginPage from "./Components/Pages/LoginPage.js";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -9,6 +9,7 @@ import Anticon from "react-native-vector-icons/AntDesign";
 import Feathericon from "react-native-vector-icons/Feather";
 import ProfilesPage from "./Components/Pages/ProfilesPage.js";
 import { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import useFont from "./Hooks/useFont.js";
 import Home from "./Components/Pages/HomePage.js";
 import LeavesPage from "./Components/Pages/LeavesPage.js";
@@ -98,9 +99,9 @@ function HomeInterface() {
 }
 
 export default function App() {
-  useEffect(() => {
-    useFont(() => console.log("Fonts Loaded"));
-  }, []);
+  // useEffect(() => {
+  //   useFont(() => console.log("Fonts Loaded"));
+  // }, []);
   return (
     <StoreProvider>
     <NativeBaseProvider config={config}>
@@ -122,3 +123,9 @@ export default function App() {
     </StoreProvider>
   );
 }
+
+const style = StyleSheet.create ({
+  root: {
+    flex : 1,
+  }
+})

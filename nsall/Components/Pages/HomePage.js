@@ -55,7 +55,11 @@ function Home() {
         <Stack.Screen
           name="IpptCal"
           component={IpptCalPage}
-          options={{ headerShown: true,headerBackVisible:true, title:"IPPT Score Calculator" }}
+          options={{
+            headerShown: true,
+            headerBackVisible: true,
+            title: "IPPT Score Calculator",
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -127,7 +131,10 @@ function CountdownCard() {
           />
         </Box>
       </Center>
-      <Text>{timeLeft[0]}Days,{timeLeft[1]}Hours,{timeLeft[2]}Minutes,{timeLeft[3]}Seconds</Text>
+      <Text>
+        {timeLeft[0]} Days, {timeLeft[1]} Hours, {timeLeft[2]} Minutes, 
+        {timeLeft[3]} Seconds
+      </Text>
     </HomeCard>
   );
 }
@@ -272,6 +279,5 @@ function LeaveStatusCard() {
     ></HomeCard>
   );
 }
-
 
 export default Home;
