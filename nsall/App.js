@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider } from "native-base";
 import LoginPage from "./Components/Pages/LoginPage.js";
-import HomePage from "./Components/Pages/HomePage.js";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
 import Anticon from "react-native-vector-icons/AntDesign";
@@ -59,7 +58,7 @@ function HomeInterface() {
           name="NSafe"
           component={NSafePage}
           options={{
-            tabBarLabel: "Form",
+            tabBarLabel: "NSafe",
             tabBarIcon: ({ color, size }) => (
               <Anticon name="form" color={color} size={size} />
             ),
