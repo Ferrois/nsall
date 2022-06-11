@@ -124,8 +124,4 @@ export default function App() {
   );
 }
 
-const style = StyleSheet.create ({
-  root: {
-    flex : 1,
-  }
-})
+
