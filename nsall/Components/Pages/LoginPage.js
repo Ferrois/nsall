@@ -15,7 +15,7 @@ const LoginPage = ({ navigation, onPress }) => {
   };
   return (
     <ScrollView showsVerticalScrollIndicator={false}> 
-      <Box style={styles.root}>
+      <Box style={styles.root} safearea justifyContent={"center"}>
         <Image
           source={Logo}
           style={[styles.logo, { height: height * 0.2 }]}
