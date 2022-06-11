@@ -1,21 +1,43 @@
 import { Image, Button, Box, Input, Text, ScrollView } from "native-base";
 import { StyleSheet, useWindowDimensions, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Logo from "../../assets/NSALLlogo.png";
+import { socket } from "../../Helpers/socket";
+import { StoreContext } from "../../Store/StoreContext";
 
 const LoginPage = ({ navigation, onPress }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { height } = useWindowDimensions();
+
+  const { storeCtx } = useContext(StoreContext);
+  const [store, setStore] = storeCtx;
+  const [wrong, setWrong] = useState(false);
+
   const handleLogin = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Interface" }],
-    });
+    socket.emit("login", { username:username, password:password });
   };
+  const handleWrong = () => {
+    setWrong(true);
+  };
+  useEffect(() => {
+    socket.on("login-return", ({ status_, userInfo }) => {
+      if (status_ == "S") {
+        setStore({ ...store, userInfo });
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Interface" }],
+        });
+        return
+      }
+      console.log("Wrong Info!")
+      handleWrong()
+    });
+  },[]);
+
   return (
-    <ScrollView showsVerticalScrollIndicator={false}> 
-      <Box style={styles.root} safearea justifyContent={"center"}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{flexGrow:1}}> 
+      <Box style={styles.root} safeArea justifyContent={"center"}>
         <Image
           source={Logo}
           style={[styles.logo, { height: height * 0.2 }]}
@@ -25,17 +47,18 @@ const LoginPage = ({ navigation, onPress }) => {
         <Input
           placeholder="Username"
           value={username}
-          setValue={setUsername}
+          onChangeText={value=>setUsername(value)}
           mt={2}
         />
         <Input
           placeholder="Password"
           value={password}
-          setValue={setPassword}
+          onChangeText={value=>setPassword(value)}
           secureTextEntry={true}
           mt={2}
         />
-        <Button onPress={onPress} style={styles.button1}>
+        {wrong && <Text color={"red.600"}>Wrong Information!</Text>}
+        <Button onPress={handleLogin} style={styles.button1}>
           <Text style={styles.text1}>Log In</Text>
         </Button>
 
