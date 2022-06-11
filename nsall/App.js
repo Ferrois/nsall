@@ -18,7 +18,7 @@ import { io } from "socket.io-client";
 import { StoreProvider } from "./Store(Context)/StoreContext.js";
 
 //Socket.io configuration (Websocket connection to the server.)
-export const socket = io("http://192.168.10.145:4000");
+// export const socket = io("http://192.168.10.145:4000");
 
 //Navigation options
 const Tab = createBottomTabNavigator();
