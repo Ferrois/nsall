@@ -54,6 +54,17 @@ function HomeInterface() {
             headerShown: false,
           }}
         />
+         <Tab.Screen
+          name="NSafe"
+          component={NSafePage}
+          options={{
+            tabBarLabel: "Form",
+            tabBarIcon: ({ color, size }) => (
+              <Anticon name="form" color={color} size={size} />
+            ),
+            headerShown: false,
+          }}
+        />
         <Tab.Screen
           name="Utilities"
           component={NSafePage}
