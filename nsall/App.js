@@ -22,7 +22,7 @@ import { StoreProvider } from "./Store/StoreContext.js";
 //Navigation options
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-const showHeaders = true;
+const showHeaders = false;
 
 //Native Base configuration (themes etc.)
 const config = {
