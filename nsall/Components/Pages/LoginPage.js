@@ -1,18 +1,40 @@
-import { Image, Button, Box, Input } from "native-base";
+import { Image, Button, Box, Input, Text } from "native-base";
 import { StyleSheet, useWindowDimensions } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Logo from "../../assets/NSALLlogo.png";
+import { socket } from "../../Helpers/socket";
+import { StoreContext } from "../../Store/StoreContext";
 
 const LoginPage = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { height } = useWindowDimensions();
+
+  const { storeCtx } = useContext(StoreContext);
+  const [store, setStore] = storeCtx;
+  const [wrong, setWrong] = useState(false);
+
   const handleLogin = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Interface" }],
-    });
+    socket.emit("login", { username, password });
   };
+  const handleWrong = () => {
+    setWrong(true);
+  };
+  useEffect(() => {
+    socket.on("login-return", ({ status_, userInfo }) => {
+      if (status_ == "S") {
+        setStore({ ...store, userInfo });
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Interface" }],
+        });
+        return
+      }
+      console.log("wrong")
+      handleWrong()
+    });
+  },[]);
+
   return (
     <Box style={styles.root} safeArea justifyContent={"center"}>
       <Image
@@ -33,6 +55,7 @@ const LoginPage = ({ navigation }) => {
         setValue={setPassword}
         mt={2}
       />
+      {wrong && <Text color={"red.600"}>Wrong Username/Password</Text>}
       <Button
         onPress={() => {
           handleLogin();
