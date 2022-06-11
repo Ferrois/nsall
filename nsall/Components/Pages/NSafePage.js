@@ -21,15 +21,30 @@ export default function NSafePage() {
     //   </Center>
     // </Box>
     <View style={StyleSheet.body}>
-
+      <MapView
+        style={style.map}
+        initialRegion={{
+          latitude: lat,
+          longitude: lng,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
     </View>
   );
 }
 
 const style = StyleSheet.create({
-  body :{
+  body: {
     flex: 1,
     alighItems: "center",
-
   },
-})
+  text: {
+    fontSize: 40,
+    margin: 10,
+  },
+  map: {
+    width: "100%",
+    height: "100%",
+  },
+});
