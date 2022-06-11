@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, Text } from "native-base";
 import LoginPage from "./Components/Pages/LoginPage.js";
 import HomePage from "./Components/Pages/HomePage.js";
 import { LinearGradient } from "expo-linear-gradient";
@@ -15,6 +15,7 @@ import Home from "./Components/Pages/HomePage.js";
 import LeavesPage from "./Components/Pages/LeavesPage.js";
 import NSafePage from "./Components/Pages/NSafePage.js";
 import UtilsPage from "./Components/Pages/UtilsPage.js";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 //Navigation options
 const Tab = createBottomTabNavigator();
@@ -94,25 +95,20 @@ function HomeInterface() {
 }
 
 export default function App() {
-  useEffect(() => {
-    useFont(() => console.log("Fonts Loaded"));
-  }, []);
+  // useEffect(() => {
+  //   useFont(() => console.log("Fonts Loaded"));
+  // }, []);
   return (
-    <NativeBaseProvider config={config}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Welcome"
-            component={LoginPage}
-            options={{ headerShown: showHeaders }}
-          />
-          <Stack.Screen
-            name="Interface"
-            component={HomeInterface}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
+    <SafeAreaView>
+      <Text>
+
+      </Text>
+    </SafeAreaView>
   );
 }
+
+const style = StyleSheet.create ({
+  root: {
+    flex : 1,
+  }
+})
