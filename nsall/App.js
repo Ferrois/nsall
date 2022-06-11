@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider, Text } from "native-base";
 import LoginPage from "./Components/Pages/LoginPage.js";
+
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
 import Anticon from "react-native-vector-icons/AntDesign";

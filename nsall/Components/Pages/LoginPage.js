@@ -51,9 +51,9 @@ const LoginPage = ({ navigation, onPress }) => {
           <Text style={styles.text4}>Sign in with facebook</Text>
         </Button>
 
-        <Button style={styles.button2} onPress={onPress}>
+        {/* <Button src={} style={styles.button2} onPress={onPress}>
           <Text style={styles.text5}>Create an account</Text>
-        </Button>
+        </Button> */}
 
         <Button
           onPress={() => {
