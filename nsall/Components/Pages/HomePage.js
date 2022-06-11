@@ -21,9 +21,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import IpptCalPage from "./IpptCalPage";
-import { socket } from "../../App";
 import IpptRecPage from "./IpptRecPage";
-// import { socket } from "../../App.js";
+import { useContext } from "react";
+import { socket } from "../../Helpers/socket";
 
 //Naviagator in the home widgets
 const Stack = createNativeStackNavigator();

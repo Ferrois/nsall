@@ -1,6 +1,6 @@
 import { AspectRatio, Box, Button, Center, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import MapView, { UrlTile } from "react-native-maps";
 
 export default function NSafePage() {
