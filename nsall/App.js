@@ -102,7 +102,7 @@ export default function App() {
     useFont(() => console.log("Fonts Loaded"));
   }, []);
   return (
-    // <StoreProvider>
+    <StoreProvider>
     <NativeBaseProvider config={config}>
       <NavigationContainer>
         <Stack.Navigator>
@@ -119,6 +119,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
-    // </StoreProvider>
+    </StoreProvider>
   );
 }
