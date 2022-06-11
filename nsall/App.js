@@ -99,9 +99,9 @@ function HomeInterface() {
 }
 
 export default function App() {
-  // useEffect(() => {
-  //   useFont(() => console.log("Fonts Loaded"));
-  // }, []);
+  useEffect(() => {
+    useFont(() => console.log("Fonts Loaded"));
+  }, []);
   return (
     <StoreProvider>
     <NativeBaseProvider config={config}>

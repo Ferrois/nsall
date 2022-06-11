@@ -1,5 +1,5 @@
-import { Box, Button, Center } from "native-base";
-import React, { useContext } from "react";
+import { Box, Button, Center, Text } from "native-base";
+import React, { useContext, useEffect } from "react";
 import { StoreContext } from "../../Store(Context)/StoreContext";
 
 export default function IpptRecPage() {
@@ -9,14 +9,17 @@ export default function IpptRecPage() {
 
 	const {storeCtx} = useContext(StoreContext);
 	const [store,setStore] = storeCtx
-
+	useEffect(()=>{
+		setStore({counter:1})
+	},[])
   const handleIncrement = () => {
-		setStore({counter:localStore.counter + 1} || {counter:1})
+		setStore({counter:store.counter + 1})
 	};
   return (
     <Box safeArea>
       <Center>
         <Button onPress={handleIncrement}>Increment</Button>
+				<Text>{store.counter}</Text>
       </Center>
     </Box>
   );
