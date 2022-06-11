@@ -1,4 +1,4 @@
-import { Box } from "native-base";
+import { Box, Center } from "native-base";
 import React from "react";
 
 export default function UtilsPage() {

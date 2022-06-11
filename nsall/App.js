@@ -3,19 +3,23 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider, Text } from "native-base";
 import LoginPage from "./Components/Pages/LoginPage.js";
-import HomePage from "./Components/Pages/HomePage.js";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
 import Anticon from "react-native-vector-icons/AntDesign";
 import Feathericon from "react-native-vector-icons/Feather";
 import ProfilesPage from "./Components/Pages/ProfilesPage.js";
 import { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import useFont from "./Hooks/useFont.js";
 import Home from "./Components/Pages/HomePage.js";
 import LeavesPage from "./Components/Pages/LeavesPage.js";
 import NSafePage from "./Components/Pages/NSafePage.js";
 import UtilsPage from "./Components/Pages/UtilsPage.js";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { io } from "socket.io-client";
+import { StoreProvider } from "./Store(Context)/StoreContext.js";
+
+//Socket.io configuration (Websocket connection to the server.)
+// export const socket = io("http://192.168.10.145:4000");
 
 //Navigation options
 const Tab = createBottomTabNavigator();
@@ -56,11 +60,11 @@ function HomeInterface() {
             headerShown: false,
           }}
         />
-         <Tab.Screen
+        <Tab.Screen
           name="NSafe"
           component={NSafePage}
           options={{
-            tabBarLabel: "Form",
+            tabBarLabel: "NSafe",
             tabBarIcon: ({ color, size }) => (
               <Anticon name="form" color={color} size={size} />
             ),
@@ -99,11 +103,24 @@ export default function App() {
   //   useFont(() => console.log("Fonts Loaded"));
   // }, []);
   return (
-    <SafeAreaView>
-      <Text>
-
-      </Text>
-    </SafeAreaView>
+    // <StoreProvider>
+    <NativeBaseProvider config={config}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Welcome"
+            component={LoginPage}
+            options={{ headerShown: showHeaders }}
+          />
+          <Stack.Screen
+            name="Interface"
+            component={HomeInterface}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
+    // </StoreProvider>
   );
 }
 
