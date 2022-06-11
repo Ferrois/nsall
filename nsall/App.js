@@ -102,23 +102,23 @@ export default function App() {
     useFont(() => console.log("Fonts Loaded"));
   }, []);
   return (
-    <StoreProvider>
-      <NativeBaseProvider config={config}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Welcome"
-              component={LoginPage}
-              options={{ headerShown: showHeaders }}
-            />
-            <Stack.Screen
-              name="Interface"
-              component={HomeInterface}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </NativeBaseProvider>
-    </StoreProvider>
+    // <StoreProvider>
+    <NativeBaseProvider config={config}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Welcome"
+            component={LoginPage}
+            options={{ headerShown: showHeaders }}
+          />
+          <Stack.Screen
+            name="Interface"
+            component={HomeInterface}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
+    // </StoreProvider>
   );
 }

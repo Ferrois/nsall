@@ -22,6 +22,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import IpptCalPage from "./IpptCalPage";
 import { socket } from "../../App";
+import IpptRecPage from "./IpptRecPage";
 // import { socket } from "../../App.js";
 
 //Naviagator in the home widgets
@@ -43,7 +44,7 @@ function Home() {
         />
         <Stack.Screen
           name="IpptRecords"
-          component={HomePage}
+          component={IpptRecPage}
           options={{ headerShown: false }}
         />
         <Stack.Screen
