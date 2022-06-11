@@ -1,37 +1,26 @@
 import { Box, Center, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import React from "react";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { UrlTile } from "react-native-maps";
 
 export default function NSafePage() {
   return (
-    // <Box bg="primary.400" p="12" rounded="lg">
-    //   <Center>
-    //     <Text>NSafe tracking location, pair with watch</Text>
-    //     <MapView
-    //       style={{ flex: 1 }}
-    //       provider={PROVIDER_GOOGLE}
-    //       showsUserLocation
-    //       initialRegion={{
-    //         latitude: 37.78825,
-    //         longitude: -122.4324,
-    //         latitudeDelta: 0.0922,
-    //         longitudeDelta: 0.0421,
-    //       }}
-    //     />
-    //   </Center>
-    // </Box>
     <View style={style.body}>
       <MapView
-        provider={PROVIDER_GOOGLE}
         style={style.map}
-        initialRegion={{
-          latitude: 50,
-          longitude: 50,
+        region={{
+          latitude: 1.35,
+          longitude: 103.8,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-      />
+      >
+        <UrlTile
+          urlTemplate={"http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"}
+          maximumZ={19}
+          flipY={false}
+        />
+      </MapView>
     </View>
   );
 }
