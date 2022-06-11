@@ -14,7 +14,7 @@ const LoginPage = ({ navigation }) => {
     });
   };
   return (
-    <Box style={styles.root}>
+    <Box style={styles.root} safeArea justifyContent={"center"}>
       <Image
         source={Logo}
         style={[styles.logo, { height: height * 0.2 }]}
