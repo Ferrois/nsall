@@ -15,11 +15,9 @@ import Home from "./Components/Pages/HomePage.js";
 import LeavesPage from "./Components/Pages/LeavesPage.js";
 import NSafePage from "./Components/Pages/NSafePage.js";
 import UtilsPage from "./Components/Pages/UtilsPage.js";
-import { io } from "socket.io-client";
-import { StoreProvider } from "./Store(Context)/StoreContext.js";
+import { StoreProvider } from "./Store/StoreContext.js";
 
 //Socket.io configuration (Websocket connection to the server.)
-// export const socket = io("http://192.168.10.145:4000");
 
 //Navigation options
 const Tab = createBottomTabNavigator();
@@ -104,28 +102,22 @@ export default function App() {
   }, []);
   return (
     <StoreProvider>
-    <NativeBaseProvider config={config}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Welcome"
-            component={LoginPage}
-            options={{ headerShown: showHeaders }}
-          />
-          <Stack.Screen
-            name="Interface"
-            component={HomeInterface}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
+      <NativeBaseProvider config={config}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Welcome"
+              component={LoginPage}
+              options={{ headerShown: showHeaders }}
+            />
+            <Stack.Screen
+              name="Interface"
+              component={HomeInterface}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
     </StoreProvider>
   );
 }
-
-const style = StyleSheet.create ({
-  root: {
-    flex : 1,
-  }
-})

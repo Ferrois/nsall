@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { useAsyncStorage } from "./../Hooks/useAsyncStorage.js";
+import { useAsyncStorage } from "../Hooks/useAsyncStorage.js"
 
 //Allows for global state manaegement of the app
 

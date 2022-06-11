@@ -2,12 +2,8 @@ import { AspectRatio, Box, Button, Center, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import React, { useEffect } from "react";
 import MapView, { UrlTile } from "react-native-maps";
-import { socket } from "../../App";
 
 export default function NSafePage() {
-  useEffect(()=>{
-    socket
-  })
   return (
     <Box flex={1}>
       <MapView

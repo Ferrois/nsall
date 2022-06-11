@@ -1,6 +1,6 @@
 import { Box, Button, Center, Text } from "native-base";
 import React, { useContext, useEffect } from "react";
-import { StoreContext } from "../../Store(Context)/StoreContext";
+import { StoreContext } from "../../Store/StoreContext";
 
 export default function IpptRecPage() {
   // Local store

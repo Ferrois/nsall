@@ -3,7 +3,7 @@ import React from "react";
 
 export default function UtilsPage() {
   return (
-    <Box safeArea>
+    <Box>
       <Center>Utilities</Center>
     </Box>
   );
