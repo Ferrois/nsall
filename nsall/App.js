@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider } from "native-base";
 import LoginPage from "./Components/Pages/LoginPage.js";
-import HomePage from "./Components/Pages/HomePage.js";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
 import Anticon from "react-native-vector-icons/AntDesign";
@@ -13,7 +12,7 @@ import { useEffect } from "react";
 import useFont from "./Hooks/useFont.js";
 import Home from "./Components/Pages/HomePage.js";
 import LeavesPage from "./Components/Pages/LeavesPage.js";
-import NSafePage from "./Components/Pages/NSafePage.js";
+import NSMap from "./Components/Pages/NSafePage.js";
 
 //Navigation options
 const Tab = createBottomTabNavigator();
@@ -109,6 +108,10 @@ export default function App() {
             name="Interface"
             component={HomeInterface}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+          name= "Map"
+          component = {NSMap}
           />
         </Stack.Navigator>
       </NavigationContainer>
