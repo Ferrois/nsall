@@ -63,7 +63,7 @@ const LoginPage = ({ navigation, onPress }) => {
         </Button>
 
         <Button style={styles.button2} onPress={onPress}>
-          <Text style={styles.text}>Forget password?</Text>
+          <Text style={styles.text2}>Forget password?</Text>
         </Button>
 
         <Button style={styles.button3} onPress={onPress}>
