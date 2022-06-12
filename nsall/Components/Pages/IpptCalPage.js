@@ -14,7 +14,7 @@ import {
   Heading,
   Container,
 } from "native-base";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import returnMinsec from "../../Helpers/returnMinsec";
 import useFetch from "../../Hooks/useFetch";
@@ -26,9 +26,9 @@ export default function IpptCalPage() {
   const [run, setRun] = useState(720);
   const [calcdata, setCalcdata] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [data] = useFetch(
-    "https://ippt.vercel.app/api?age=20&situps=30&pushups=30&run=720"
-  );
+  // const [data] = useFetch(
+  //   "https://ippt.vercel.app/api?age=20&situps=30&pushups=30&run=720"
+  // );
   const handleCalc = () => {
     setIsLoading(true);
     fetch(
@@ -40,11 +40,18 @@ export default function IpptCalPage() {
         setIsLoading(false);
       });
   };
+  useEffect(() => {
+    handleCalc();
+  }, []);
   return (
     <Box safeArea>
       <VStack mt={"20"}>
         <Center>
-          <HStack w={"90%"} justifyContent={"space-between"} style={styles.stack}>
+          <HStack
+            w={"90%"}
+            justifyContent={"space-between"}
+            style={styles.stack}
+          >
             <Text style={styles.text}>Age:</Text>
             <Slider
               w={"3/4"}
@@ -61,7 +68,11 @@ export default function IpptCalPage() {
             </Slider>
             <Text>{age}</Text>
           </HStack>
-          <HStack w={"90%"} justifyContent={"space-between"} style={styles.stack}>
+          <HStack
+            w={"90%"}
+            justifyContent={"space-between"}
+            style={styles.stack}
+          >
             <Text style={styles.text}>Push ups:</Text>
             <Slider
               w={"3/4"}
@@ -78,7 +89,11 @@ export default function IpptCalPage() {
             </Slider>
             <Text>{pushups}</Text>
           </HStack>
-          <HStack w={"90%"} justifyContent={"space-between"} style={styles.stack}>
+          <HStack
+            w={"90%"}
+            justifyContent={"space-between"}
+            style={styles.stack}
+          >
             <Text style={styles.text}>Sit ups:</Text>
             <Slider
               w={"3/4"}
@@ -95,7 +110,11 @@ export default function IpptCalPage() {
             </Slider>
             <Text>{situps}</Text>
           </HStack>
-          <HStack w={"90%"} justifyContent={"space-between"} style={styles.stack}>
+          <HStack
+            w={"90%"}
+            justifyContent={"space-between"}
+            style={styles.stack}
+          >
             <Text style={styles.text}>Run:</Text>
             <Slider
               w={"3/4"}
@@ -115,8 +134,15 @@ export default function IpptCalPage() {
               {returnMinsec(run)[0]}``{returnMinsec(run)[1]}`
             </Text>
           </HStack>
-          <Button onPress={() => handleCalc()} mt={"2"} height={"10"} width={"30%"}>
-            <Text fontWeight={"bold"} color="white">Calculate</Text>
+          <Button
+            onPress={() => handleCalc()}
+            mt={"2"}
+            height={"10"}
+            width={"30%"}
+          >
+            <Text fontWeight={"bold"} color="white">
+              Calculate
+            </Text>
           </Button>
           <Box w={"100%"} justifyContent={"space-between"}>
             {isLoading ? (
@@ -136,7 +162,9 @@ export default function IpptCalPage() {
                         borderWidth="2"
                         bg="primary.200"
                       >
-                        <Text style={styles.resulttext}>Push up score: {calcdata.pushups.score}</Text>
+                        <Text style={styles.resulttext}>
+                          Push up score: {calcdata.pushups.score}
+                        </Text>
                       </Box>
                       <Box
                         alignItems={"center"}
@@ -145,7 +173,9 @@ export default function IpptCalPage() {
                         borderWidth="2"
                         bg="primary.300"
                       >
-                        <Text style={styles.resulttext}>Sit up score: {calcdata.situps.score}</Text>
+                        <Text style={styles.resulttext}>
+                          Sit up score: {calcdata.situps.score}
+                        </Text>
                       </Box>
                       <Box
                         alignItems={"center"}
@@ -154,7 +184,9 @@ export default function IpptCalPage() {
                         borderWidth="2"
                         bg="primary.200"
                       >
-                        <Text style={styles.resulttext}>Run score: {calcdata.run.score}</Text>
+                        <Text style={styles.resulttext}>
+                          Run score: {calcdata.run.score}
+                        </Text>
                       </Box>
                       <Box
                         alignItems={"center"}
@@ -163,7 +195,9 @@ export default function IpptCalPage() {
                         borderWidth="2"
                         bg="primary.300"
                       >
-                        <Text style={styles.resulttext}>Total score: {calcdata.total}</Text>
+                        <Text style={styles.resulttext}>
+                          Total score: {calcdata.total}
+                        </Text>
                       </Box>
                       <Box
                         alignItems={"center"}
@@ -172,7 +206,9 @@ export default function IpptCalPage() {
                         borderWidth="2"
                         bg="primary.200"
                       >
-                        <Text style={styles.resulttext}>Award: {calcdata.result.name}</Text>
+                        <Text style={styles.resulttext}>
+                          Award: {calcdata.result.name}
+                        </Text>
                       </Box>
                       <Box
                         alignItems={"center"}
@@ -181,7 +217,9 @@ export default function IpptCalPage() {
                         borderWidth="2"
                         bg="primary.300"
                       >
-                        <Text style={styles.resulttext}>Cash Prize: {calcdata.result.cash}</Text>
+                        <Text style={styles.resulttext}>
+                          Cash Prize: {calcdata.result.cash}
+                        </Text>
                       </Box>
                     </Box>
                   </Flex>
@@ -193,9 +231,7 @@ export default function IpptCalPage() {
                 <Text> Award: {calcdata.result.name} </Text>
                 <Text> Cash Prize: {calcdata.result.cash}</Text> */}
               </Box>
-            ) : (
-              JSON.stringify(data)
-            )}
+            ) : null}
           </Box>
         </Center>
       </VStack>

@@ -9,7 +9,7 @@ import {
 } from "native-base";
 import { PermissionsAndroid, StyleSheet } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import MapView, { UrlTile } from "react-native-maps";
+import MapView, { Marker, UrlTile } from "react-native-maps";
 import ToastMsg from "../Modals/ToastMsg";
 import Geolocation from "react-native-geolocation-service";
 import * as Location from "expo-location";
@@ -115,7 +115,7 @@ export default function NSafePage() {
         />
       </MapView>
       <Box
-        flex={0.15}
+        flex={0.25}
         bg={"light.100"}
         borderTopColor={"violet.300"}
         borderTopWidth={"4"}
@@ -143,6 +143,6 @@ const style = StyleSheet.create({
   },
   map: {
     width: "100%",
-    flex: 0.85,
+    flex: 0.75,
   },
 });

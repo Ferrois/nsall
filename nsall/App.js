@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NativeBaseProvider, Text } from "native-base";
+import { AspectRatio, Center, NativeBaseProvider, Text, VStack } from "native-base";
 import LoginPage from "./Components/Pages/LoginPage.js";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -37,14 +37,31 @@ const config = {
 function HomeInterface() {
   return (
     <NavigationContainer independent={true}>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            position: "absolute",
+            bottom: 10,
+            left: 10,
+            right: 10,
+            elevation: 9,
+            borderRadius: 15,
+            height: 75,
+          },
+          tabBarActiveTintColor:"#16a34a"
+        }}
+      >
         <Tab.Screen
           name="Home"
           component={Home}
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={size} />
+              <Center >
+                <Icon name="home" color={color} size={size} />
+                <Text color={color}>HOME</Text>
+              </Center>
             ),
             headerShown: false,
           }}
@@ -55,7 +72,10 @@ function HomeInterface() {
           options={{
             tabBarLabel: "Form",
             tabBarIcon: ({ color, size }) => (
-              <Anticon name="form" color={color} size={size} />
+              <Center>
+                <Anticon name="form" color={color} size={size} />
+                <Text color={color}>LEAVE</Text>
+              </Center>
             ),
             headerShown: false,
           }}
@@ -65,8 +85,13 @@ function HomeInterface() {
           component={NSafePage}
           options={{
             tabBarLabel: "NSafe",
-            tabBarIcon: ({ color, size }) => (
-              <Anticon name="form" color={color} size={size} />
+            tabBarIcon: ({ color, size,focused }) => (
+                 <AspectRatio ratio={1} w={"full"}>
+              <Center bg={focused ? "success.100":"blueGray.100"} borderRadius={"3xl"}>
+                <Anticon name="form" color={color} size={size * 1.5} />
+                <Text color={color}>NSAFE</Text>
+              </Center>
+               </AspectRatio>
             ),
             headerShown: false,
           }}
@@ -77,7 +102,10 @@ function HomeInterface() {
           options={{
             tabBarLabel: "Utilities",
             tabBarIcon: ({ color, size }) => (
-              <Feathericon name="more-horizontal" color={color} size={size} />
+              <Center>
+                <Feathericon name="more-horizontal" color={color} size={size} />
+                <Text color={color}>MORE</Text>
+              </Center>
             ),
             headerShown: false,
           }}
@@ -88,7 +116,10 @@ function HomeInterface() {
           options={{
             tabBarLabel: "User",
             tabBarIcon: ({ color, size }) => (
-              <Anticon name="user" color={color} size={size} />
+              <Center>
+                <Anticon name="user" color={color} size={size} />
+                <Text color={color}>USER</Text>
+              </Center>
             ),
             headerShown: false,
           }}

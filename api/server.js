@@ -110,7 +110,7 @@ io.on("connection", (socket) => {
     socket.emit("login-return",{status_:"S",userInfo:selectedUser})
   });
 
-  socket.on("location", ({ active, lat, lng, id }) => {
+  socket.on("location", ({ active, lat, lng, id,group }) => {
     const locDir = returnDir();
     if (active == false) return;
   });

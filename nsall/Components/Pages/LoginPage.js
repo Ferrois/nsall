@@ -23,7 +23,6 @@ const LoginPage = ({ navigation, onPress }) => {
 
   const { storeCtx } = useContext(StoreContext);
   const [store, setStore] = storeCtx;
-  const [wrong, setWrong] = useState(false);
 
   const sendToast=({title,desc,stat})=>{
     toast.show({
@@ -89,7 +88,9 @@ const LoginPage = ({ navigation, onPress }) => {
           secureTextEntry={true}
           mt={2}
         />
-        {wrong && <Text color={"red.600"}>Wrong Information!</Text>}
+        <Button onPress={onSignUp} bg={"gray.200"} mt={1} >
+          <Text color={"black"} fontFamily={"Rubik"}>Create new account</Text>
+        </Button>
         <Button onPress={handleLogin} style={styles.button1}>
           <Text style={styles.text1}>Log In</Text>
         </Button>
