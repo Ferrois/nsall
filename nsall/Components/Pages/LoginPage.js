@@ -94,7 +94,7 @@ const LoginPage = ({ navigation, onPress }) => {
           <Text style={styles.text1}>Log In</Text>
         </Button>
 
-        <Button style={styles.button2} onPress={onPress}>
+        {/* <Button style={styles.button2} onPress={onPress}>
           <Text style={styles.text2}>Forget password?</Text>
         </Button>
 
@@ -104,7 +104,7 @@ const LoginPage = ({ navigation, onPress }) => {
 
         <Button style={styles.button4} onPress={onPress}>
           <Text style={styles.text4}>Sign in with facebook</Text>
-        </Button>
+        </Button> */}
 
         {/* <Button src={} style={styles.button2} onPress={onPress}>
           <Text style={styles.text5}>Create an account</Text>

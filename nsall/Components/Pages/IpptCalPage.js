@@ -10,6 +10,7 @@ import {
   VStack,
 } from "native-base";
 import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import returnMinsec from "../../Helpers/returnMinsec";
 import useFetch from "../../Hooks/useFetch";
 
@@ -31,20 +32,22 @@ export default function IpptCalPage() {
       .then((res) => res.json())
       .then((data) => {
         setCalcdata(data);
-				setIsLoading(false);
+        setIsLoading(false);
       });
   };
   return (
     <Box safeArea>
       <VStack mt={"20"}>
         <Center>
-          <HStack>
+          <HStack w={"90%"} justifyContent={"space-between"}>
+            <Text style={styles.text}>Age:</Text>
             <Slider
               w={"3/4"}
               defaultValue={age}
               minValue={18}
               maxValue={60}
               onChange={(val) => setAge(val)}
+              size="md"
             >
               <Slider.Track>
                 <Slider.FilledTrack />
@@ -53,13 +56,15 @@ export default function IpptCalPage() {
             </Slider>
             <Text>{age}</Text>
           </HStack>
-          <HStack>
+          <HStack w={"90%"} justifyContent={"space-between"}>
+            <Text style={styles.text}>Push ups:</Text>
             <Slider
               w={"3/4"}
               defaultValue={pushups}
               minValue={0}
               maxValue={60}
               onChange={(val) => setPushups(val)}
+              size="md"
             >
               <Slider.Track>
                 <Slider.FilledTrack />
@@ -68,13 +73,15 @@ export default function IpptCalPage() {
             </Slider>
             <Text>{pushups}</Text>
           </HStack>
-          <HStack>
+          <HStack w={"90%"} justifyContent={"space-between"}>
+            <Text style={styles.text}>Sit ups:</Text>
             <Slider
               w={"3/4"}
               defaultValue={situps}
               minValue={0}
               maxValue={60}
               onChange={(val) => setSitups(val)}
+              size="md"
             >
               <Slider.Track>
                 <Slider.FilledTrack />
@@ -83,7 +90,8 @@ export default function IpptCalPage() {
             </Slider>
             <Text>{situps}</Text>
           </HStack>
-          <HStack>
+          <HStack w={"90%"} justifyContent={"space-between"}>
+            <Text style={styles.text}>Run:</Text>
             <Slider
               w={"3/4"}
               defaultValue={run}
@@ -91,6 +99,7 @@ export default function IpptCalPage() {
               maxValue={1100}
               onChange={(val) => setRun(val)}
               step={10}
+              size="md"
             >
               <Slider.Track>
                 <Slider.FilledTrack />
@@ -98,7 +107,7 @@ export default function IpptCalPage() {
               <Slider.Thumb />
             </Slider>
             <Text>
-              {returnMinsec(run)[0]}:{returnMinsec(run)[1]}
+              {returnMinsec(run)[0]}.{returnMinsec(run)[1]}
             </Text>
           </HStack>
           <Button onPress={() => handleCalc()}>Calculate</Button>
@@ -116,3 +125,11 @@ export default function IpptCalPage() {
     </Box>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontWeight: "bold",
+    color: "black",
+    
+  },
+})
