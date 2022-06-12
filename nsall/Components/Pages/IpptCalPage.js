@@ -115,7 +115,9 @@ export default function IpptCalPage() {
             {isLoading ? (
               <Spinner color="cyan.500" />
             ) : calcdata != null ? (
-              JSON.stringify(calcdata)
+             
+              <Box> Award: {calcdata.result.name} </Box>
+              
             ) : (
               JSON.stringify(data)
             )}

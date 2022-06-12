@@ -94,30 +94,7 @@ const LoginPage = ({ navigation, onPress }) => {
           <Text style={styles.text1}>Log In</Text>
         </Button>
 
-<<<<<<< HEAD
-        {/* <Button style={styles.button2} onPress={onPress}>
-=======
-        <Button style={styles.button2} onPress={onPress}>
->>>>>>> 663d863a4a3c17ecf63aac25bf365d3b6d391375
-          <Text style={styles.text2}>Forget password?</Text>
-        </Button>
-
-        <Button style={styles.button3} onPress={onPress}>
-          <Text style={styles.text3}>Sign in with google</Text>
-        </Button>
-
-        <Button style={styles.button4} onPress={onPress}>
-          <Text style={styles.text4}>Sign in with facebook</Text>
-        </Button> */}
-
-<<<<<<< HEAD
-        {/* <Button src={} style={styles.button2} onPress={onPress}>
-=======
-        <Button style={styles.button2} onPress={onSignUp}>
->>>>>>> 663d863a4a3c17ecf63aac25bf365d3b6d391375
-          <Text style={styles.text5}>Create an account</Text>
-        </Button> */}
-
+      
         <Button
           onPress={() => {
             handleLogin();
