@@ -1,9 +1,19 @@
-import { AspectRatio, Box, Button, Center, Text, View } from "native-base";
+import {
+  AspectRatio,
+  Box,
+  Button,
+  Center,
+  Text,
+  useToast,
+  View,
+} from "native-base";
 import { StyleSheet } from "react-native";
 import React, { useEffect } from "react";
 import MapView, { UrlTile } from "react-native-maps";
+import ToastMsg from "../Modals/ToastMsg";
 
 export default function NSafePage() {
+  const toast = useToast();
   return (
     <Box flex={1}>
       <MapView
@@ -21,10 +31,27 @@ export default function NSafePage() {
           flipY={false}
         />
       </MapView>
-      <Box flex={0.1} bg={"light.100"} borderTopColor={"violet.300"} borderTopWidth={"4"} >
+      <Box
+        flex={0.1}
+        bg={"light.100"}
+        borderTopColor={"violet.300"}
+        borderTopWidth={"4"}
+      >
         <Center>
           <AspectRatio ratio={1} w="16" mt="2">
-          <Button borderRadius={"3xl"} bg={"red.600"}>Toggle Loc</Button></AspectRatio>
+            <Button
+              borderRadius={"3xl"}
+              bg={"red.600"}
+              onPress={() =>
+                toast.show({
+                  render: ()=><ToastMsg title={"Test"} desc={"Yes"} stat="S" />,
+                  placement: "top",
+                })
+              }
+            >
+              Toggle Loc
+            </Button>
+          </AspectRatio>
         </Center>
       </Box>
     </Box>
@@ -38,6 +65,6 @@ const style = StyleSheet.create({
   },
   map: {
     width: "100%",
-    flex:0.9
+    flex: 0.9,
   },
 });

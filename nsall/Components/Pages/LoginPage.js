@@ -1,11 +1,22 @@
-import { Image, Button, Box, Input, Text, ScrollView } from "native-base";
+import {
+  Image,
+  Button,
+  Box,
+  Input,
+  Text,
+  ScrollView,
+  useToast,
+} from "native-base";
 import { StyleSheet, useWindowDimensions, Pressable } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import Logo from "../../assets/NSALLlogo.png";
 import { socket } from "../../Helpers/socket";
 import { StoreContext } from "../../Store/StoreContext";
+import ToastMsg from "../Modals/ToastMsg";
 
 const LoginPage = ({ navigation, onPress }) => {
+  const toast = useToast();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { height } = useWindowDimensions();
@@ -15,28 +26,49 @@ const LoginPage = ({ navigation, onPress }) => {
   const [wrong, setWrong] = useState(false);
 
   const handleLogin = () => {
-    socket.emit("login", { username:username, password:password });
+    socket.emit("login", { username: username, password: password });
   };
   const handleWrong = () => {
-    setWrong(true);
+    toast.show({
+      render: () => (
+        <ToastMsg
+          title={"Account not found on database!"}
+          desc={"Please Check Your Username/Password"}
+          stat="F"
+        />
+      ),
+      placement: "top",
+    });
   };
   useEffect(() => {
     socket.on("login-return", ({ status_, userInfo }) => {
       if (status_ == "S") {
+        toast.show({
+          render: () => (
+            <ToastMsg
+              title={"Logged In!"}
+              desc={"Welcome, "+userInfo.name+"!"}
+              stat="S"
+            />
+          ),
+          placement: "top",
+        });
         setStore({ ...store, userInfo });
         navigation.reset({
           index: 0,
           routes: [{ name: "Interface" }],
         });
-        return
+        return;
       }
-      console.log("Wrong Info!")
-      handleWrong()
+      handleWrong();
     });
-  },[]);
+  }, []);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{flexGrow:1}}> 
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
       <Box style={styles.root} safeArea justifyContent={"center"}>
         <Image
           source={Logo}
@@ -47,13 +79,13 @@ const LoginPage = ({ navigation, onPress }) => {
         <Input
           placeholder="Username"
           value={username}
-          onChangeText={value=>setUsername(value)}
+          onChangeText={(value) => setUsername(value)}
           mt={2}
         />
         <Input
           placeholder="Password"
           value={password}
-          onChangeText={value=>setPassword(value)}
+          onChangeText={(value) => setPassword(value)}
           secureTextEntry={true}
           mt={2}
         />
