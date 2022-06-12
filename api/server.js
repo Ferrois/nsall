@@ -6,7 +6,7 @@ const { Server } = require("socket.io");
 const { v4 } = require("uuid");
 require("dotenv").config();
 //Helper function
-const { default: returnDir } = require("./Utilities/returnDIr");
+const { default: returnDir } = require("./Utilities/returnDir");
 //MongoDB Config
 const mongoose = require("mongoose");
 const dbURI = process.env.MONGODB_URI;
