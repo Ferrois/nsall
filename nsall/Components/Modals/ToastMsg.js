@@ -7,9 +7,9 @@ export default function ToastMsg({ title, desc, stat }) {
       bg={stat == "S" ? "emerald.400" : stat == "F" ? "danger.500" : "dark.200"}
       px="2"
       py="1"
-      rounded="sm"
-      mb={1}
-      minW={"sm"}
+      rounded="md"
+      mb={0}
+      minW={"xs"}
       shadow={"9"}
     >
       <VStack>
