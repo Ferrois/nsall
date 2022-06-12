@@ -16,6 +16,7 @@ import LeavesPage from "./Components/Pages/LeavesPage.js";
 import NSafePage from "./Components/Pages/NSafePage.js";
 import UtilsPage from "./Components/Pages/UtilsPage.js";
 import { StoreProvider } from "./Store/StoreContext.js";
+import SignUpPage from "./Components/Pages/SignUpPage.js";
 
 //Socket.io configuration (Websocket connection to the server.)
 
@@ -108,6 +109,11 @@ export default function App() {
             <Stack.Screen
               name="Welcome"
               component={LoginPage}
+              options={{ headerShown: showHeaders }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={SignUpPage}
               options={{ headerShown: showHeaders }}
             />
             <Stack.Screen

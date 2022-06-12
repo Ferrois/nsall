@@ -14,6 +14,9 @@ import ToastMsg from "../Modals/ToastMsg";
 
 export default function NSafePage() {
   const toast = useToast();
+  useEffect(()=>{
+    
+  })
   return (
     <Box flex={1}>
       <MapView
@@ -32,13 +35,14 @@ export default function NSafePage() {
         />
       </MapView>
       <Box
-        flex={0.1}
+        flex={0.15}
         bg={"light.100"}
         borderTopColor={"violet.300"}
         borderTopWidth={"4"}
       >
         <Center>
-          <AspectRatio ratio={1} w="16" mt="2">
+          <Text color={"muted.400"}>Toggle Location</Text>
+          <AspectRatio ratio={1} w="16" mt="0">
             <Button
               borderRadius={"3xl"}
               bg={"red.600"}
@@ -49,7 +53,7 @@ export default function NSafePage() {
                 })
               }
             >
-              Toggle Loc
+              
             </Button>
           </AspectRatio>
         </Center>
@@ -65,6 +69,6 @@ const style = StyleSheet.create({
   },
   map: {
     width: "100%",
-    flex: 0.9,
+    flex: 0.85,
   },
 });

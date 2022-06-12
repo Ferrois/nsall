@@ -25,50 +25,50 @@ const LoginPage = ({ navigation, onPress }) => {
   const [store, setStore] = storeCtx;
   const [wrong, setWrong] = useState(false);
 
+  const sendToast=({title,desc,stat})=>{
+    toast.show({
+      render: () => (
+        <ToastMsg
+          title={title}
+          desc={desc}
+          stat={stat}
+        />
+      ),
+      placement: "bottom",
+    });
+  }
+
+  const onSignUp = () => {
+    navigation.navigate("Register")
+  }
   const handleLogin = () => {
     socket.emit("login", { username: username, password: password });
   };
   const handleWrong = () => {
-    toast.show({
-      render: () => (
-        <ToastMsg
-          title={"Account not found on database!"}
-          desc={"Please Check Your Username/Password"}
-          stat="F"
-        />
-      ),
-      placement: "top",
-    });
+    sendToast({title:"Account not found on database!",desc:"Please Check Your Credentials",stat:"F"})
   };
   useEffect(() => {
     socket.on("login-return", ({ status_, userInfo }) => {
       if (status_ == "S") {
-        toast.show({
-          render: () => (
-            <ToastMsg
-              title={"Logged In!"}
-              desc={"Welcome, "+userInfo.name+"!"}
-              stat="S"
-            />
-          ),
-          placement: "top",
-        });
         setStore({ ...store, userInfo });
         navigation.reset({
           index: 0,
           routes: [{ name: "Interface" }],
         });
+        sendToast({title:"Success!",desc:"Logged in as"+userInfo.name+"!",stat:"S"})
         return;
       }
       handleWrong();
     });
+
+    return ()=> socket.off("login-return")
   }, []);
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ flexGrow: 1 }}
-    >
+    // <ScrollView
+    //   showsVerticalScrollIndicator={false}
+    //   contentContainerStyle={{ flexGrow: 1 }}
+    // >
       <Box style={styles.root} safeArea justifyContent={"center"}>
         <Image
           source={Logo}
@@ -95,7 +95,7 @@ const LoginPage = ({ navigation, onPress }) => {
         </Button>
 
         <Button style={styles.button2} onPress={onPress}>
-          <Text style={styles.text}>Forget password?</Text>
+          <Text style={styles.text2}>Forget password?</Text>
         </Button>
 
         <Button style={styles.button3} onPress={onPress}>
@@ -106,7 +106,7 @@ const LoginPage = ({ navigation, onPress }) => {
           <Text style={styles.text4}>Sign in with facebook</Text>
         </Button>
 
-        <Button style={styles.button2} onPress={onPress}>
+        <Button style={styles.button2} onPress={onSignUp}>
           <Text style={styles.text5}>Create an account</Text>
         </Button>
 
@@ -119,7 +119,7 @@ const LoginPage = ({ navigation, onPress }) => {
           Navigate into app
         </Button>
       </Box>
-    </ScrollView>
+    // </ScrollView>
   );
 };
 
