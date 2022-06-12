@@ -140,21 +140,21 @@ function CountdownCard() {
 }
 
 const buttonData = [
-  {
-    id: 1,
-    flex: 0.2,
-    ratio: 1,
-    borderRadius: "2xl",
-    directory: "IpptLB",
-    color: "yellow.300",
-    label: "Rank",
-    icon: (
-      <Icon as={FontAwesome5} name="trophy" color={"yellow.500"} size={25} />
-    ),
-  },
+  // {
+  //   id: 1,
+  //   flex: 0,
+  //   ratio: 1,
+  //   borderRadius: "2xl",
+  //   directory: "IpptLB",
+  //   color: "yellow.300",
+  //   label: "Rank",
+  //   icon: (
+  //     <Icon as={FontAwesome5} name="trophy" color={"yellow.500"} size={25} />
+  //   ),
+  // },
   {
     id: 2,
-    flex: 0.2,
+    flex: 0.25,
     ratio: 1,
     borderRadius: "2xl",
     directory: "IpptRecords",
@@ -166,7 +166,7 @@ const buttonData = [
   },
   {
     id: 3,
-    flex: 0.2,
+    flex: 0.25,
     ratio: 1,
     borderRadius: "2xl",
     directory: "IpptGoal",
@@ -176,7 +176,7 @@ const buttonData = [
   },
   {
     id: 4,
-    flex: 0.4,
+    flex: 0.5,
     ratio: 2,
     borderRadius: "2xl",
     directory: "IpptCal",
