@@ -1,93 +1,148 @@
 import {
-    AspectRatio,
-    Box,
-    Button,
-    Center,
-    Text,
-    useToast,
-    View,
+  AspectRatio,
+  Box,
+  Button,
+  Center,
+  Text,
+  useToast,
+  View,
 } from "native-base";
-import { InteractionManager, Platform, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import { PermissionsAndroid, StyleSheet } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import MapView, { UrlTile } from "react-native-maps";
 import ToastMsg from "../Modals/ToastMsg";
-import useGeoLocation from "../../Hooks/useGeoLocation";
+import Geolocation from "react-native-geolocation-service";
+import * as Location from "expo-location";
+import { StoreContext } from "../../Store/StoreContext";
+import { socket } from "../../Helpers/socket";
 
 export default function NSafePage() {
-    const toast = useToast();
+  const toast = useToast();
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
-    const [start, setStart] = useState(false)
+  const [active, setActive] = useState(false);
 
-    const { location, error } = useGeoLocation(start, {
-        usePermission: true,
-        key: Platform.select({
-            // get your own api key from => https://console.amap.com/dev/index
-            android: '63536b2a99bb47d3018dc9eb0983c48a',
-            ios: ''
-        }),
-        onSdkInitialized: () => {
-            console.log("SDK's initialized , start querying location")
-            requestAnimationFrame(() => {
-                setStart(true)
-            })
-        }
-    })
-    useEffect(() => {
-        console.log('current location is => ', location)
-    }, [location])
+  const { storeCtx } = useContext(StoreContext);
+  const [store, setStore] = storeCtx;
 
-    return (
-        <Box flex={1}>
-            <MapView
-                style={style.map}
-                region={{
-                    latitude: 1.35,
-                    longitude: 103.8,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-            >
-                <UrlTile
-                    urlTemplate={"http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"}
-                    maximumZ={19}
-                    flipY={false}
-                />
-            </MapView>
-            <Box
-                flex={0.15}
-                bg={"light.100"}
-                borderTopColor={"violet.300"}
-                borderTopWidth={"4"}
-            >
-                <Center>
-                    <Text color={"muted.400"}>Toggle Location</Text>
-                    <AspectRatio ratio={1} w="16" mt="0">
-                        <Button
-                            borderRadius={"3xl"}
-                            bg={"red.600"}
-                            onPress={() =>
-                                toast.show({
-                                    render: () => <ToastMsg title={"Test"} desc={"Yes"} stat="S" />,
-                                    placement: "top",
-                                })
-                            }
-                        >
+  const sendToast = ({ title, desc, stat }) => {
+    toast.show({
+      render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
+      placement: "top",
+    });
+  };
 
-                        </Button>
-                    </AspectRatio>
-                </Center>
-            </Box>
-        </Box>
-    );
+  const requestLocationPermissions = async () => {
+    if (Platform.OS === "ios") {
+      // iOS can be asked always, since the OS handles if user already gave permission
+      await Geolocation.requestAuthorization("whenInUse");
+    } else if (Platform.OS === "android") {
+      let permissionCheck = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      );
+      // Only asks for permission on Android if not given before
+      if (permissionCheck !== true) {
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Location Permission Request",
+            message:
+              "This app needs you permission for using your location for querying GeoPoints in Parse!",
+            buttonPositive: "OK",
+          }
+        );
+      }
+    }
+  };
+  async function checkLocation() {
+	if (active == false) return
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
+      return;
+    }
+    console.log("Grabbing Loc...");
+    let locationRes = await Location.getCurrentPositionAsync({});
+    socket.emit("location", {
+      id: store.userInfo.id,
+      lat: locationRes.latitude,
+      lng: locationRes.longitude,
+      active,
+    });
+    setLocation(location);
+    console.log("Grabbed");
+  }
+
+  const toggleActive = () => {
+    if (active) {
+      setActive(false);
+      sendToast({
+        title: "Location Off",
+        desc: "You are now not sharing your location",
+        stat: "N",
+      });
+    } else {
+      setActive(true);
+      sendToast({
+        title: "Location On",
+        desc: "You are now sharing your location",
+        stat: "S",
+      });
+    }
+  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkLocation();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [active]);
+  return (
+    <Box flex={1}>
+      <MapView
+        style={style.map}
+        region={{
+          latitude: 1.35,
+          longitude: 103.8,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <UrlTile
+          urlTemplate={"http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"}
+          maximumZ={19}
+          flipY={false}
+        />
+      </MapView>
+      <Box
+        flex={0.15}
+        bg={"light.100"}
+        borderTopColor={"violet.300"}
+        borderTopWidth={"4"}
+      >
+        <Center>
+          <Text color={"muted.400"}>Toggle Location</Text>
+          <AspectRatio ratio={1} w="16" mt="0">
+            <Button
+              shadow={"9"}
+              borderRadius={"3xl"}
+              bg={active ? "emerald.600" : "red.600"}
+              onPress={() => toggleActive()}
+            ></Button>
+          </AspectRatio>
+        </Center>
+      </Box>
+    </Box>
+  );
 }
 
 const style = StyleSheet.create({
-    text: {
-        fontSize: 40,
-        margin: 10,
-    },
-    map: {
-        width: "100%",
-        flex: 0.85,
-    },
+  text: {
+    fontSize: 40,
+    margin: 10,
+  },
+  map: {
+    width: "100%",
+    flex: 0.85,
+  },
 });

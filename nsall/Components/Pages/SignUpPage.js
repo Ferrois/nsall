@@ -3,6 +3,7 @@ import {
   Button,
   Center,
   Input,
+  Select,
   Text,
   useToast,
   VStack,
@@ -20,6 +21,7 @@ export default function SignUpPage({ navigation }) {
   const [password, setPassword] = useState("");
   const [nric, setNRIC] = useState("");
   const [ethnicity, setEthnicity] = useState("");
+  const [group, setGroup] = useState("1");
   const toast = useToast();
   const sendToast = (desc) => {
     toast.show({
@@ -36,7 +38,8 @@ export default function SignUpPage({ navigation }) {
       return sendToast("Your password has to be 6 or more characters!");
     if (nric == "") return sendToast("You need a nric!");
     if (ethnicity == "") return sendToast("You need a ethnicity!");
-    socket.emit("signup", { name_: name, username, password, nric, ethnicity });
+    if (group=="") return sendToast("You need a group!")
+    socket.emit("signup", { name_: name, username, password, nric, ethnicity,group });
   };
   useEffect(() => {
     socket.on("signup-return", ({ status_, userInfo }) => {
@@ -44,7 +47,13 @@ export default function SignUpPage({ navigation }) {
       if (status_ == "S") {
         setStore({ ...store, userInfo });
         toast.show({
-          render: () => <ToastMsg title={"Success!"} desc={"Registerred as "+userInfo.name+"!"} stat={"S"} />,
+          render: () => (
+            <ToastMsg
+              title={"Success!"}
+              desc={"Registerred as " + userInfo.name + "!"}
+              stat={"S"}
+            />
+          ),
           placement: "bottom",
         });
         navigation.reset({
@@ -92,6 +101,22 @@ export default function SignUpPage({ navigation }) {
             onChangeText={(value) => setEthnicity(value)}
             mt={2}
           />
+          
+          <Text mt={1}>Group Number</Text>
+          <Select
+            selectedValue={group}
+            minWidth="200"
+            placeholder="Group"
+            _selectedItem={{
+              bg: "teal.600",
+            }}
+            
+            onValueChange={(itemValue) => setGroup(itemValue)}
+          >
+            <Select.Item label="1" value="1" />
+            <Select.Item label="2" value="2" />
+            <Select.Item label="3" value="3" />
+          </Select>
           <Button onPress={handleSignUp} mt={2}>
             Sign Up
           </Button>

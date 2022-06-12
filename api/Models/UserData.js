@@ -16,6 +16,7 @@ const UserSchema = mongoose.Schema({
   ethnicity: { type: String },
   nric: { type: String, required: true },
   id: { type: String, required: true },
+  group: { type: String, required: true },
   medicalHist: { type: Array },
   ippt: { type: Object },
   leaves: { type: Array },
