@@ -10,6 +10,7 @@ import {
   AspectRatio,
   Divider,
   VStack,
+  Flex,
 } from "native-base";
 import useTimeLeft from "../../Hooks/useTimeLeft";
 import HomeCard from "../UI/HomeCard";
@@ -24,6 +25,7 @@ import IpptCalPage from "./IpptCalPage";
 import IpptRecPage from "./IpptRecPage";
 import { useContext } from "react";
 import { socket } from "../../Helpers/socket";
+import { StyleSheet } from "react-native";
 
 //Naviagator in the home widgets
 const Stack = createNativeStackNavigator();
@@ -88,7 +90,13 @@ function HomePage({ navigation }) {
             <CountdownCard />
             <IpptCard navigation={navigation} />
             <LeaveStatusCard />
-            <Button onPress={()=>{socket.emit("hello")}}>fasdf</Button>
+            <Button
+              onPress={() => {
+                socket.emit("hello");
+              }}
+            >
+              fasdf
+            </Button>
           </Center>
         </ScrollView>
       </Center>
@@ -131,10 +139,16 @@ function CountdownCard() {
           />
         </Box>
       </Center>
-      <Text>
-        {timeLeft[0]} Days, {timeLeft[1]} Hours, {timeLeft[2]} Minutes, 
-        {timeLeft[3]} Seconds
-      </Text>
+      <Flex direction="row">
+        <Text style={styles.text1}> {timeLeft[0]}</Text>
+        <Text style={styles.text2}> Days</Text>
+        <Text style={styles.text1}> {timeLeft[1]} </Text>
+        <Text style={styles.text2}> Hours</Text>
+        <Text style={styles.text1}> {timeLeft[2]}</Text>
+        <Text style={styles.text2}> Minutes</Text>
+        <Text style={styles.text1}> {timeLeft[3]}</Text>
+        <Text style={styles.text2}> Seconds</Text>
+      </Flex>
     </HomeCard>
   );
 }
@@ -266,7 +280,6 @@ function IpptCard({ navigation }) {
           }
         )}
       </HStack>
-      
     </HomeCard>
   );
 }
@@ -280,4 +293,16 @@ function LeaveStatusCard() {
   );
 }
 
+const styles=StyleSheet.create({
+  text1:{
+    fontWeight: "bold",
+    fontSize: 20,
+    paddingTop: 10
+  },
+  text2:{
+    
+    fontSize: 15,
+    paddingTop: 10
+  }
+})
 export default Home;
