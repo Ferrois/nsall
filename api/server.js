@@ -22,6 +22,8 @@ const io = require("socket.io")(server, {
 //import schemas
 const UserSchema = require("./Models/UserData.js");
 
+console.log(dbURI)
+
 mongoose.connect(`${dbURI}`, () => console.log("Conntected to MongoDB"));
 
 const adminInfo = {
@@ -63,45 +65,53 @@ const adminInfo = {
 io.on("connection", (socket) => {
   console.log(socket.id, "Connected to the server");
 
-  socket.on("signup", async ({ name_, username, password, nric, ethnicity }) => {
-    const currentTime = Date.now();
-    const existingUser = UserSchema.find({username:username});
-    if (existingUser != null) return
-    const userData = new UserSchema({
-      name: name_,
-      username,
-      password,
-      nric,
-      ethnicity,
-      id: v4(),
-      medicalHist: [],
-      ippt: { goal: 70, record: [] },
-      leaves: [],
-      loc: {
-        lastloc: { lat: 1.35, lng: 103.8 },
-        lastSeen: currentTime,
-        active: false,
-        vibratePerm: true,
-      },
-    });
+  socket.on(
+    "signup",
+    async ({ name_, username, password, nric, ethnicity }) => {
+      const currentTime = Date.now();
+      // const existingUser = UserSchema.find({ username: username });
+      // if (existingUser != null) return;
+      const userData = new UserSchema({
+        name: name_,
+        username,
+        password,
+        nric,
+        ethnicity,
+        id: v4(),
+        medicalHist: [],
+        ippt: { goal: 70, record: [] },
+        leaves: [],
+        loc: {
+          lastloc: { lat: 1.35, lng: 103.8 },
+          lastSeen: currentTime,
+          active: false,
+          vibratePerm: true,
+        },
+      });
 
-    // console.log("Signed Up");
-    try{
-      const savedUser = await userData.save();
-      socket.emit("signup-return",{status_:"S",userInfo:savedUser})
-    } catch(err) {
-      console.log(err)
-      socket.emit("signup-return",{status_:"F",userInfo:{}})
+      console.log(userData);
+      try {
+        const savedUser = await userData.save();
+        socket.emit("signup-return", { status_: "S", userInfo: savedUser });
+      } catch (err) {
+        console.log(err);
+        socket.emit("signup-return", { status_: "F", userInfo: {} });
+      }
     }
-  });
+  );
 
-  socket.on("login", ({ username, password }) => {
-    console.log({ username, password });
-    if (username == adminInfo.username && password == adminInfo.password) {
-      socket.emit("login-return", { status_: "S", userInfo: adminInfo });
-      return;
-    }
-    socket.emit("login-return", { status_: "F", userInfo: {} });
+  socket.on("login", async ({ username, password }) => {
+    // console.log({ username, password });
+    // if (username == adminInfo.username && password == adminInfo.password) {
+    //   socket.emit("login-return", { status_: "S", userInfo: adminInfo });
+    //   return;
+    // }
+    // socket.emit("login-return", { status_: "F", userInfo: {} });
+    const selectedUser = await UserSchema.findOne({username:username}).exec();
+    console.log(selectedUser)
+    if (selectedUser == null) return socket.emit("login-return",{status_:"F"});
+    if (password != selectedUser.password) return socket.emit("login-return",{status_:"F"});
+    socket.emit("login-return",{status_:"S",userInfo:selectedUser})
   });
 
   socket.on("location", ({ active, lat, lng, id }) => {
@@ -112,6 +122,6 @@ io.on("connection", (socket) => {
 });
 
 server.listen(process.env.PORT || PORT, () => {
-  console.log("testing on port", process.env.PORT || PORT);
+  console.log("Listening on port", process.env.PORT || PORT);
 });
 // require("dotenv").config();

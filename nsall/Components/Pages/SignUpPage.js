@@ -7,11 +7,14 @@ import {
   useToast,
   VStack,
 } from "native-base";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { socket } from "../../Helpers/socket";
+import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "../Modals/ToastMsg";
 
-export default function SignUpPage() {
+export default function SignUpPage({ navigation }) {
+  const { storeCtx } = useContext(StoreContext);
+  const [store, setStore] = storeCtx;
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -29,18 +32,34 @@ export default function SignUpPage() {
   const handleSignUp = () => {
     if (name == "") return sendToast("You need a name!");
     if (username == "") return sendToast("You need a username!");
-    if (password.length < 6) return sendToast("Your password has to be 6 or more characters!");
+    if (password.length < 6)
+      return sendToast("Your password has to be 6 or more characters!");
     if (nric == "") return sendToast("You need a nric!");
     if (ethnicity == "") return sendToast("You need a ethnicity!");
-    socket.emit("signup", { name_:name, username, password, nric, ethnicity });
+    socket.emit("signup", { name_: name, username, password, nric, ethnicity });
   };
   useEffect(() => {
-    socket.on("signup-return", ({ status_, userinfo }) => {});
+    socket.on("signup-return", ({ status_, userInfo }) => {
+      if (status_ == "F") return sendToast("There was an error in the system.");
+      if (status_ == "S") {
+        setStore({ ...store, userInfo });
+        toast.show({
+          render: () => <ToastMsg title={"Success!"} desc={"Registerred as "+userInfo.name+"!"} stat={"S"} />,
+          placement: "bottom",
+        });
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Interface" }],
+        });
+      }
+    });
   });
   return (
     <Box safeArea flex={1} justifyContent={"center"}>
       <Center>
-        <Text fontSize={"3xl"} pb={"10"}>Sign Up</Text>
+        <Text fontSize={"3xl"} pb={"10"}>
+          Sign Up
+        </Text>
 
         <VStack w={"3/4"}>
           <Input
@@ -73,7 +92,9 @@ export default function SignUpPage() {
             onChangeText={(value) => setEthnicity(value)}
             mt={2}
           />
-          <Button onPress={handleSignUp} mt={2}>Sign Up</Button>
+          <Button onPress={handleSignUp} mt={2}>
+            Sign Up
+          </Button>
         </VStack>
       </Center>
     </Box>
