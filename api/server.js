@@ -33,6 +33,7 @@ const adminInfo = {
   ethnicity: "Double Barreled Chinese Mexican",
   nric: "S9923232A",
   id: "2b51ccfd-05bd-4b60-ba60-67f1e9269e50",
+  group:"1",
   medicalHist: [
     { disease: "Asthma", has: true, severity: "Mild" },
     { disease: "Small Penis", has: true, severity: "Serious" },
@@ -67,7 +68,7 @@ io.on("connection", (socket) => {
 
   socket.on(
     "signup",
-    async ({ name_, username, password, nric, ethnicity }) => {
+    async ({ name_, username, password, nric, ethnicity,group }) => {
       const currentTime = Date.now();
       // const existingUser = UserSchema.find({ username: username });
       // if (existingUser != null) return;
@@ -78,6 +79,7 @@ io.on("connection", (socket) => {
         nric,
         ethnicity,
         id: v4(),
+        group,
         medicalHist: [],
         ippt: { goal: 70, record: [] },
         leaves: [],
@@ -89,7 +91,7 @@ io.on("connection", (socket) => {
         },
       });
 
-      console.log(userData);
+      console.log("Signed up "+username);
       try {
         const savedUser = await userData.save();
         socket.emit("signup-return", { status_: "S", userInfo: savedUser });
@@ -101,14 +103,8 @@ io.on("connection", (socket) => {
   );
 
   socket.on("login", async ({ username, password }) => {
-    // console.log({ username, password });
-    // if (username == adminInfo.username && password == adminInfo.password) {
-    //   socket.emit("login-return", { status_: "S", userInfo: adminInfo });
-    //   return;
-    // }
-    // socket.emit("login-return", { status_: "F", userInfo: {} });
+    console.log("Login Request "+username+":"+password)
     const selectedUser = await UserSchema.findOne({username:username}).exec();
-    console.log(selectedUser)
     if (selectedUser == null) return socket.emit("login-return",{status_:"F"});
     if (password != selectedUser.password) return socket.emit("login-return",{status_:"F"});
     socket.emit("login-return",{status_:"S",userInfo:selectedUser})
