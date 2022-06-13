@@ -84,7 +84,7 @@ io.on("connection", (socket) => {
         ippt: { goal: 70, record: [] },
         leaves: [],
         loc: {
-          lastloc: { lat: 1.35, lng: 103.8 },
+          lastLoc: { lat: 1.35, lng: 103.8 },
           lastSeen: currentTime,
           active: false,
           vibratePerm: true,
