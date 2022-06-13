@@ -11,6 +11,8 @@ import {
   Divider,
   VStack,
   Flex,
+  FlatList,
+  Heading,
 } from "native-base";
 import useTimeLeft from "../../Hooks/useTimeLeft";
 import HomeCard from "../UI/HomeCard";
@@ -27,6 +29,7 @@ import { useContext, useEffect } from "react";
 import { socket } from "../../Helpers/socket";
 import { StyleSheet } from "react-native";
 import { StoreContext } from "../../Store/StoreContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 //Naviagator in the home widgets
 const Stack = createNativeStackNavigator();
@@ -283,10 +286,40 @@ function LeaveStatusCard() {
     >
       {store.userInfo.leaves.map(({ date, status_, reason }) => {
         return (
-          <Box key={date}>
-            <Text>{date}</Text>
-            <Text>{status_}</Text>
-            <Text>{reason}</Text>
+          <Box w={"100%"} justifyContent={"space-between"}>
+            <ScrollView>
+              <Flex direction="column" style={styles.container}>
+                <Box w={"100%"}>
+                  <Box
+                    alignItems={"center"}
+                    overflow="hidden"
+                    borderColor="primary.400"
+                    borderWidth="2"
+                    bg="primary.200"
+                  >
+                    <Text style={styles.resulttext}>{date}</Text>
+                  </Box>
+                  <Box
+                    alignItems={"center"}
+                    overflow="hidden"
+                    borderColor="primary.400"
+                    borderWidth="2"
+                    bg="primary.300"
+                  >
+                    <Text style={styles.resulttext}>{status_}</Text>
+                  </Box>
+                  <Box
+                    alignItems={"center"}
+                    overflow="hidden"
+                    borderColor="primary.400"
+                    borderWidth="2"
+                    bg="primary.200"
+                  >
+                    <Text style={styles.resulttext}>{reason}</Text>
+                  </Box>
+                </Box>
+              </Flex>
+            </ScrollView>
           </Box>
         );
       })}
@@ -304,5 +337,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingTop: 10,
   },
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  resulttext: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "black",
+  }
 });
 export default Home;
