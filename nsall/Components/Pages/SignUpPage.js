@@ -42,8 +42,8 @@ export default function SignUpPage({ navigation }) {
     socket.emit("signup", { name_: name, username, password, nric, ethnicity,group });
   };
   useEffect(() => {
-    socket.on("signup-return", ({ status_, userInfo }) => {
-      if (status_ == "F") return sendToast("There was an error in the system.");
+    socket.on("signup-return", ({ status_, userInfo, message }) => {
+      if (status_ == "F") return sendToast("There was an error in the system. "+(message||""));
       if (status_ == "S") {
         setStore({ ...store, userInfo });
         toast.show({
@@ -62,7 +62,8 @@ export default function SignUpPage({ navigation }) {
         });
       }
     });
-  });
+    return ()=>{socket.off("signup-return")}
+  },[]);
   return (
     <Box safeArea flex={1} justifyContent={"center"}>
       <Center>

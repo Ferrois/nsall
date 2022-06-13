@@ -86,20 +86,13 @@ function HomePage({ navigation }) {
     >
       <Center>
         <ScrollView w="100%">
-          <Center mb={"3"}>
+          <Center mb={"20"}>
             <Text color={"white"} fontFamily="Poppins" fontSize={"5xl"} mb="3" mt="10">
               Home
             </Text>
             <CountdownCard />
             <IpptCard navigation={navigation} />
             <LeaveStatusCard />
-            <Button
-              onPress={() => {
-                socket.emit("hello");
-              }}
-            >
-              fasdf
-            </Button>
           </Center>
         </ScrollView>
       </Center>
@@ -283,7 +276,8 @@ function LeaveStatusCard() {
       icon={<Icon as={AntDesign} name="form" size={50} />}
       title="Leaves Status"
     >
-      {store.userInfo.leaves.map(({ date, status_, reason }) => {
+      {store.userInfo.leaves.length != 0 ? store.userInfo.leaves.map(({ date, status_, reason }) => {
+        const dayDate = new Date(date)
         return (
           <Box w={"100%"} justifyContent={"space-between"} key={reason}>
             <ScrollView>
@@ -296,7 +290,7 @@ function LeaveStatusCard() {
                     borderWidth="2"
                     bg="primary.200"
                   >
-                    <Text style={styles.resulttext}>{date}</Text>
+                    <Text style={styles.resulttext}>{dayDate.toDateString()}</Text>
                   </Box>
                   <Box
                     alignItems={"center"}
@@ -305,7 +299,7 @@ function LeaveStatusCard() {
                     borderWidth="2"
                     bg="primary.300"
                   >
-                    <Text style={styles.resulttext}>{status_}</Text>
+                    <Text style={styles.resulttext}>Status: {status_}</Text>
                   </Box>
                   <Box
                     alignItems={"center"}
@@ -319,9 +313,7 @@ function LeaveStatusCard() {
                 </Box>
               </Flex>
             </ScrollView>
-          </Box>
-        );
-      })}
+          </Box>)}):<Text color={"muted.400"} fontSize={"md"}>No data available</Text>}
     </HomeCard>
   );
 }

@@ -47,7 +47,7 @@ function HomeInterface({navigation}) {
   useEffect(()=>{
     if (store.signedIn == true) return
     handleSignOut()
-  })
+  },[store.signedIn])
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator

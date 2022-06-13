@@ -64,7 +64,7 @@ export default function LeavesPage() {
           desc: "Application submitted! It will be reviewed by someone. You may be contacted during this period",
           stat: "S",
         });
-        setStore({ ...store, userInfo });
+        setStore({ ...store, userInfo:userInfo });
       }
       if (status_ == "F") {
         sendToast({
@@ -108,7 +108,7 @@ export default function LeavesPage() {
         fontSize={"2xl"}
         fontWeight={"bold"}
       >
-        Leave Reason
+        Reason for application
       </Text>
       <TextArea
         onChangeText={(value) => {
@@ -120,12 +120,13 @@ export default function LeavesPage() {
         w="80%"
         maxW="300"
       />
+          <Text color={"muted.400"} mx={"2"}>Disclaimer: I pledge that the information I am giving is true. Any false information or exploitation of this system will lead to consequences by NS Authorities.</Text>
       <Button
         onPress={() => {
           handleLeave();
         }}
-        mt={"5"}
         bg={"success.700"}
+        mt={"3"}
       >
         <Text style={styles.text1}>Submit</Text>
       </Button>
