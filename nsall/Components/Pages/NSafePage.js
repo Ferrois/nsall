@@ -157,14 +157,12 @@ function MarkersView({ storeCtx }) {
         id: store.userInfo.id,
         group: store.userInfo.group,
       });
-      console.log(store.userInfo.group);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
     socket.on("ping-loc-return", (locArrRes) => {
       setLocArr(locArrRes);
-      console.log(locArr);
     });
     return () => socket.off("ping-loc-return");
   }, []);
@@ -180,8 +178,8 @@ function MarkersView({ storeCtx }) {
             <Marker
               key={id}
               coordinate={{
-                latitude: loc.lastLoc.lat || 1.35,
-                longitude: loc.lastLoc.lng || 103.8,
+                latitude: loc.lastLoc.lat||0,
+                longitude: loc.lastLoc.lng||0,
               }}
             >
               <Box bg={"red.600"} borderRadius={"lg"}>
