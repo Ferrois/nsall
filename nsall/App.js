@@ -10,14 +10,14 @@ import Anticon from "react-native-vector-icons/AntDesign";
 
 import Feathericon from "react-native-vector-icons/Feather";
 import ProfilesPage from "./Components/Pages/ProfilesPage.js";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import useFont from "./Hooks/useFont.js";
 import Home from "./Components/Pages/HomePage.js";
 import LeavesPage from "./Components/Pages/LeavesPage.js";
 import NSafePage from "./Components/Pages/NSafePage.js";
 import UtilsPage from "./Components/Pages/UtilsPage.js";
-import { StoreProvider } from "./Store/StoreContext.js";
+import { StoreContext, StoreProvider } from "./Store/StoreContext.js";
 import SignUpPage from "./Components/Pages/SignUpPage.js";
 //Socket.io configuration (Websocket connection to the server.)
 
@@ -34,7 +34,20 @@ const config = {
 };
 
 //Navigators
-function HomeInterface() {
+function HomeInterface({navigation}) {
+  const {storeCtx} = useContext(StoreContext)
+  const [store,setStore] = storeCtx;
+  const handleSignOut=()=>{
+    setStore({...store,userInfo:{}})
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Welcome" }],
+    });
+  }
+  useEffect(()=>{
+    if (store.signedIn == true) return
+    handleSignOut()
+  })
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator

@@ -148,9 +148,9 @@ function CountdownCard() {
         <Text style={styles.text1}> {timeLeft[1]} </Text>
         <Text style={styles.text2}> Hours</Text>
         <Text style={styles.text1}> {timeLeft[2]}</Text>
-        <Text style={styles.text2}> Minutes</Text>
+        <Text style={styles.text2}> Mins</Text>
         <Text style={styles.text1}> {timeLeft[3]}</Text>
-        <Text style={styles.text2}> Seconds</Text>
+        <Text style={styles.text2}> Secs</Text>
       </Flex>
     </HomeCard>
   );
@@ -285,7 +285,7 @@ function LeaveStatusCard() {
     >
       {store.userInfo.leaves.map(({ date, status_, reason }) => {
         return (
-          <Box w={"100%"} justifyContent={"space-between"}>
+          <Box w={"100%"} justifyContent={"space-between"} key={reason}>
             <ScrollView>
               <Flex direction="column" style={styles.container}>
                 <Box w={"100%"}>
@@ -338,7 +338,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
+
   },
   resulttext: {
     fontSize: 15,

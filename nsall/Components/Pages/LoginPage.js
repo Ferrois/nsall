@@ -47,7 +47,7 @@ const LoginPage = ({ navigation, onPress }) => {
   useEffect(() => {
     socket.on("login-return", ({ status_, userInfo }) => {
       if (status_ == "S") {
-        setStore({ ...store, userInfo });
+        setStore({ ...store, userInfo, signedIn:true });
         navigation.reset({
           index: 0,
           routes: [{ name: "Interface" }],

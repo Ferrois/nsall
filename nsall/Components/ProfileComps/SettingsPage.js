@@ -1,9 +1,14 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Box, Button, Center, ScrollView, Text } from "native-base";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { StoreContext } from "../../Store/StoreContext";
 
 export default function SettingsPage() {
+  const {storeCtx} = useContext(StoreContext);
+  const [store,setStore] = storeCtx;
+  
   const [show,setShow] = useState(false);
+  const [date,setDate] = useState();
   const onChange = (event, selectedDate) => {
     const currentDate = new Date(selectedDate);
     setShow(false);

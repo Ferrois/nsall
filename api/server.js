@@ -61,9 +61,9 @@ const adminInfo = {
     active: false,
     vibratePerm: true,
   },
-  cdt:{
-    time:1639682640000
-  }
+  cdt: {
+    time: 1639682640000,
+  },
 };
 
 io.on("connection", (socket) => {
@@ -92,7 +92,9 @@ io.on("connection", (socket) => {
           active: false,
           vibratePerm: true,
         },
-        
+        cdt:{
+          time:currentTime
+        }
       });
 
       console.log("Signed up " + username);
@@ -133,8 +135,10 @@ io.on("connection", (socket) => {
         { id },
         { leaves: currentLeaveArr }
       );
-      socket.emit("submitted-return", { status_: "S" });
+      const updatedUserInfo = await UserSchema.findOne({id})
+      socket.emit("submitted-return", {status_:"S",userInfo:updatedUserInfo})
     } catch (err) {
+      console.log(err)
       socket.emit("submitted-return", { status_: "F" });
     }
   });
@@ -167,7 +171,23 @@ io.on("connection", (socket) => {
     }
     socket.emit("ping-loc-return", newArr);
   });
-  //   socket.on("sendLoc");
+  socket.on("addmedinfo", async ({ disease, severity, has, id }) => {
+    const medInfo = { disease, severity, has };
+    const currentData = await UserSchema.findOne({ id });
+    const medArr = currentData.medicalHist;
+    medArr.push(medInfo);
+    try {
+      const savedData = await UserSchema.findOneAndUpdate(
+        { id },
+        { medicalHist: medArr }
+      );
+      const updatedUserInfo = await UserSchema.findOne({id})
+      socket.emit("addmedinfo-return", {status_:"S",userInfo:updatedUserInfo})
+    } catch (err) {
+      console.log(err);
+      socket.emit("addmedinfo-return",{status_:"F"})
+    }
+  });
 });
 
 server.listen(process.env.PORT || PORT, () => {

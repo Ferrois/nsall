@@ -1,9 +1,12 @@
 import { Button, FormControl, Input, Modal, Select, useToast } from "native-base";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { socket } from "../../Helpers/socket";
+import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "./ToastMsg";
 
 export default function MedModal({ showModal, handleCloseModal }) {
+    const {storeCtx} = useContext(StoreContext)
+    const [store,setStore] = storeCtx
     const toast = useToast();
     const [severity, setSeverity] = useState("");
     const [disease,setDisease] = useState("");
@@ -16,7 +19,8 @@ export default function MedModal({ showModal, handleCloseModal }) {
     const handleSubmit = () => {
         if (disease == "") return sendToast({title:"Error!",desc:"You must have a disease",stat:"F"})
         if (severity == "") return sendToast({title:"Error!",desc:"You must set a severity",stat:"F"})
-        socket.emit("addmedinfo",{disease,severity,has:true})
+        socket.emit("addmedinfo",{disease,severity,has:true,id:store.userInfo.id})
+        setDisease("");
     }
     
   return (

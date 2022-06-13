@@ -1,4 +1,12 @@
-import { Box, Button, Center, HStack, Text, TextArea, useToast } from "native-base";
+import {
+  Box,
+  Button,
+  Center,
+  HStack,
+  Text,
+  TextArea,
+  useToast,
+} from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -22,8 +30,24 @@ export default function LeavesPage() {
     setDate(currentDate);
   };
   const handleLeave = () => {
-    const submitDate = date - 0
-    socket.emit("submitted", { date: submitDate, reason, id: store.userInfo.id });
+    if (date == null)
+      return sendToast({
+        title: "Error!",
+        desc: "Please set a date",
+        stat: "F",
+      });
+    if (reason == "")
+      return sendToast({
+        title: "Error!",
+        desc: "Please state a reason",
+        stat: "F",
+      });
+    const submitDate = date - 0;
+    socket.emit("submitted", {
+      date: submitDate,
+      reason,
+      id: store.userInfo.id,
+    });
   };
   const sendToast = ({ title, desc, stat }) => {
     toast.show({
@@ -33,13 +57,14 @@ export default function LeavesPage() {
   };
 
   useEffect(() => {
-    socket.on("submitted-return", ({ status_ }) => {
+    socket.on("submitted-return", ({ status_, userInfo }) => {
       if (status_ == "S") {
         sendToast({
           title: "Success :>",
-          desc: "Application submitted!",
+          desc: "Application submitted! It will be reviewed by someone. You may be contacted during this period",
           stat: "S",
         });
+        setStore({ ...store, userInfo });
       }
       if (status_ == "F") {
         sendToast({
@@ -55,37 +80,42 @@ export default function LeavesPage() {
   }, []);
   return (
     <Box safeArea w="100%" alignItems="center">
-      <HStack w="80%" alignItems="center">
+      <HStack w="80%" alignItems="center" justifyContent={"space-between"}>
         <Button
           onPress={() => {
             showMode();
           }}
-          bg={"primary.400"}
-          h={"10"}
-          w={"30%"}
-          mt={"2"}
+          bg={"primary.600"}
         >
-          <Text  style={styles.text1}>
-            Set Date
-          </Text>
+          <Text style={styles.text1}>Set Date</Text>
         </Button>
-        <Text style={styles.date}> {JSON.stringify(date)}</Text>
+        <Text style={styles.date}>
+          {" "}
+          {date ? date.toDateString() : "No date selected"}
+        </Text>
       </HStack>
       {show && (
         <DateTimePicker
+          minimumDate={new Date()}
           style={styles.datePicker}
           value={new Date()}
           onChange={onChange}
         />
       )}
-      <Text style={styles.text2}>Leave Reason</Text>
+      <Text
+        color={"muted.600"}
+        mt={"8"}
+        fontSize={"2xl"}
+        fontWeight={"bold"}
+      >
+        Leave Reason
+      </Text>
       <TextArea
         onChangeText={(value) => {
           setReason(value);
         }}
-        h={20}
-        mt={"5"}
-        
+        h={32}
+        bg={"blueGray.200"}
         placeholder="Reason"
         w="80%"
         maxW="300"
@@ -95,6 +125,7 @@ export default function LeavesPage() {
           handleLeave();
         }}
         mt={"5"}
+        bg={"success.700"}
       >
         <Text style={styles.text1}>Submit</Text>
       </Button>
@@ -106,16 +137,10 @@ const styles = StyleSheet.create({
   text1: {
     fontWeight: "bold",
     fontSize: 15,
-    color:"white"
+    color: "white",
   },
-  date:{fontWeight: "bold",
-  fontSize: 16},
-  text2: {
-    fontWeight: "bold",
-    fontSize: 20,
-    marginTop: 20,
-    
-  },
+  date: { fontWeight: "bold", fontSize: 16 },
+
   datePicker: {
     height: 30,
   },
