@@ -18,7 +18,7 @@ import { socket } from "../../Helpers/socket";
 
 export default function NSafePage() {
   const toast = useToast();
-  const [location, setLocation] = useState(null);
+  // const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
   const [active, setActive] = useState(false);
@@ -70,7 +70,7 @@ export default function NSafePage() {
       lng: locationRes.coords.longitude,
       active,
     });
-    setLocation(location);
+    // setLocation(location);
     console.log("Grabbed");
   }
 

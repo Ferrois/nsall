@@ -65,6 +65,7 @@ export default function LeavesPage() {
           stat: "S",
         });
         setStore({ ...store, userInfo:userInfo });
+        setReason("")
       }
       if (status_ == "F") {
         sendToast({
@@ -114,6 +115,7 @@ export default function LeavesPage() {
         onChangeText={(value) => {
           setReason(value);
         }}
+        value={reason}
         h={32}
         bg={"blueGray.200"}
         placeholder="Reason"

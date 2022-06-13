@@ -30,6 +30,7 @@ import { socket } from "../../Helpers/socket";
 import { StyleSheet } from "react-native";
 import { StoreContext } from "../../Store/StoreContext";
 import { SafeAreaView } from "react-native-safe-area-context";
+import IpptTGPage from "./IpptTGPage";
 
 //Naviagator in the home widgets
 const Stack = createNativeStackNavigator();
@@ -44,18 +45,13 @@ function Home() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="IpptLB"
-          component={HomePage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="IpptRecords"
           component={IpptRecPage}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="IpptGoal"
-          component={HomePage}
+          component={IpptTGPage}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -87,7 +83,13 @@ function HomePage({ navigation }) {
       <Center>
         <ScrollView w="100%">
           <Center mb={"20"}>
-            <Text color={"white"} fontFamily="Poppins" fontSize={"5xl"} mb="3" mt="10">
+            <Text
+              color={"white"}
+              fontFamily="Poppins"
+              fontSize={"5xl"}
+              mb="3"
+              mt="10"
+            >
               Home
             </Text>
             <CountdownCard />
@@ -187,6 +189,8 @@ const buttonData = [
 ];
 
 function IpptCard({ navigation }) {
+  const { storeCtx } = useContext(StoreContext);
+  const [store, setStore] = storeCtx;
   const handlePress = (directory) => {
     navigation.navigate(directory);
   };
@@ -222,12 +226,12 @@ function IpptCard({ navigation }) {
           fontFamily={"Poppins"}
           pr="4"
         >
-          40 / 60 Pts
+          40 / {store.userInfo.ippt.goal} Pts
         </Text>
       </HStack>
       <Center w="100%">
         <Box w="100%">
-          <Progress size="md" shadow={2} mb={4} value={4000 / 60} mx="4" />
+          <Progress size="md" shadow={2} mb={4} value={40*100 / store.userInfo.ippt.goal} mx="4" />
         </Box>
       </Center>
       <Divider mb={4} />
@@ -276,44 +280,54 @@ function LeaveStatusCard() {
       icon={<Icon as={AntDesign} name="form" size={50} />}
       title="Leaves Status"
     >
-      {store.userInfo.leaves.length != 0 ? store.userInfo.leaves.map(({ date, status_, reason }) => {
-        const dayDate = new Date(date)
-        return (
-          <Box w={"100%"} justifyContent={"space-between"} key={reason}>
-            <ScrollView>
-              <Flex direction="column" style={styles.container}>
-                <Box w={"100%"}>
-                  <Box
-                    alignItems={"center"}
-                    overflow="hidden"
-                    borderColor="primary.400"
-                    borderWidth="2"
-                    bg="primary.200"
-                  >
-                    <Text style={styles.resulttext}>{dayDate.toDateString()}</Text>
+      {store.userInfo.leaves.length != 0 ? (
+        store.userInfo.leaves.map(({ date, status_, reason }) => {
+          const dayDate = new Date(date);
+          return (
+            <Box w={"100%"} justifyContent={"space-between"} key={reason}>
+              <ScrollView>
+                <Flex direction="column" style={styles.container}>
+                  <Box w={"100%"}>
+                    <Box
+                      alignItems={"center"}
+                      overflow="hidden"
+                      borderColor="primary.400"
+                      borderWidth="2"
+                      bg="primary.200"
+                    >
+                      <Text style={styles.resulttext}>
+                        {dayDate.toDateString()}
+                      </Text>
+                    </Box>
+                    <Box
+                      alignItems={"center"}
+                      overflow="hidden"
+                      borderColor="primary.400"
+                      borderWidth="2"
+                      bg="primary.300"
+                    >
+                      <Text style={styles.resulttext}>Status: {status_}</Text>
+                    </Box>
+                    <Box
+                      alignItems={"center"}
+                      overflow="hidden"
+                      borderColor="primary.400"
+                      borderWidth="2"
+                      bg="primary.200"
+                    >
+                      <Text style={styles.resulttext}>{reason}</Text>
+                    </Box>
                   </Box>
-                  <Box
-                    alignItems={"center"}
-                    overflow="hidden"
-                    borderColor="primary.400"
-                    borderWidth="2"
-                    bg="primary.300"
-                  >
-                    <Text style={styles.resulttext}>Status: {status_}</Text>
-                  </Box>
-                  <Box
-                    alignItems={"center"}
-                    overflow="hidden"
-                    borderColor="primary.400"
-                    borderWidth="2"
-                    bg="primary.200"
-                  >
-                    <Text style={styles.resulttext}>{reason}</Text>
-                  </Box>
-                </Box>
-              </Flex>
-            </ScrollView>
-          </Box>)}):<Text color={"muted.400"} fontSize={"md"}>No data available</Text>}
+                </Flex>
+              </ScrollView>
+            </Box>
+          );
+        })
+      ) : (
+        <Text color={"muted.400"} fontSize={"md"}>
+          No data available
+        </Text>
+      )}
     </HomeCard>
   );
 }
@@ -331,12 +345,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-
   },
   resulttext: {
     fontSize: 15,
     fontWeight: "bold",
     color: "black",
-  }
+  },
 });
 export default Home;
