@@ -1,7 +1,7 @@
 import { Box, Button, Center, Text, TextArea } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import DatePicker from "react-native-datepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { socket } from "../../Helpers/socket";
 import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "../Modals/ToastMsg";
@@ -9,8 +9,17 @@ import ToastMsg from "../Modals/ToastMsg";
 export default function LeavesPage() {
   const { storeCtx } = useContext(StoreContext);
   const [store, setStore] = storeCtx;
+  const [show, setShow] = useState(false);
   const [date, setDate] = useState("");
   const [reason, setReason] = useState("");
+  const showMode = (currentMode) => {
+    setShow(true);
+  };
+  const onChange = (event, selectedDate) => {
+    const currentDate = new Date(selectedDate);
+    setShow(false);
+    setDate(currentDate);
+  };
   const handleLeave = () => {
     socket.emit("submitted", { date, reason, id: store.userInfo.id });
   };
@@ -44,31 +53,18 @@ export default function LeavesPage() {
   }, []);
   return (
     <Box safeArea alignItems="center" w="100%">
-      <Text style={styles.text}>Leave Reason</Text>
-      <DatePicker
-        style={{width: 200}}
-        date={date}
-        mode="date"
-        placeholder="select date"
-        format="YYYY-MM-DD"
-        minDate="2016-05-01"
-        maxDate="2016-06-01"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        customStyles={{
-          dateIcon: {
-            position: 'absolute',
-            left: 0,
-            top: 4,
-            marginLeft: 0
-          },
-          dateInput: {
-            marginLeft: 36
-          }
-          // ... You can check the source to find the other keys.
+      <Button
+        onPress={() => {
+          showMode();
         }}
-        onDateChange={(date) => {setDate(date)}}
-      />
+      >
+        Set Date
+      </Button>
+      {show && (
+            <DateTimePicker style={styles.datePicker} value={new Date()} onChange={onChange}/>)
+
+      }
+      <Text> {JSON.stringify(date)}</Text>
       <Text style={styles.text}>Leave Reason</Text>
       <TextArea
         onChangeText={(value) => {
@@ -92,5 +88,8 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
     alignItems: "flex-start",
+  },
+  datePicker: {
+    height: 30,
   },
 });

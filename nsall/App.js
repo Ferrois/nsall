@@ -66,7 +66,7 @@ function HomeInterface() {
           }}
         />
         <Tab.Screen
-          name="Leaves"
+          name="Leave Application"
           component={LeavesPage}
           options={{
             tabBarLabel: "Form",
@@ -76,7 +76,7 @@ function HomeInterface() {
                 <Text color={color}>LEAVE</Text>
               </Center>
             ),
-            headerShown: false,
+            headerShown: true,
           }}
         />
         <Tab.Screen
