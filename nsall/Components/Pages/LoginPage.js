@@ -91,9 +91,9 @@ const LoginPage = ({ navigation, onPress }) => {
         mt={2}
       />
       <Button onPress={handleLogin} bg={"primary.500"} w={"1/2"} mt={"2"}>
-        <Text style={styles.text1}>Log In</Text>
+        <Text style={styles.text1}>Log In</Text> 
       </Button>
-      <Button onPress={onSignUp} bg={"gray.200"} mt={1}>
+      <Button onPress={onSignUp} bg={"white"} w={"1/2"} mt={1}>
         <Text color={"black"}>Create new account</Text>
       </Button>
       <Button

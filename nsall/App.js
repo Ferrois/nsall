@@ -5,8 +5,9 @@ import { AspectRatio, Center, NativeBaseProvider, Text, VStack } from "native-ba
 import LoginPage from "./Components/Pages/LoginPage.js";
 
 import { LinearGradient } from "expo-linear-gradient";
-import Icon from "react-native-vector-icons/Ionicons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import Anticon from "react-native-vector-icons/AntDesign";
+
 import Feathericon from "react-native-vector-icons/Feather";
 import ProfilesPage from "./Components/Pages/ProfilesPage.js";
 import { useEffect } from "react";
@@ -58,7 +59,7 @@ function HomeInterface() {
             tabBarLabel: "Home",
             tabBarIcon: ({ color, size }) => (
               <Center >
-                <Icon name="home" color={color} size={size} />
+                <Ionicons name="home" color={color} size={size} />
                 <Text color={color}>HOME</Text>
               </Center>
             ),
@@ -83,11 +84,11 @@ function HomeInterface() {
           name="NSafe"
           component={NSafePage}
           options={{
-            tabBarLabel: "NSafe",
+            tabBarLabel: "earth",
             tabBarIcon: ({ color, size,focused }) => (
                  <AspectRatio ratio={1} w={"full"}>
               <Center bg={focused ? "success.100":"blueGray.100"} borderRadius={"3xl"}>
-                <Anticon name="form" color={color} size={size * 1.5} />
+                <Ionicons name="earth" color={color} size={size * 1.5} />
                 <Text color={color}>NSAFE</Text>
               </Center>
                </AspectRatio>
