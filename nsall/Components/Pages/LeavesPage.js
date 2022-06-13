@@ -11,7 +11,7 @@ export default function LeavesPage() {
   const { storeCtx } = useContext(StoreContext);
   const [store, setStore] = storeCtx;
   const [show, setShow] = useState(false);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState();
   const [reason, setReason] = useState("");
   const showMode = () => {
     setShow(true);
@@ -22,7 +22,8 @@ export default function LeavesPage() {
     setDate(currentDate);
   };
   const handleLeave = () => {
-    socket.emit("submitted", { date, reason, id: store.userInfo.id });
+    const submitDate = date - 0
+    socket.emit("submitted", { date: submitDate, reason, id: store.userInfo.id });
   };
   const sendToast = ({ title, desc, stat }) => {
     toast.show({

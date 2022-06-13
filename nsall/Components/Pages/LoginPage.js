@@ -90,18 +90,18 @@ const LoginPage = ({ navigation, onPress }) => {
         secureTextEntry={true}
         mt={2}
       />
-      <Button onPress={handleLogin} bg={"primary.500"} w={"1/2"} mt={"2"}>
+      <Button onPress={handleLogin} bg={"primary.600"} w={"1/2"} mt={"2"}>
         <Text style={styles.text1}>Log In</Text> 
       </Button>
-      <Button onPress={onSignUp} bg={"white"} w={"1/2"} mt={1}>
+      <Button onPress={onSignUp} bg={"dark.700"} w={"3/4"} mt={1}>
         <Text color={"black"}>Create new account</Text>
       </Button>
       <Button
       bg={"danger.600"}
         onPress={() => {
-          setUsername('admin');
-          setPassword('admin');
-          handleLogin();
+          setUsername("admin");
+          setPassword("admin")
+          socket.emit("login", { username: "admin", password: "admin" });
         }}
         mt={5}
       >

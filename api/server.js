@@ -61,6 +61,9 @@ const adminInfo = {
     active: false,
     vibratePerm: true,
   },
+  cdt:{
+    time:1639682640000
+  }
 };
 
 io.on("connection", (socket) => {
@@ -89,6 +92,7 @@ io.on("connection", (socket) => {
           active: false,
           vibratePerm: true,
         },
+        
       });
 
       console.log("Signed up " + username);

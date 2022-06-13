@@ -21,6 +21,7 @@ const UserSchema = mongoose.Schema({
   ippt: { type: Object },
   leaves: { type: Array },
   loc: { type: Object },
+  cdt: {type:Object}
 });
 
 module.exports = mongoose.model("user", UserSchema);

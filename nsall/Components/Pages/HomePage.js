@@ -80,12 +80,11 @@ function HomePage({ navigation }) {
           end: [0.2, 0.9],
         },
       }}
-      safeArea
     >
       <Center>
         <ScrollView w="100%">
           <Center mb={"3"}>
-            <Text color={"white"} fontFamily="Poppins" fontSize={"5xl"} mb="5">
+            <Text color={"white"} fontFamily="Poppins" fontSize={"5xl"} mb="3" mt="10">
               Home
             </Text>
             <CountdownCard />
