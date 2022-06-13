@@ -157,7 +157,7 @@ function MarkersView({ storeCtx }) {
         id: store.userInfo.id,
         group: store.userInfo.group,
       });
-      console.log(store.userInfo.group)
+      console.log(store.userInfo.group);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
@@ -171,27 +171,25 @@ function MarkersView({ storeCtx }) {
   return (
     <>
       {locArr &&
-        locArr.map((locObj) => {
+        locArr.map(({ id, loc, name }) => {
           // <Marker coordinate={{ latitude: 1.35, longitude: 103.8 }}>
           //   <Text>{JSON.stringify(locObj)}</Text>
           // </Marker>;
           //  coordinate={{latitude:1.35,longitude:103.8}}>
-          if (locObj != undefined) {
-            return (
-              <Marker
-                key={locObj.id}
-                coordinate={{
-                  latitude: locObj.loc.lastLoc.lat || 1.35,
-                  longitude: locObj.loc.lastLoc.lng || 103.8,
-                }}
-              >
-                <Box bg={"red.600"} borderRadius={"lg"}>
-                  <Text color={"white"}>{locObj.name}</Text>
-                </Box>
-              </Marker>
-              // <></>
-            );
-          }
+          return (
+            <Marker
+              key={id}
+              coordinate={{
+                latitude: loc.lastLoc.lat || 1.35,
+                longitude: loc.lastLoc.lng || 103.8,
+              }}
+            >
+              <Box bg={"red.600"} borderRadius={"lg"}>
+                <Text color={"white"}>{name}</Text>
+              </Box>
+            </Marker>
+          );
+          // <></>
         })}
     </>
   );
