@@ -1,4 +1,4 @@
-import { Box, Button, Center, Text, TextArea } from "native-base";
+import { Box, Button, Center, HStack, Text, TextArea } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -52,25 +52,38 @@ export default function LeavesPage() {
     };
   }, []);
   return (
-    <Box safeArea alignItems="center" w="100%">
-      <Button
-        onPress={() => {
-          showMode();
-        }}
-      >
-        Set Date
-      </Button>
+    <Box safeArea w="100%" alignItems="center">
+      <HStack w="80%" alignItems="center">
+        <Button
+          onPress={() => {
+            showMode();
+          }}
+          bg={"primary.400"}
+          h={"10"}
+          w={"30%"}
+          mt={"2"}
+        >
+          <Text  style={styles.text1}>
+            Set Date
+          </Text>
+        </Button>
+        <Text style={styles.date}> {JSON.stringify(date)}</Text>
+      </HStack>
       {show && (
-            <DateTimePicker style={styles.datePicker} value={new Date()} onChange={onChange}/>)
-
-      }
-      <Text> {JSON.stringify(date)}</Text>
-      <Text style={styles.text}>Leave Reason</Text>
+        <DateTimePicker
+          style={styles.datePicker}
+          value={new Date()}
+          onChange={onChange}
+        />
+      )}
+      <Text style={styles.text2}>Leave Reason</Text>
       <TextArea
         onChangeText={(value) => {
           setReason(value);
         }}
         h={20}
+        mt={"5"}
+        
         placeholder="Reason"
         w="80%"
         maxW="300"
@@ -79,15 +92,27 @@ export default function LeavesPage() {
         onPress={() => {
           handleLeave();
         }}
-      ></Button>
+        mt={"5"}
+      >
+        <Text style={styles.text1}>Submit</Text>
+      </Button>
     </Box>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
+  text1: {
     fontWeight: "bold",
-    alignItems: "flex-start",
+    fontSize: 15,
+    color:"white"
+  },
+  date:{fontWeight: "bold",
+  fontSize: 16},
+  text2: {
+    fontWeight: "bold",
+    fontSize: 20,
+    marginTop: 20,
+    
   },
   datePicker: {
     height: 30,
