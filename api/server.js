@@ -113,6 +113,21 @@ io.on("connection", (socket) => {
       return socket.emit("login-return", { status_: "F" });
     socket.emit("login-return", { status_: "S", userInfo: selectedUser });
   });
+  ////leave application socket
+  ///find id and update==>findOneAndUpdate
+  socket.on("submitted", async ({ id, date, reason }) => {
+    const userData = await UserSchema.find({ id });
+    const currentLeaveArr = userData.leaves.push({
+      date,
+      status_: "Pending",
+      reason,
+    });
+    const saveData = await UserSchema.findOneAndUpdate(
+      { id },
+      { leaves: currentLeaveArr }
+    );
+    socket.emit("submitted-return", { status_: "S" });
+  });
 
   socket.on("location", async ({ active, lat, lng, id, group }) => {
     const currentTime = Date.now();
@@ -125,24 +140,23 @@ io.on("connection", (socket) => {
     try {
       const savedData = await UserSchema.findOneAndUpdate(
         { id },
-        { loc:  locationData  }
+        { loc: locationData }
       );
     } catch (err) {
       console.log(err);
     }
-
   });
 
-  socket.on("ping-loc",async ({id,group})=>{
-    const arrOfUsersInGroup = await UserSchema.find({group})
+  socket.on("ping-loc", async ({ id, group }) => {
+    const arrOfUsersInGroup = await UserSchema.find({ group });
     // console.log(arrOfUsersInGroup)
-    const newArr = []
-    for (const userObj of arrOfUsersInGroup){
-      let userPacket = {loc:userObj.loc,name:userObj.name,id:userObj.id}
-      newArr.push(userPacket)
+    const newArr = [];
+    for (const userObj of arrOfUsersInGroup) {
+      let userPacket = { loc: userObj.loc, name: userObj.name, id: userObj.id };
+      newArr.push(userPacket);
     }
-    socket.emit("ping-loc-return",newArr)
-  })
+    socket.emit("ping-loc-return", newArr);
+  });
   //   socket.on("sendLoc");
 });
 

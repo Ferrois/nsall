@@ -1,6 +1,7 @@
 import { Box, Button, Center, Text, TextArea } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
+import DatePicker from "react-native-datepicker";
 import { socket } from "../../Helpers/socket";
 import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "../Modals/ToastMsg";
@@ -44,22 +45,37 @@ export default function LeavesPage() {
   return (
     <Box safeArea alignItems="center" w="100%">
       <Text style={styles.text}>Leave Reason</Text>
-      <TextArea
-        onChangeText={(value) => {
-          setDate(value);
+      <DatePicker
+        style={{width: 200}}
+        date={date}
+        mode="date"
+        placeholder="select date"
+        format="YYYY-MM-DD"
+        minDate="2016-05-01"
+        maxDate="2016-06-01"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            left: 0,
+            top: 4,
+            marginLeft: 0
+          },
+          dateInput: {
+            marginLeft: 36
+          }
+          // ... You can check the source to find the other keys.
         }}
-        h={50}
-        placeholder="Text Area Placeholder"
-        w="80%"
-        maxW="300"
+        onDateChange={(date) => {setDate(date)}}
       />
       <Text style={styles.text}>Leave Reason</Text>
       <TextArea
         onChangeText={(value) => {
           setReason(value);
         }}
-        h={50}
-        placeholder="Text Area Placeholder"
+        h={20}
+        placeholder="Reason"
         w="80%"
         maxW="300"
       />
