@@ -49,7 +49,7 @@ export default function LeavesPage() {
           setDate(value);
         }}
         h={50}
-        placeholder="Text Area Placeholder"
+        placeholder="dd/mm/yy"
         w="80%"
         maxW="300"
       />
@@ -58,8 +58,8 @@ export default function LeavesPage() {
         onChangeText={(value) => {
           setReason(value);
         }}
-        h={50}
-        placeholder="Text Area Placeholder"
+        h={20}
+        placeholder="Reason"
         w="80%"
         maxW="300"
       />
