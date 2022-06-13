@@ -56,7 +56,7 @@ export default function NSafePage() {
     }
   };
   async function checkLocation() {
-	if (active == false) return
+    if (active == false) return;
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       setErrorMsg("Permission to access location was denied");
@@ -66,8 +66,8 @@ export default function NSafePage() {
     let locationRes = await Location.getCurrentPositionAsync({});
     socket.emit("location", {
       id: store.userInfo.id,
-      lat: locationRes.latitude,
-      lng: locationRes.longitude,
+      lat: locationRes.coords.latitude,
+      lng: locationRes.coords.longitude,
       active,
     });
     setLocation(location);
@@ -94,7 +94,7 @@ export default function NSafePage() {
   useEffect(() => {
     const interval = setInterval(() => {
       checkLocation();
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [active]);
   return (
@@ -113,6 +113,7 @@ export default function NSafePage() {
           maximumZ={19}
           flipY={false}
         />
+        <MarkersView storeCtx={storeCtx} />
       </MapView>
       <Box
         flex={0.25}
@@ -146,3 +147,38 @@ const style = StyleSheet.create({
     flex: 0.75,
   },
 });
+
+function MarkersView({ storeCtx }) {
+  const [store, setStore] = storeCtx;
+  const [locArr, setLocArr] = useState(null);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      socket.emit("ping-loc", {
+        id: store.userInfo.id,
+        group: store.userInfo.group,
+      });
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+  useEffect(() => {
+    socket.on("ping-loc-return", (locArr) => {
+      setLocArr(locArr);
+    });
+    return () => socket.off("ping-loc-return");
+  }, []);
+  return (
+    <>
+      {locArr && locArr.map((locObj) => {
+        return (
+          <Marker
+          key={locObj.id}
+            coordinate={{ latitude: locObj.loc.lastLoc.lat, longitude: locObj.loc.lastLoc.lng }}
+          >
+            <Box bg={"red.600"} borderRadius={"lg"}><Text color={"white"}>{locObj.name}</Text></Box>
+          </Marker>
+          // <></>
+        );
+      })}
+    </>
+  );
+}

@@ -6,7 +6,7 @@ const { Server } = require("socket.io");
 const { v4 } = require("uuid");
 require("dotenv").config();
 //Helper function
-const { default: returnDir } = require("./Utilities/returnDir");
+// const { default: returnDir } = require("./Utilities/returnDir");
 //MongoDB Config
 const mongoose = require("mongoose");
 const dbURI = process.env.MONGODB_URI;
@@ -22,7 +22,7 @@ const io = require("socket.io")(server, {
 //import schemas
 const UserSchema = require("./Models/UserData.js");
 
-console.log(dbURI)
+console.log(dbURI);
 
 mongoose.connect(`${dbURI}`, () => console.log("Conntected to MongoDB"));
 
@@ -33,7 +33,7 @@ const adminInfo = {
   ethnicity: "Double Barreled Chinese Mexican",
   nric: "S9923232A",
   id: "2b51ccfd-05bd-4b60-ba60-67f1e9269e50",
-  group:"1",
+  group: "1",
   medicalHist: [
     { disease: "Asthma", has: true, severity: "Mild" },
     { disease: "Small Penis", has: true, severity: "Serious" },
@@ -68,7 +68,7 @@ io.on("connection", (socket) => {
 
   socket.on(
     "signup",
-    async ({ name_, username, password, nric, ethnicity,group }) => {
+    async ({ name_, username, password, nric, ethnicity, group }) => {
       const currentTime = Date.now();
       // const existingUser = UserSchema.find({ username: username });
       // if (existingUser != null) return;
@@ -91,7 +91,7 @@ io.on("connection", (socket) => {
         },
       });
 
-      console.log("Signed up "+username);
+      console.log("Signed up " + username);
       try {
         const savedUser = await userData.save();
         socket.emit("signup-return", { status_: "S", userInfo: savedUser });
@@ -103,17 +103,46 @@ io.on("connection", (socket) => {
   );
 
   socket.on("login", async ({ username, password }) => {
-    console.log("Login Request "+username+":"+password)
-    const selectedUser = await UserSchema.findOne({username:username}).exec();
-    if (selectedUser == null) return socket.emit("login-return",{status_:"F"});
-    if (password != selectedUser.password) return socket.emit("login-return",{status_:"F"});
-    socket.emit("login-return",{status_:"S",userInfo:selectedUser})
+    console.log("Login Request " + username + ":" + password);
+    const selectedUser = await UserSchema.findOne({
+      username: username,
+    }).exec();
+    if (selectedUser == null)
+      return socket.emit("login-return", { status_: "F" });
+    if (password != selectedUser.password)
+      return socket.emit("login-return", { status_: "F" });
+    socket.emit("login-return", { status_: "S", userInfo: selectedUser });
   });
 
-  socket.on("location", ({ active, lat, lng, id,group }) => {
-    const locDir = returnDir();
-    if (active == false) return;
+  socket.on("location", async ({ active, lat, lng, id, group }) => {
+    const currentTime = Date.now();
+    const locationData = {
+      lastLoc: { lat, lng },
+      lastSeen: currentTime,
+      active,
+      vibratePerm: true,
+    };
+    try {
+      const savedData = await UserSchema.findOneAndUpdate(
+        { id },
+        { loc:  locationData  }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
   });
+
+  socket.on("ping-loc",async ({id,group})=>{
+    const arrOfUsersInGroup = await UserSchema.find({group})
+    // console.log(arrOfUsersInGroup)
+    const newArr = []
+    for (const userObj of arrOfUsersInGroup){
+      let userPacket = {loc:userObj.loc,name:userObj.name,id:userObj.id}
+      newArr.push(userPacket)
+    }
+    socket.emit("ping-loc-return",newArr)
+  })
   //   socket.on("sendLoc");
 });
 

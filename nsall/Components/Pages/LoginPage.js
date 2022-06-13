@@ -24,27 +24,25 @@ const LoginPage = ({ navigation, onPress }) => {
   const { storeCtx } = useContext(StoreContext);
   const [store, setStore] = storeCtx;
 
-  const sendToast=({title,desc,stat})=>{
+  const sendToast = ({ title, desc, stat }) => {
     toast.show({
-      render: () => (
-        <ToastMsg
-          title={title}
-          desc={desc}
-          stat={stat}
-        />
-      ),
+      render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
       placement: "bottom",
     });
-  }
+  };
 
   const onSignUp = () => {
-    navigation.navigate("Register")
-  }
+    navigation.navigate("Register");
+  };
   const handleLogin = () => {
     socket.emit("login", { username: username, password: password });
   };
   const handleWrong = () => {
-    sendToast({title:"Account not found on database!",desc:"Please Check Your Credentials",stat:"F"})
+    sendToast({
+      title: "Account not found on database!",
+      desc: "Please Check Your Credentials",
+      stat: "F",
+    });
   };
   useEffect(() => {
     socket.on("login-return", ({ status_, userInfo }) => {
@@ -54,13 +52,17 @@ const LoginPage = ({ navigation, onPress }) => {
           index: 0,
           routes: [{ name: "Interface" }],
         });
-        sendToast({title:"Success!",desc:"Logged in as"+userInfo.name+"!",stat:"S"})
+        sendToast({
+          title: "Success!",
+          desc: "Logged in as " + userInfo.name + "!",
+          stat: "S",
+        });
         return;
       }
       handleWrong();
     });
 
-    return ()=> socket.off("login-return")
+    return () => socket.off("login-return");
   }, []);
 
   return (
@@ -68,43 +70,44 @@ const LoginPage = ({ navigation, onPress }) => {
     //   showsVerticalScrollIndicator={false}
     //   contentContainerStyle={{ flexGrow: 1 }}
     // >
-      <Box style={styles.root} safeArea justifyContent={"center"}>
-        <Image
-          source={Logo}
-          style={[styles.logo, { height: height * 0.2 }]}
-          resizeMode="contain"
-          alt="logo"
-        />
-        <Input
-          placeholder="Username"
-          value={username}
-          onChangeText={(value) => setUsername(value)}
-          mt={2}
-        />
-        <Input
-          placeholder="Password"
-          value={password}
-          onChangeText={(value) => setPassword(value)}
-          secureTextEntry={true}
-          mt={2}
-        />
-        <Button onPress={onSignUp} bg={"gray.200"} mt={1} >
-          <Text color={"black"} fontFamily={"Rubik"}>Create new account</Text>
-        </Button>
-        <Button onPress={handleLogin} style={styles.button1}>
-          <Text style={styles.text1}>Log In</Text>
-        </Button>
-
-      
-        <Button
-          onPress={() => {
-            handleLogin();
-          }}
-          mt={2}
-        >
-          Navigate into app
-        </Button>
-      </Box>
+    <Box style={styles.root} safeArea justifyContent={"center"}>
+      <Image
+        source={Logo}
+        style={[styles.logo, { height: height * 0.2 }]}
+        resizeMode="contain"
+        alt="logo"
+      />
+      <Input
+        placeholder="Username"
+        value={username}
+        onChangeText={(value) => setUsername(value)}
+        mt={5}
+      />
+      <Input
+        placeholder="Password"
+        value={password}
+        onChangeText={(value) => setPassword(value)}
+        secureTextEntry={true}
+        mt={2}
+      />
+      <Button onPress={handleLogin} bg={"primary.500"} w={"1/2"} mt={"2"}>
+        <Text style={styles.text1}>Log In</Text>
+      </Button>
+      <Button onPress={onSignUp} bg={"gray.200"} mt={1}>
+        <Text color={"black"}>Create new account</Text>
+      </Button>
+      <Button
+      bg={"danger.600"}
+        onPress={() => {
+          setUsername('admin');
+          setPassword('admin');
+          handleLogin();
+        }}
+        mt={5}
+      >
+        Navigate into app as admin:admin
+      </Button>
+    </Box>
     // </ScrollView>
   );
 };
