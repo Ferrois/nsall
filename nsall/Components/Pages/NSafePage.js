@@ -157,29 +157,42 @@ function MarkersView({ storeCtx }) {
         id: store.userInfo.id,
         group: store.userInfo.group,
       });
+      console.log(store.userInfo.group)
     }, 4000);
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
-    socket.on("ping-loc-return", (locArr) => {
-      setLocArr(locArr);
+    socket.on("ping-loc-return", (locArrRes) => {
+      setLocArr(locArrRes);
+      console.log(locArr);
     });
     return () => socket.off("ping-loc-return");
   }, []);
   return (
     <>
-      {locArr && locArr.map((locObj) => {
-        if (locObj.loc.lastLoc.lat == null || locObj.loc.lastLoc.lng == null) return null
-        return (
-          <Marker
-          key={locObj.id}
-            coordinate={{ latitude: locObj.loc.lastLoc.lat, longitude: locObj.loc.lastLoc.lng }}
-          >
-            <Box bg={"red.600"} borderRadius={"lg"}><Text color={"white"}>{locObj.name}</Text></Box>
-          </Marker>
-          // <></>
-        );
-      })}
+      {locArr &&
+        locArr.map((locObj) => {
+          // <Marker coordinate={{ latitude: 1.35, longitude: 103.8 }}>
+          //   <Text>{JSON.stringify(locObj)}</Text>
+          // </Marker>;
+          //  coordinate={{latitude:1.35,longitude:103.8}}>
+          if (locObj != undefined) {
+            return (
+              <Marker
+                key={locObj.id}
+                coordinate={{
+                  latitude: locObj.loc.lastLoc.lat || 1.35,
+                  longitude: locObj.loc.lastLoc.lng || 103.8,
+                }}
+              >
+                <Box bg={"red.600"} borderRadius={"lg"}>
+                  <Text color={"white"}>{locObj.name}</Text>
+                </Box>
+              </Marker>
+              // <></>
+            );
+          }
+        })}
     </>
   );
 }

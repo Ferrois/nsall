@@ -10,10 +10,10 @@ export default function IpptRecPage() {
 	const {storeCtx} = useContext(StoreContext);
 	const [store,setStore] = storeCtx
 	useEffect(()=>{
-		setStore({counter:1})
+		setStore({...store,counter:1})
 	},[])
   const handleIncrement = () => {
-		setStore({counter:store.counter + 1})
+		setStore({...store,counter:store.counter + 1})
 	};
   return (
     <Box safeArea>
