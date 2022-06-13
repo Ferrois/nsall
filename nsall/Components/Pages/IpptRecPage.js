@@ -1,5 +1,6 @@
 import { Box, Button, Center, Text } from "native-base";
 import React, { useContext, useEffect } from "react";
+import { Vibration } from "react-native";
 import { StoreContext } from "../../Store/StoreContext";
 
 export default function IpptRecPage() {
@@ -20,6 +21,7 @@ export default function IpptRecPage() {
       <Center>
         <Button onPress={handleIncrement}>Increment</Button>
 				<Text>{store.counter}</Text>
+        <Button onPress={()=>Vibration.vibrate(1000)}>ads</Button>
       </Center>
     </Box>
   );

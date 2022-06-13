@@ -94,7 +94,7 @@ export default function NSafePage() {
   useEffect(() => {
     const interval = setInterval(() => {
       checkLocation();
-    }, 5000);
+    }, 8000);
     return () => clearInterval(interval);
   }, [active]);
   return (
@@ -157,12 +157,13 @@ function MarkersView({ storeCtx }) {
         id: store.userInfo.id,
         group: store.userInfo.group,
       });
-    }, 4000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
     socket.on("ping-loc-return", (locArrRes) => {
       setLocArr(locArrRes);
+      setStore({...store,groupLoc:locArrRes})
     });
     return () => socket.off("ping-loc-return");
   }, []);

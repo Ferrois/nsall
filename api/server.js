@@ -116,18 +116,23 @@ io.on("connection", (socket) => {
   ////leave application socket
   ///find id and update==>findOneAndUpdate
   socket.on("submitted", async ({ id, date, reason }) => {
-    const userData = await UserSchema.find({ id });
+    console.log("yes");
+    const userData = await UserSchema.findOne({ id });
     const currentLeaveArr = userData.leaves;
     currentLeaveArr.push({
       date,
       status_: "Pending",
       reason,
     });
-    const saveData = await UserSchema.findOneAndUpdate(
-      { id },
-      { leaves: currentLeaveArr }
-    );
-    socket.emit("submitted-return", { status_: "S" });
+    try {
+      const savedData = await UserSchema.findOneAndUpdate(
+        { id },
+        { leaves: currentLeaveArr }
+      );
+      socket.emit("submitted-return", { status_: "S" });
+    } catch (err) {
+      socket.emit("submitted-return", { status_: "F" });
+    }
   });
 
   socket.on("location", async ({ active, lat, lng, id, group }) => {

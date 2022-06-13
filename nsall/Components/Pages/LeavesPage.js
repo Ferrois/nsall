@@ -1,4 +1,4 @@
-import { Box, Button, Center, Text, TextArea } from "native-base";
+import { Box, Button, Center, Text, TextArea, useToast } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -7,12 +7,13 @@ import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "../Modals/ToastMsg";
 
 export default function LeavesPage() {
+  const toast = useToast();
   const { storeCtx } = useContext(StoreContext);
   const [store, setStore] = storeCtx;
   const [show, setShow] = useState(false);
   const [date, setDate] = useState("");
   const [reason, setReason] = useState("");
-  const showMode = (currentMode) => {
+  const showMode = () => {
     setShow(true);
   };
   const onChange = (event, selectedDate) => {
@@ -34,14 +35,14 @@ export default function LeavesPage() {
     socket.on("submitted-return", ({ status_ }) => {
       if (status_ == "S") {
         sendToast({
-          title: "Success:>",
+          title: "Success :>",
           desc: "Application submitted!",
           stat: "S",
         });
       }
       if (status_ == "F") {
         sendToast({
-          title: "Failure:<",
+          title: "Failure :<",
           desc: "Application not submitted!",
           stat: "F",
         });

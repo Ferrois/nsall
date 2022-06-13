@@ -24,6 +24,7 @@ export default function Profile({ navigation }) {
   return (
     <ScrollView>
       <Box
+      mb={"10"}
         flex={1}
         safeArea
         bg={{
@@ -106,18 +107,18 @@ export default function Profile({ navigation }) {
                 <Box
                   bg={"coolGray.300"}
                   rounded={"2xl"}
-                  p="4"
+                  p="1"
                   mt={"2"}
                   shadow={"9"}
                 >
                   <Text
-                    color={"yellow.600"}
+                    color={"black"}
                     fontSize={"3xl"}
                     fontFamily="Poppins"
                   >
                     Medical History
                   </Text>
-                  <HStack flexWrap={"wrap"}>
+                  <HStack flexWrap={"wrap"} justifyContent={"center"}>
                     {store.userInfo.medicalHist
                       ? store.userInfo.medicalHist.map(
                           ({ disease, has, severity }) => {
