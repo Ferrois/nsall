@@ -169,6 +169,7 @@ function MarkersView({ storeCtx }) {
   return (
     <>
       {locArr && locArr.map((locObj) => {
+        if (locObj.loc.lastLoc.lat == null || locObj.loc.lastLoc.lng == null) return null
         return (
           <Marker
           key={locObj.id}
