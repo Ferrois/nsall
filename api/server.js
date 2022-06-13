@@ -75,7 +75,8 @@ io.on("connection", (socket) => {
       console.log("Signing up"+username+":"+password)
       const currentTime = Date.now();
       const existingUser = await UserSchema.find({ username: username }).exec();
-      if (existingUser != null) return socket.emit("signup-return",{status_:"F",message:"Someone already has this username!"});
+      console.log(existingUser)
+      if (existingUser.length != 0) return socket.emit("signup-return",{status_:"F",message:"Someone already has this username!"});
       const userData = new UserSchema({
         name: name_,
         username,

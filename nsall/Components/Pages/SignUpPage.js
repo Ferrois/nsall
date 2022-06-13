@@ -45,7 +45,7 @@ export default function SignUpPage({ navigation }) {
     socket.on("signup-return", ({ status_, userInfo, message }) => {
       if (status_ == "F") return sendToast("There was an error in the system. "+(message||""));
       if (status_ == "S") {
-        setStore({ ...store, userInfo });
+        setStore({ ...store, userInfo, signedIn:true });
         toast.show({
           render: () => (
             <ToastMsg

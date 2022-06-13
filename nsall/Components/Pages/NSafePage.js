@@ -48,7 +48,7 @@ export default function NSafePage() {
           {
             title: "Location Permission Request",
             message:
-              "This app needs you permission for using your location for querying GeoPoints in Parse!",
+              "NSafe needs your permission for using your location to use its services!",
             buttonPositive: "OK",
           }
         );
@@ -91,6 +91,9 @@ export default function NSafePage() {
       });
     }
   };
+  useEffect(()=>{
+    requestLocationPermissions();
+  },[])
   useEffect(() => {
     const interval = setInterval(() => {
       checkLocation();
