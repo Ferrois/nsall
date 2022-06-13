@@ -122,7 +122,7 @@ export default function Profile({ navigation }) {
                       ? store.userInfo.medicalHist.map(
                           ({ disease, has, severity }) => {
                             return (
-                              <AspectRatio ratio={1} h={"40"}>
+                              <AspectRatio ratio={1} h={"40"} key={disease}>
                                 <Box
                                   bg={"gray.400"}
                                   m="1"
