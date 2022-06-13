@@ -84,7 +84,7 @@ io.on("connection", (socket) => {
         ippt: { goal: 70, record: [] },
         leaves: [],
         loc: {
-          lastloc: { lat: 1.35, lng: 103.8 },
+          lastLoc: { lat: 1.35, lng: 103.8 },
           lastSeen: currentTime,
           active: false,
           vibratePerm: true,
@@ -117,7 +117,8 @@ io.on("connection", (socket) => {
   ///find id and update==>findOneAndUpdate
   socket.on("submitted", async ({ id, date, reason }) => {
     const userData = await UserSchema.find({ id });
-    const currentLeaveArr = userData.leaves.push({
+    const currentLeaveArr = userData.leaves;
+    currentLeaveArr.push({
       date,
       status_: "Pending",
       reason,

@@ -63,6 +63,7 @@ function Home() {
             title: "IPPT Score Calculator",
           }}
         />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
