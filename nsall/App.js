@@ -18,7 +18,6 @@ import NSafePage from "./Components/Pages/NSafePage.js";
 import UtilsPage from "./Components/Pages/UtilsPage.js";
 import { StoreProvider } from "./Store/StoreContext.js";
 import SignUpPage from "./Components/Pages/SignUpPage.js";
-
 //Socket.io configuration (Websocket connection to the server.)
 
 //Navigation options
@@ -157,5 +156,8 @@ export default function App() {
         </NavigationContainer>
       </NativeBaseProvider>
     </StoreProvider>
+    
   );
 }
+
+

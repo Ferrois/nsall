@@ -154,18 +154,7 @@ function CountdownCard() {
 }
 
 const buttonData = [
-  // {
-  //   id: 1,
-  //   flex: 0,
-  //   ratio: 1,
-  //   borderRadius: "2xl",
-  //   directory: "IpptLB",
-  //   color: "yellow.300",
-  //   label: "Rank",
-  //   icon: (
-  //     <Icon as={FontAwesome5} name="trophy" color={"yellow.500"} size={25} />
-  //   ),
-  // },
+
   {
     id: 2,
     flex: 0.25,
