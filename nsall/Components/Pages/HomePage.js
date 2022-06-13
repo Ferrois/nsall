@@ -23,9 +23,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import IpptCalPage from "./IpptCalPage";
 import IpptRecPage from "./IpptRecPage";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { socket } from "../../Helpers/socket";
 import { StyleSheet } from "react-native";
+import { StoreContext } from "../../Store/StoreContext";
 
 //Naviagator in the home widgets
 const Stack = createNativeStackNavigator();
@@ -63,7 +64,6 @@ function Home() {
             title: "IPPT Score Calculator",
           }}
         />
-        
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -155,7 +155,6 @@ function CountdownCard() {
 }
 
 const buttonData = [
-
   {
     id: 2,
     flex: 0.25,
@@ -275,24 +274,35 @@ function IpptCard({ navigation }) {
 }
 
 function LeaveStatusCard() {
+  const { storeCtx } = useContext(StoreContext);
+  const [store, setStore] = storeCtx;
   return (
     <HomeCard
       icon={<Icon as={AntDesign} name="form" size={50} />}
       title="Leaves Status"
-    ></HomeCard>
+    >
+      {store.userInfo.leaves.map(({ date, status_, reason }) => {
+        return (
+          <Box key={date}>
+            <Text>{date}</Text>
+            <Text>{status_}</Text>
+            <Text>{reason}</Text>
+          </Box>
+        );
+      })}
+    </HomeCard>
   );
 }
 
-const styles=StyleSheet.create({
-  text1:{
+const styles = StyleSheet.create({
+  text1: {
     fontWeight: "bold",
     fontSize: 20,
-    paddingTop: 10
+    paddingTop: 10,
   },
-  text2:{
-    
+  text2: {
     fontSize: 15,
-    paddingTop: 10
-  }
-})
+    paddingTop: 10,
+  },
+});
 export default Home;

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { Box, Button, Center, Text, TextArea, useToast } from "native-base";
-=======
-import { Box, Button, Center, HStack, Text, TextArea } from "native-base";
->>>>>>> d6375f7b090de1113a52a350cfae46ca6be71b7b
+import { Box, Button, Center, HStack, Text, TextArea, useToast } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
