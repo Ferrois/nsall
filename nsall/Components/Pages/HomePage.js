@@ -161,7 +161,7 @@ const buttonData = [
     color: "blue.400",
     label: "Record",
     icon: (
-      <Icon as={FontAwesome5} name="list-ul" color={"gray.500"} size={25} />
+      <Icon as={FontAwesome5} name="list-ul" color={"dark.700"} size={25} />
     ),
   },
   {
@@ -172,7 +172,7 @@ const buttonData = [
     directory: "IpptGoal",
     color: "red.400",
     label: "Target",
-    icon: <Icon as={Feather} name="target" color={"light.300"} size={30} />,
+    icon: <Icon as={Feather} name="target" color={"dark.700"} size={30} />,
   },
   {
     id: 4,
@@ -183,7 +183,7 @@ const buttonData = [
     color: "green.600",
     label: "Calculator",
     icon: (
-      <Icon as={FontAwesome5} name="calculator" color={"light.300"} size={30} />
+      <Icon as={FontAwesome5} name="calculator" color={"dark.700"} size={30} />
     ),
   },
 ];

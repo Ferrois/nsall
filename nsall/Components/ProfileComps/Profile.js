@@ -39,20 +39,24 @@ export default function Profile({ navigation }) {
     setShowModal(false);
   };
   useEffect(() => {
-    socket.on("addmedinfo-return", ({ status_,userInfo }) => {
+    socket.on("addmedinfo-return", ({ status_, userInfo }) => {
       if (status_ == "S") {
         sendToast({ title: "Successful!", desc: "Added disease", stat: "S" });
-        setStore({...store,userInfo:userInfo});
-        setShowModal(false)
-        return
+        setStore({ ...store, userInfo: userInfo });
+        setShowModal(false);
+        return;
       }
-      sendToast({ title: "Failure!", desc: "System failed to add disease", stat: "F" });
+      sendToast({
+        title: "Failure!",
+        desc: "System failed to add disease",
+        stat: "F",
+      });
     });
-    return () => socket.off("addmedinfo-return")
-  },[]);
-  const handleSignOut=()=>{
-    setStore({...store,signedIn:false})
-  }
+    return () => socket.off("addmedinfo-return");
+  }, []);
+  const handleSignOut = () => {
+    setStore({ ...store, signedIn: false });
+  };
 
   return (
     <>
@@ -91,16 +95,38 @@ export default function Profile({ navigation }) {
                   alt="Profile Picture"
                 />
                 <Box alignItems={"center"} mt={2}>
-                  <Box py={1} px={4} rounded={"xl"} bg={"gray.100:alpha.80"} alignItems={"center"}>
-                <Text fontSize={"30"} fontWeight={"bold"} color="darkBlue.900" fontFamily={"Poppins"}>
-                  {store.userInfo.name}
-                  </Text>
-                  <Text fontSize={"md"} fontWeight={"bold"} color="darkBlue.900" fontFamily={"Poppins"}>
-                  Ethinicity: {store.userInfo.ethnicity}
-                </Text>
-                <Text fontSize={"md"} fontWeight={"bold"} color="darkBlue.900" fontFamily={"Poppins"}>
-                  NRIC: {store.userInfo.nric}
-                </Text></Box>
+                  <Box
+                    py={1}
+                    px={4}
+                    rounded={"xl"}
+                    bg={"gray.100:alpha.80"}
+                    alignItems={"center"}
+                  >
+                    <Text
+                      fontSize={"30"}
+                      fontWeight={"bold"}
+                      color="darkBlue.900"
+                      fontFamily={"Poppins"}
+                    >
+                      {store.userInfo.name}
+                    </Text>
+                    <Text
+                      fontSize={"md"}
+                      fontWeight={"bold"}
+                      color="darkBlue.900"
+                      fontFamily={"Poppins"}
+                    >
+                      Ethinicity: {store.userInfo.ethnicity}
+                    </Text>
+                    <Text
+                      fontSize={"md"}
+                      fontWeight={"bold"}
+                      color="darkBlue.900"
+                      fontFamily={"Poppins"}
+                    >
+                      NRIC: {store.userInfo.nric}
+                    </Text>
+                  </Box>
                 </Box>
               </Center>
             </Animated.View>
@@ -124,26 +150,44 @@ export default function Profile({ navigation }) {
                         bg={"dark.300"}
                         flex={1}
                       >
-                        <Icon
-                          as={Ionicons}
-                          name="settings-outline"
-                          size={50}
-                          color={"white"}
-                        />
+                        <HStack
+                          alignItems={"center"}
+                          justifyContent={"space-between"}
+                          w={"80%"}
+                        >
+                          <Icon
+                            as={Ionicons}
+                            name="settings-outline"
+                            size={50}
+                            color={"white"}
+                          />
+                          <Text color="white" fontSize={"25"} ml={"3"}>
+                            Setting
+                          </Text>
+                        </HStack>
                       </Button>
                     </AspectRatio>
                     <AspectRatio ratio={2.5} flex={0.5}>
                       <Button
                         onPress={() => handleSignOut()}
-                        bg={"blueGray.500"}
+                        bg={"dark.300"}
                         flex={1}
                       >
-                        <Icon
-                          as={Ionicons}
-                          name="log-out-outline"
-                          size={50}
-                          color={"white"}
-                        />
+                        <HStack
+                          alignItems={"center"}
+                          justifyContent={"space-between"}
+                          w={"80%"}
+                        >
+                          <Icon
+                            as={Ionicons}
+                            name="log-out-outline"
+                            size={50}
+                            color={"white"}
+                          />
+                          <Text color="white" fontSize={"25"} ml={"3"}>
+                            Log Out
+                          </Text>
+                        </HStack>
                       </Button>
                     </AspectRatio>
                   </HStack>
@@ -161,18 +205,25 @@ export default function Profile({ navigation }) {
                     shadow={"9"}
                     mb={"12"}
                   >
-                    <HStack justifyContent={"space-between"}>
-                  <Box py={1} px={4} rounded={"xl"} bg={"gray.100:alpha.80"} alignItems={"center"}>
-
-                      <Text
-                        color={"darkBlue.900"}
-                        fontSize={"2xl"}
-                        fontWeight={"bold"}
-                        fontFamily="Poppins"
+                    <HStack justifyContent={"space-between"} >
+                      
+                      <Box
+                        py={1}
+                        px={4}
+                        rounded={"xl"}
+                        bg={"gray.100:alpha.80"}
+                        alignItems={"center"}
                       >
-                        Medical History
-                      </Text>
+                        <Text
+                          color={"black"}
+                          fontSize={"2xl"}
+                          fontWeight={"bold"}
+                          fontFamily="Poppins"
+                        >
+                          Medical History
+                        </Text>
                       </Box>
+                      
                       <AspectRatio ratio={1}>
                         <Button
                           borderRadius={"2xl"}
@@ -194,23 +245,33 @@ export default function Profile({ navigation }) {
                         store.userInfo.medicalHist.map(
                           ({ disease, has, severity }) => {
                             return (
-                                <Box
-                                  bg={"dark.50:alpha.60"}
-                                  m="1"
-                                  p="2"
-                                  
-                                  borderRadius={"xl"}
-                                  key={disease}
-                                  w={"80%"}
-                                >
-                                  <Box ml={"4"}>
-                                  <Text color={"white"} fontFamily={"Poppins"} fontSize={"25"}>
+                              <Box
+                                bg={"coolGray.900:alpha.50"}
+                                m="1"
+                                p="2"
+                                borderRadius={"xl"}
+                                key={disease}
+                                w={"80%"}
+                              >
+                                <Box ml={"4"}>
+                                  <Text
+                                    color={"white"}
+                                    fontFamily={"Poppins"}
+                                    fontSize={"25"}
+                                  >
                                     {disease}
                                   </Text>
-                                  <Text color={"white"} fontSize={"18"}>Ongoing: {JSON.stringify(has)}</Text>
-                                  <Text color={returnSeverityColor(severity)} fontSize={"18"}>Severity: {severity}</Text>
-                               </Box>
+                                  <Text color={"white"} fontSize={"18"}>
+                                    Ongoing: {JSON.stringify(has)}
+                                  </Text>
+                                  <Text
+                                    color={returnSeverityColor(severity)}
+                                    fontSize={"18"}
+                                  >
+                                    Severity: {severity}
+                                  </Text>
                                 </Box>
+                              </Box>
                             );
                           }
                         )
