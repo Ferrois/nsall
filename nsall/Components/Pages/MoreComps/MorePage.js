@@ -22,7 +22,7 @@ export default function MorePage({navigation}) {
   return (
     <Box safeArea>
       {moreData.map(({id,directory,title})=>{
-        return(<Button onPress={()=>handleNav(directory)}>{title}</Button>)
+        return(<Button key={id} onPress={()=>handleNav(directory)}>{title}</Button>)
       })}
     </Box>
   );
