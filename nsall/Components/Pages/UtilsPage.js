@@ -25,13 +25,6 @@ export default function UtilsPage() {
           name="MorePage"
           component={MorePage}
           options={{ headerShown: false }}
-          bg={{
-            linearGradient: {
-              colors: ["emerald.500", "cyan.400"],
-              start: [0.8, 0],
-              end: [0.2, 0.9],
-            },
-          }}
         />
         <Stack.Screen
           name="Video"
