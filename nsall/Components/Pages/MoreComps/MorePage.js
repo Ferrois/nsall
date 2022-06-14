@@ -3,7 +3,8 @@ import React from "react";
 
 export default function MorePage() {
   return (
-    <Box safeArea>
+    <Box safeArea 
+    >
       <Text>More</Text>
     </Box>
   );
