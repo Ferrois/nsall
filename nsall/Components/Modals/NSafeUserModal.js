@@ -53,7 +53,7 @@ export default function NSafeUserModal({ showModal, handleCloseModal, id }) {
           <Text>Ethnicity: {modalUser.ethnicity}</Text>
           <Text color={"muted.400"} mt={2}>Medical History</Text>
           <Box bg={"blueGray.700"} rounded={"xl"} p={2}>
-          {modalUser.medicalHist.length != 0 ? (
+          {modalUser.length != 0 ? (
             modalUser.medicalHist.map(({ disease, severity, has }) => {
               return (
                 <Box>

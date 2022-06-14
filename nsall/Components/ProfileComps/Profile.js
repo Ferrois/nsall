@@ -51,7 +51,8 @@ export default function Profile({ navigation }) {
       }
       sendToast({ title: "Failure!", desc: "System failed to add disease", stat: "F" });
     });
-  });
+    return () => socket.off("addmedinfo-return")
+  },[]);
   const handleSignOut=()=>{
     setStore({...store,signedIn:false})
   }
