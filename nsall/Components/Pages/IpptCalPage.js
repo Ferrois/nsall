@@ -84,7 +84,7 @@ export default function IpptCalPage({ navigation }) {
               />
               </Button>
               <Text fontSize={"2xl"} fontFamily={"Poppins"}>
-                Target Setting
+                IPPT Calculator
               </Text>
             </HStack>
             <Divider />
