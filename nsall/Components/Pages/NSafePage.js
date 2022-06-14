@@ -6,6 +6,7 @@ import {
   HStack,
   Icon,
   Text,
+  Toast,
   useToast,
   View,
 } from "native-base";
@@ -13,7 +14,6 @@ import { PermissionsAndroid, StyleSheet } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker, UrlTile } from "react-native-maps";
 import ToastMsg from "../Modals/ToastMsg";
-import Geolocation from "react-native-geolocation-service";
 import * as Location from "expo-location";
 import { StoreContext } from "../../Store/StoreContext";
 import { socket } from "../../Helpers/socket";
@@ -24,7 +24,6 @@ export default function NSafePage() {
   const [userId, setUserId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const toast = useToast();
   const [errorMsg, setErrorMsg] = useState(null);
 
   const [active, setActive] = useState(false);
@@ -33,7 +32,7 @@ export default function NSafePage() {
   const [store, setStore] = storeCtx;
 
   const sendToast = ({ title, desc, stat }) => {
-    toast.show({
+    Toast.show({
       render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
       placement: "top",
     });

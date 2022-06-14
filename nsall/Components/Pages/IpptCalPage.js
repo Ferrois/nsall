@@ -58,16 +58,15 @@ export default function IpptCalPage({ navigation }) {
         },
       }}
       // justifyContent={"center"}
-      pt={"12"}
-    >
-      <Box p={4} bg={"gray.100"} rounded={"2xl"} mx={"4"} shadow={5}>
+    ><ScrollView pt={"12"}>
+      <Box p={4} bg={"gray.100"} rounded={"2xl"} mx={"4"} shadow={5} mb={32}>
         <VStack>
           <Center>
             <HStack
               mb={3}
               alignItems={"center"}
-              justifyContent={"space-between"}
-              w={"3/4"}
+              // justifyContent={"space-between"}
+              w={"100%"}
             >
               <Button
                 
@@ -197,7 +196,6 @@ export default function IpptCalPage({ navigation }) {
                 <Spinner color="cyan.500" />
               ) : calcdata != null ? (
                 <Box w={"100%"} justifyContent={"space-between"}>
-                  <ScrollView>
                     <Flex direction="column" style={styles.container}>
                       <Heading size="md" mb={"2"}>
                         Result
@@ -271,7 +269,6 @@ export default function IpptCalPage({ navigation }) {
                         </Box>
                       </Box>
                     </Flex>
-                  </ScrollView>
                   {/* <Text> Push up score: {calcdata.pushups.score} </Text>
                 <Text> Sit up score: {calcdata.situps.score}</Text>
                 <Text> Run score: {calcdata.run.score} </Text>
@@ -283,7 +280,7 @@ export default function IpptCalPage({ navigation }) {
             </Box>
           </Center>
         </VStack>
-      </Box>
+      </Box></ScrollView>
     </Box>
   );
 }

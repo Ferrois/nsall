@@ -1,12 +1,9 @@
 import {
   Box,
   Button,
-  FormControl,
-  Input,
   Modal,
-  Select,
   Text,
-  useToast,
+  Toast,
 } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import returnSeverityColor from "../../Helpers/returnSeverityColor";
@@ -16,11 +13,10 @@ import ToastMsg from "./ToastMsg";
 
 export default function NSafeUserModal({ showModal, handleCloseModal, id }) {
   const { storeCtx } = useContext(StoreContext);
-  const [store, setStore] = storeCtx;
+//   const [store, setStore] = storeCtx;
   const [modalUser, setModalUser] = useState([]);
-  const toast = useToast();
   const sendToast = ({ title, desc, stat }) => {
-    toast.show({
+    Toast.show({
       render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
       placement: "top",
     });

@@ -1,10 +1,16 @@
-import { Box, Text } from "native-base";
-import React from "react";
+import { Box, ScrollView, Text } from "native-base";
+import React, { useContext } from "react";
+import { StoreContext } from "../../../Store/StoreContext";
 
 export default function TipsPage() {
+  const { storeCtx } = useContext(StoreContext);
+  const [store, setStore] = storeCtx;
   return (
     <Box>
-      <Text>Tips page</Text>
+      <ScrollView mb={32}>
+        <Text>Tips page</Text>
+        <Text>{JSON.stringify(store)}</Text>
+      </ScrollView>
     </Box>
   );
 }

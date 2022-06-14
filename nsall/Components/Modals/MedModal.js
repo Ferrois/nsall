@@ -1,4 +1,4 @@
-import { Button, FormControl, Input, Modal, Select, useToast } from "native-base";
+import { Button, FormControl, Input, Modal, Select, Toast } from "native-base";
 import React, { useContext, useState } from "react";
 import { socket } from "../../Helpers/socket";
 import { StoreContext } from "../../Store/StoreContext";
@@ -7,11 +7,10 @@ import ToastMsg from "./ToastMsg";
 export default function MedModal({ showModal, handleCloseModal }) {
     const {storeCtx} = useContext(StoreContext)
     const [store,setStore] = storeCtx
-    const toast = useToast();
     const [severity, setSeverity] = useState("");
     const [disease,setDisease] = useState("");
     const sendToast = ({ title, desc, stat }) => {
-        toast.show({
+        Toast.show({
           render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
           placement: "top",
         });

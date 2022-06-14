@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "nsall",
+    "name": "NSall",
     "slug": "nsall",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,19 +14,24 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-      "foregroundImage": "./assets/appicon.png",
+        "foregroundImage": "./assets/appicon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.ferrois.nsall",
-      "permissions":["ACCESS_COARSE_LOCATION","ACCESS_FINE_LOCATION","ACCESS_BACKGROUND_LOCATION"]
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyCyNLcl15R3EzAtaIjfOx3O_aQUP_qvz48" }
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/appicon2.png"

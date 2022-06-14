@@ -235,6 +235,19 @@ io.on("connection", (socket) => {
       socket.emit("retrieve-info-return", { status_: "F", info: {} });
     }
   });
+  socket.on("addipptinfo", async ({ id, date, pushups, situps, run, score })=>{
+    const userData = await UserSchema.findOne({id});
+    const ipptData = userData.ippt;
+    ipptData.record.push({date,pushups,situps,run,score});
+    try{
+      const saveData = await UserSchema.findOneAndUpdate({id},{ippt:ipptData})
+      const updatedUser = await UserSchema.findOne({id});
+      socket.emit("addipptinfo-return",{status_:"S",userInfo:updatedUser})
+    }catch(err){
+      console.log(err)
+      socket.emit("addipptinfo-return",{status_:"F"})
+    }
+  });
 });
 
 server.listen(process.env.PORT || PORT, () => {

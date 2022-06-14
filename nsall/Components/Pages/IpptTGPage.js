@@ -74,7 +74,7 @@ export default function IpptTGPage({navigation}) {
     }}>
       <Box p={4} rounded={"2xl"} bg={"gray.100"} mx={5}>
         <Center>
-          <HStack mb={2} alignItems={"center"} justifyContent={"space-between"} w={"3/4"}>
+          <HStack mb={2} alignItems={"center"} w={"100%"}>
             <Button bg={"gray.100"} onPress={()=>{navigation.navigate("HomePage")}} >
               <Icon
                 as={AntDesign}

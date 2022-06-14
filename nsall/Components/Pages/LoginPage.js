@@ -7,6 +7,7 @@ import {
   ScrollView,
   useToast,
   Spinner,
+  Toast,
 } from "native-base";
 import { StyleSheet, useWindowDimensions, Pressable } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
@@ -16,7 +17,6 @@ import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "../Modals/ToastMsg";
 
 const LoginPage = ({ navigation, onPress }) => {
-  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
   const [username, setUsername] = useState("");
@@ -27,9 +27,9 @@ const LoginPage = ({ navigation, onPress }) => {
   const [store, setStore] = storeCtx;
 
   const sendToast = ({ title, desc, stat }) => {
-    toast.show({
+    Toast.show({
       render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
-      placement: "bottom",
+      placement: "top",
     });
   };
 

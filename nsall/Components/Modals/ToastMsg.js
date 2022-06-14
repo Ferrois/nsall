@@ -4,7 +4,7 @@ import React from "react";
 export default function ToastMsg({ title, desc, stat }) {
   return (
     <Box
-      bg={stat == "S" ? "teal.500:alpha.80" : stat == "F" ? "danger.600:alpha.80" : "dark.100:alpha.80"}
+      bg={stat == "S" ? "teal.500" : stat == "F" ? "danger.600" : "dark.100"}
       px="2"
       py="1"
       rounded="md"

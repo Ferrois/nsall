@@ -3,14 +3,12 @@ import {
   Box,
   Button,
   Center,
-  Divider,
-  Flex,
   HStack,
   Icon,
   Image,
   ScrollView,
   Text,
-  useToast,
+  Toast,
   VStack,
 } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
@@ -26,11 +24,10 @@ import returnSeverityColor from "../../Helpers/returnSeverityColor";
 export default function Profile({ navigation }) {
   const { storeCtx } = useContext(StoreContext);
   const [store, setStore] = storeCtx;
-  const toast = useToast();
 
   const [showModal, setShowModal] = useState(false);
   const sendToast = ({ title, desc, stat }) => {
-    toast.show({
+    Toast.show({
       render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
       placement: "top",
     });
