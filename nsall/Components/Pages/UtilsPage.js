@@ -1,16 +1,29 @@
 import { Box, Button, Center, Text } from "native-base";
 import React, { useContext } from "react";
 import { StoreContext } from "../../Store/StoreContext";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { socket } from "../../Helpers/socket";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import MorePage from "./MoreComps/MorePage";
+
+const Stack = createNativeStackNavigator();
 
 export default function UtilsPage() {
   const { storeCtx, themeCtx} = useContext(StoreContext);
   const [store,setStore] = storeCtx;
-  const [theme, setTheme]= themeCtx
+  const [theme, setTheme]= themeCtx;
   return (
-    <Box>
-      <Center>Utilities</Center>
-      <Button title="Switch to Dark Mode" onPress={() => setTheme("dark")} />
-      <Text>{JSON.stringify(store)}</Text>
-    </Box>
+    // <>
+    <NavigationContainer independent={true}>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="MorePage"
+          component={MorePage}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
