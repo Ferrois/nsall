@@ -114,7 +114,7 @@ function CountdownCard() {
           color="yellow.600"
         />
       }
-      title="Countdown"
+      title="Countdown to ORD"
     >
       <Text
         fontSize={"md"}
