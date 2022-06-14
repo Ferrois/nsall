@@ -11,8 +11,6 @@ import {
   Divider,
   VStack,
   Flex,
-  FlatList,
-  Heading,
 } from "native-base";
 import useTimeLeft from "../../Hooks/useTimeLeft";
 import HomeCard from "../UI/HomeCard";
@@ -25,11 +23,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import IpptCalPage from "./IpptCalPage";
 import IpptRecPage from "./IpptRecPage";
-import { useContext, useEffect } from "react";
-import { socket } from "../../Helpers/socket";
+import { useContext } from "react";
 import { StyleSheet } from "react-native";
 import { StoreContext } from "../../Store/StoreContext";
-import { SafeAreaView } from "react-native-safe-area-context";
 import IpptTGPage from "./IpptTGPage";
 
 //Naviagator in the home widgets

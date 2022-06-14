@@ -12,7 +12,7 @@ import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "./ToastMsg";
 
 export default function NSafeUserModal({ showModal, handleCloseModal, id }) {
-  const { storeCtx } = useContext(StoreContext);
+//   const { storeCtx } = useContext(StoreContext);
 //   const [store, setStore] = storeCtx;
   const [modalUser, setModalUser] = useState([]);
   const sendToast = ({ title, desc, stat }) => {

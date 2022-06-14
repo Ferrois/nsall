@@ -4,8 +4,6 @@ import {
   Box,
   Input,
   Text,
-  ScrollView,
-  useToast,
   Spinner,
   Toast,
 } from "native-base";
