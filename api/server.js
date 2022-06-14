@@ -61,8 +61,8 @@ const adminInfo = {
     active: false,
     vibratePerm: true,
   },
-  cdt: {
-    time: 1639682640000,
+  settings: {
+    adtime: 1639682640000,
   },
 };
 
@@ -98,8 +98,8 @@ io.on("connection", (socket) => {
           active: false,
           vibratePerm: true,
         },
-        cdt: {
-          time: currentTime,
+        settings: {
+          adtime: currentTime,
         },
       });
 
