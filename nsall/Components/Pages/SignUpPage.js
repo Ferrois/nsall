@@ -59,7 +59,7 @@ export default function SignUpPage({ navigation }) {
         );
       if (status_ == "S") {
         setStore({ ...store, userInfo, signedIn: true });
-        toast.show({
+        Toast.show({
           render: () => (
             <ToastMsg
               title={"Success!"}

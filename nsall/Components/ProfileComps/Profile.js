@@ -231,7 +231,7 @@ export default function Profile({ navigation }) {
                       </AspectRatio>
                     </HStack>
                     <HStack flexWrap={"wrap"} justifyContent={"center"}>
-                      {store.userInfo.medicalHist ? (
+                      {store.userInfo.medicalHist.length != 0 ? (
                         store.userInfo.medicalHist.map(
                           ({ disease, has, severity }) => {
                             return (
@@ -265,9 +265,9 @@ export default function Profile({ navigation }) {
                             );
                           }
                         )
-                      ) : (
-                        <Text>No Medical History</Text>
-                      )}
+                      ) : 
+                        <Text fontSize={"lg"} color={"muted.700"} mt={3}>No Medical History</Text>
+                      }
                     </HStack>
                   </Box>
                 </VStack>
