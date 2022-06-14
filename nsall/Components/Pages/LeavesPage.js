@@ -88,7 +88,7 @@ export default function LeavesPage() {
         >
           <Text style={styles.text1}>Set Date</Text>
         </Button>
-        <Text style={styles.date}>
+        <Text style={styles.date} ml={"1"}>
           {" "}
           {date ? date.toDateString() : "No date selected"}
         </Text>
