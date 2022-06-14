@@ -31,7 +31,7 @@ const directories = [
     options: {
       headerShown: true,
       headerBackVisible: true,
-      title: "",
+      title: "Settings",
     },
   },
 ];

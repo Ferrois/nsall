@@ -160,26 +160,44 @@ export default function Profile({ navigation }) {
                         bg={"dark.300"}
                         flex={1}
                       >
-                        <Icon
-                          as={Ionicons}
-                          name="settings-outline"
-                          size={50}
-                          color={"white"}
-                        />
+                        <HStack
+                          alignItems={"center"}
+                          justifyContent={"space-between"}
+                          w={"80%"}
+                        >
+                          <Icon
+                            as={Ionicons}
+                            name="settings-outline"
+                            size={50}
+                            color={"white"}
+                          />
+                          <Text color="white" fontSize={"25"} ml={"3"}>
+                            Setting
+                          </Text>
+                        </HStack>
                       </Button>
                     </AspectRatio>
                     <AspectRatio ratio={2.5} flex={0.5}>
                       <Button
                         onPress={() => handleSignOut()}
-                        bg={"blueGray.500"}
+                        bg={"dark.300"}
                         flex={1}
                       >
-                        <Icon
-                          as={Ionicons}
-                          name="log-out-outline"
-                          size={50}
-                          color={"white"}
-                        />
+                        <HStack
+                          alignItems={"center"}
+                          justifyContent={"space-between"}
+                          w={"80%"}
+                        >
+                          <Icon
+                            as={Ionicons}
+                            name="log-out-outline"
+                            size={50}
+                            color={"white"}
+                          />
+                          <Text color="white" fontSize={"25"} ml={"3"}>
+                            Log Out
+                          </Text>
+                        </HStack>
                       </Button>
                     </AspectRatio>
                   </HStack>
@@ -214,6 +232,7 @@ export default function Profile({ navigation }) {
                           Medical History
                         </Text>
                       </Box>
+                      
                       <AspectRatio ratio={1}>
                         <Button
                           borderRadius={"2xl"}
@@ -236,7 +255,7 @@ export default function Profile({ navigation }) {
                           ({ disease, has, severity }) => {
                             return (
                               <Box
-                                bg={"dark.50:alpha.60"}
+                                bg={"coolGray.900:alpha.50"}
                                 m="1"
                                 p="2"
                                 borderRadius={"xl"}

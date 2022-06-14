@@ -1,5 +1,13 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Box, Button, Center, ScrollView, Text, Toast } from "native-base";
+import {
+  Box,
+  Button,
+  Center,
+  HStack,
+  ScrollView,
+  Text,
+  Toast,
+} from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { socket } from "../../Helpers/socket";
 import { StoreContext } from "../../Store/StoreContext";
@@ -59,24 +67,27 @@ export default function SettingsPage() {
   }, []);
 
   return (
-    <Box flex={1} safeArea mt={"16"}>
+    <Box flex={1} safeArea mt={"32"}>
       <Center>
-        <Text fontSize={"3xl"}>Settings</Text>
         <Text mt={4} color={"muted.500"} w={"3/4"}>
           Pick the time at which you got admitted to NS{" "}
           {"(for countdown to ORD)"}
         </Text>
-        <Button
-          onPress={() => {
-            setShow(true);
-          }}
-        >
-          Set Admission Date
-        </Button>
-        <Text>{date ? date.toDateString() : "No Date Set"}</Text>
-        <Button bg={"success.500"} mt={5} onPress={() => handleSave()}>
-          Save
-        </Button>
+        <HStack>
+          <Button
+            onPress={() => {
+              setShow(true);
+            }}
+          >
+            Set Admission Date
+          </Button>
+          <Button bg={"success.600"} ml={2} onPress={() => handleSave()}>
+            Save
+          </Button>
+        </HStack>
+        <Text fontWeight={"bold"} fontSize={"lg"}>
+          Date : {date ? date.toDateString() : "No Date Set"}
+        </Text>
       </Center>
       {show && (
         <DateTimePicker
