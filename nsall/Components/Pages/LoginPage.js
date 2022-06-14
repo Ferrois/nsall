@@ -60,10 +60,6 @@ const LoginPage = ({ navigation, onPress }) => {
   }, []);
 
   return (
-    // <ScrollView
-    //   showsVerticalScrollIndicator={false}
-    //   contentContainerStyle={{ flexGrow: 1 }}
-    // >
     <Box style={styles.root} safeArea justifyContent={"center"}>
       <Image
         source={Logo}
@@ -87,22 +83,22 @@ const LoginPage = ({ navigation, onPress }) => {
         mt={2}
       />
       {isLoading && <Spinner />}
-      <Button onPress={handleLogin} bg={"primary.600"} w={"1/2"} mt={"2"}>
+      <Button onPress={handleLogin} bg={"primary.600"} w={"3/4"} mt={"2"}>
         <Text style={styles.text1}>Log In</Text>
       </Button>
-      <Button onPress={onSignUp} bg={"gray.600"} w={"1/2"} mt={"2"}>
+      <Button onPress={onSignUp} bg={"gray.600"} w={"3/4"} mt={"2"}>
         <Text style={styles.text1}>Create new account</Text>
       </Button>
       <Button
         bg={"danger.600"}
         onPress={() => {
-          setUsername("admin");
-          setPassword("admin");
-          socket.emit("login", { username: "admin", password: "admin" });
+          setUsername("admin12");
+          setPassword("admin12");
+          socket.emit("login", { username: "admin12", password: "admin12" });
         }}
         mt={5}
       >
-        Navigate into app as admin:admin
+        Navigate into app as admin12:admin12
       </Button>
       <Text bottom={"0"} left={"0"} position={"absolute"}>
         v1.0.0 production

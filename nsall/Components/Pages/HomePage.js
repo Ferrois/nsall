@@ -106,7 +106,10 @@ function HomePage({ navigation }) {
 }
 
 function CountdownCard() {
-  const timeLeft = useTimeLeft("December 17, 2022 03:24:00");
+  const {storeCtx} = useContext(StoreContext);
+  const [store,setStore] = storeCtx;
+  const timeAft2y = store.userInfo.settings.adtime + 63113852000 || 0;
+  const timeLeft = useTimeLeft(timeAft2y);
   return (
     <HomeCard
       icon={
@@ -150,6 +153,7 @@ function CountdownCard() {
         <Text style={styles.text1}> {timeLeft[3]}</Text>
         <Text style={styles.text2}> Secs</Text>
       </Flex>
+      <Text color={"muted.500"} fontFamily={"Poppins"} mt={2}>{timeLeft[0] < 0 ? "Congratulations! You ORDed :)" : timeLeft[0] < 365 ? "More than halfway there! :D" : "Keep going! :>"  }</Text>
     </HomeCard>
   );
 }

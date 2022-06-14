@@ -73,6 +73,7 @@ export default function SettingsPage() {
           Pick the time at which you got admitted to NS{" "}
           {"(for countdown to ORD)"}
         </Text>
+        <Text>Current Date: {store.userInfo.settings.adtime ? new Date(store.userInfo.settings.adtime).toDateString() : "No Date Set"}</Text>
         <HStack>
           <Button
             onPress={() => {
@@ -86,8 +87,9 @@ export default function SettingsPage() {
           </Button>
         </HStack>
         <Text fontWeight={"bold"} fontSize={"lg"}>
-          Date : {date ? date.toDateString() : "No Date Set"}
+          Set Date : {date ? date.toDateString() : "No Date Set"}
         </Text>
+        <Text color={"muted.400"}>You may need to restart your application to reflect the changes on the countdown timer</Text>
       </Center>
       {show && (
         <DateTimePicker

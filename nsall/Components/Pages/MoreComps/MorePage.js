@@ -21,11 +21,11 @@ const moreData = [
     directory: "Videos",
     title: "Videos",
   },
-  {
-    id: 3,
-    directory: "Tips",
-    title: "Tips",
-  },
+  // {
+  //   id: 3,
+  //   directory: "Tips",
+  //   title: "Tips",
+  // },
 ];
 
 export default function MorePage({ navigation }) {

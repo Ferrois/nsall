@@ -93,7 +93,7 @@ io.on("connection", (socket) => {
         ippt: { goal: 70, record: [] },
         leaves: [],
         loc: {
-          lastLoc: { lat: 1.35, lng: 103.8 },
+          lastLoc: { lat: 0, lng: 0 },
           lastSeen: currentTime,
           active: false,
           vibratePerm: true,
@@ -228,6 +228,7 @@ io.on("connection", (socket) => {
         name: userData.name,
         ethnicity: userData.ethnicity,
         medicalHist: userData.medicalHist,
+        lastSeen: userData.loc.lastSeen
       };
       socket.emit("retrieve-info-return", { status_: "S", info: requiredData });
     } catch (err) {

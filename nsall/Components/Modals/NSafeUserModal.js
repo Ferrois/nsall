@@ -47,12 +47,13 @@ export default function NSafeUserModal({ showModal, handleCloseModal, id }) {
           {/* <Text>{JSON.stringify(modalUser)}</Text> */}
           <Text>Name: {modalUser.name}</Text>
           <Text>Ethnicity: {modalUser.ethnicity}</Text>
+          <Text>Last Seen: {new Date(modalUser.lastSeen).toString()}</Text>
           <Text color={"muted.400"} mt={2}>Medical History</Text>
           <Box bg={"blueGray.700"} rounded={"xl"} p={2}>
           {modalUser.length != 0 ? (
             modalUser.medicalHist.map(({ disease, severity, has }) => {
               return (
-                <Box>
+                <Box key={disease}>
                   <Text color={returnSeverityColor(severity)}>
                     {disease} : {severity}
                   </Text>
