@@ -72,11 +72,15 @@ io.on("connection", (socket) => {
   socket.on(
     "signup",
     async ({ name_, username, password, nric, ethnicity, group }) => {
-      console.log("Signing up"+username+":"+password)
+      console.log("Signing up" + username + ":" + password);
       const currentTime = Date.now();
       const existingUser = await UserSchema.find({ username: username }).exec();
-      console.log(existingUser)
-      if (existingUser.length != 0) return socket.emit("signup-return",{status_:"F",message:"Someone already has this username!"});
+      console.log(existingUser);
+      if (existingUser.length != 0)
+        return socket.emit("signup-return", {
+          status_: "F",
+          message: "Someone already has this username!",
+        });
       const userData = new UserSchema({
         name: name_,
         username,
@@ -94,9 +98,9 @@ io.on("connection", (socket) => {
           active: false,
           vibratePerm: true,
         },
-        cdt:{
-          time:currentTime
-        }
+        cdt: {
+          time: currentTime,
+        },
       });
 
       console.log("Signed up " + username);
@@ -137,10 +141,13 @@ io.on("connection", (socket) => {
         { id },
         { leaves: currentLeaveArr }
       );
-      const updatedUserInfo = await UserSchema.findOne({id})
-      socket.emit("submitted-return", {status_:"S",userInfo:updatedUserInfo})
+      const updatedUserInfo = await UserSchema.findOne({ id });
+      socket.emit("submitted-return", {
+        status_: "S",
+        userInfo: updatedUserInfo,
+      });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       socket.emit("submitted-return", { status_: "F" });
     }
   });
@@ -158,8 +165,8 @@ io.on("connection", (socket) => {
         { id },
         { loc: locationData }
       );
-      const updatedUserInfo = await UserSchema.findOne({id});
-      socket.emit("location-return",({userInfo:updatedUserInfo}))
+      const updatedUserInfo = await UserSchema.findOne({ id });
+      socket.emit("location-return", { userInfo: updatedUserInfo });
     } catch (err) {
       console.log(err);
     }
@@ -185,26 +192,49 @@ io.on("connection", (socket) => {
         { id },
         { medicalHist: medArr }
       );
-      const updatedUserInfo = await UserSchema.findOne({id})
-      socket.emit("addmedinfo-return", {status_:"S",userInfo:updatedUserInfo})
+      const updatedUserInfo = await UserSchema.findOne({ id });
+      socket.emit("addmedinfo-return", {
+        status_: "S",
+        userInfo: updatedUserInfo,
+      });
     } catch (err) {
       console.log(err);
-      socket.emit("addmedinfo-return",{status_:"F"})
+      socket.emit("addmedinfo-return", { status_: "F" });
     }
   });
-  socket.on("goal-change",async ({id,goal})=>{
-    const userData = await UserSchema.findOne({id});
-    const updatedIppt = userData.ippt
-    updatedIppt.goal = goal
-    try{
-    const savedData = await UserSchema.findOneAndUpdate({id},{ippt:updatedIppt});
-    const updatedUserData = await UserSchema.findOne({id});
-    socket.emit("goal-change-return",({status_:"S",userInfo:updatedUserData}))
-    }catch(err){
-      console.log(err)
+  socket.on("goal-change", async ({ id, goal }) => {
+    const userData = await UserSchema.findOne({ id });
+    const updatedIppt = userData.ippt;
+    updatedIppt.goal = goal;
+    try {
+      const savedData = await UserSchema.findOneAndUpdate(
+        { id },
+        { ippt: updatedIppt }
+      );
+      const updatedUserData = await UserSchema.findOne({ id });
+      socket.emit("goal-change-return", {
+        status_: "S",
+        userInfo: updatedUserData,
+      });
+    } catch (err) {
+      socket.emit("goal-change-return", { status_: "F" });
+      console.log(err);
     }
-    
-  })
+  });
+  socket.on("retrieve-info", async ({ id }) => {
+    try {
+      const userData = await UserSchema.findOne({ id });
+      const requiredData = {
+        name: userData.name,
+        ethnicity: userData.ethnicity,
+        medicalHist: userData.medicalHist,
+      };
+      socket.emit("retrieve-info-return", { status_: "S", info: requiredData });
+    } catch (err) {
+      console.log(err);
+      socket.emit("retrieve-info-return", { status_: "F", info: {} });
+    }
+  });
 });
 
 server.listen(process.env.PORT || PORT, () => {

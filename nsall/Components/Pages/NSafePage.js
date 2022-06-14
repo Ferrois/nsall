@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Center,
+  HStack,
+  Icon,
   Text,
   useToast,
   View,
@@ -15,10 +17,14 @@ import Geolocation from "react-native-geolocation-service";
 import * as Location from "expo-location";
 import { StoreContext } from "../../Store/StoreContext";
 import { socket } from "../../Helpers/socket";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import NSafeUserModal from "../Modals/NSafeUserModal";
 
 export default function NSafePage() {
+  const [userId, setUserId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   const toast = useToast();
-  // const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
   const [active, setActive] = useState(false);
@@ -31,6 +37,14 @@ export default function NSafePage() {
       render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
       placement: "top",
     });
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  const handleOpenModal = (userIdd) => {
+    setUserId(userIdd);
+    setShowModal(true);
   };
 
   const requestLocationPermissions = async () => {
@@ -91,13 +105,15 @@ export default function NSafePage() {
       });
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     requestLocationPermissions();
-    socket.on("location-return",({userInfo})=>{
-      setStore({...store,userInfo})
-    })
-    return ()=>{socket.off("location-return")}
-  },[])
+    socket.on("location-return", ({ userInfo }) => {
+      setStore({ ...store, userInfo });
+    });
+    return () => {
+      socket.off("location-return");
+    };
+  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       checkLocation();
@@ -108,7 +124,7 @@ export default function NSafePage() {
     <Box flex={1}>
       <MapView
         style={style.map}
-        region={{
+        initialRegion={{
           latitude: store.userInfo.loc.lastLoc.lat || 1.35,
           longitude: store.userInfo.loc.lastLoc.lng || 103.8,
           latitudeDelta: 0.0922,
@@ -120,7 +136,11 @@ export default function NSafePage() {
           maximumZ={19}
           flipY={false}
         />
-        <MarkersView storeCtx={storeCtx} />
+        <MarkersView
+          storeCtx={storeCtx}
+          handleOpenModal={handleOpenModal}
+          handleCloseModal={handleCloseModal}
+        />
       </MapView>
       <Box
         flex={0.25}
@@ -140,6 +160,7 @@ export default function NSafePage() {
           </AspectRatio>
         </Center>
       </Box>
+      <NSafeUserModal id={userId} showModal={showModal} handleCloseModal={handleCloseModal}/>
     </Box>
   );
 }
@@ -155,7 +176,7 @@ const style = StyleSheet.create({
   },
 });
 
-function MarkersView({ storeCtx }) {
+function MarkersView({ storeCtx, handleCloseModal, handleOpenModal }) {
   const [store, setStore] = storeCtx;
   const [locArr, setLocArr] = useState(null);
   useEffect(() => {
@@ -170,28 +191,35 @@ function MarkersView({ storeCtx }) {
   useEffect(() => {
     socket.on("ping-loc-return", (locArrRes) => {
       setLocArr(locArrRes);
-      setStore({...store,groupLoc:locArrRes})
+      setStore({ ...store, groupLoc: locArrRes });
     });
     return () => socket.off("ping-loc-return");
   }, []);
+
   return (
     <>
       {locArr &&
         locArr.map(({ id, loc, name }) => {
-          // <Marker coordinate={{ latitude: 1.35, longitude: 103.8 }}>
-          //   <Text>{JSON.stringify(locObj)}</Text>
-          // </Marker>;
-          //  coordinate={{latitude:1.35,longitude:103.8}}>
           return (
             <Marker
               key={id}
               coordinate={{
-                latitude: loc.lastLoc.lat||0,
-                longitude: loc.lastLoc.lng||0,
+                latitude: loc.lastLoc.lat || 0,
+                longitude: loc.lastLoc.lng || 0,
               }}
+              onPress={()=>handleOpenModal(id)}
             >
-              <Box bg={"red.600"} borderRadius={"lg"}>
-                <Text color={"white"}>{name}</Text>
+              <Box bg={"red.600:alpha.80"} borderRadius={"md"}>
+                <HStack alignItems={"center"}>
+                  <Text color={"white"}> {name} </Text>
+                  <Icon
+                    as={AntDesign}
+                    color={"blueGray.200"}
+                    name="user"
+                    size="4"
+                  />
+                  <Text> </Text>
+                </HStack>
               </Box>
             </Marker>
           );
