@@ -1,11 +1,29 @@
-import { Box, Text } from "native-base";
+import { Box, Button, Text } from "native-base";
 import React from "react";
 
-export default function MorePage() {
+const moreData = [{
+  id:1,
+  directory:"Emart",
+  title:"Emart"
+},{
+  id:2,
+  directory:"Videos",
+  title:"Videos"
+},{
+  id:3,
+  directory:"Tips",
+  title:"Tips"
+}]
+
+export default function MorePage({navigation}) {
+  const handleNav = (directory) => {
+    navigation.navigate(directory)
+  }
   return (
-    <Box safeArea 
-    >
-      <Text>More</Text>
+    <Box safeArea>
+      {moreData.map(({id,directory,title})=>{
+        return(<Button onPress={()=>handleNav(directory)}>{title}</Button>)
+      })}
     </Box>
   );
 }
