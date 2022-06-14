@@ -93,6 +93,10 @@ export default function NSafePage() {
   };
   useEffect(()=>{
     requestLocationPermissions();
+    socket.on("location-return",({userInfo})=>{
+      setStore({...store,userInfo})
+    })
+    return ()=>{socket.off("location-return")}
   },[])
   useEffect(() => {
     const interval = setInterval(() => {
@@ -105,8 +109,8 @@ export default function NSafePage() {
       <MapView
         style={style.map}
         region={{
-          latitude: 1.35,
-          longitude: 103.8,
+          latitude: store.userInfo.loc.lastLoc.lat || 1.35,
+          longitude: store.userInfo.loc.lastLoc.lng || 103.8,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}

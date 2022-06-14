@@ -158,6 +158,8 @@ io.on("connection", (socket) => {
         { id },
         { loc: locationData }
       );
+      const updatedUserInfo = await UserSchema.findOne({id});
+      socket.emit("location-return",({userInfo:updatedUserInfo}))
     } catch (err) {
       console.log(err);
     }

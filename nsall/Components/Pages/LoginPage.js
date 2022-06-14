@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   useToast,
+  Spinner,
 } from "native-base";
 import { StyleSheet, useWindowDimensions, Pressable } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
@@ -16,6 +17,7 @@ import ToastMsg from "../Modals/ToastMsg";
 
 const LoginPage = ({ navigation, onPress }) => {
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +37,7 @@ const LoginPage = ({ navigation, onPress }) => {
     navigation.navigate("Register");
   };
   const handleLogin = () => {
+    setIsLoading(true);
     socket.emit("login", { username: username, password: password });
   };
   const handleWrong = () => {
@@ -46,8 +49,9 @@ const LoginPage = ({ navigation, onPress }) => {
   };
   useEffect(() => {
     socket.on("login-return", ({ status_, userInfo }) => {
+      setIsLoading(false);
       if (status_ == "S") {
-        setStore({ ...store, userInfo, signedIn:true });
+        setStore({ ...store, userInfo, signedIn: true });
         navigation.reset({
           index: 0,
           routes: [{ name: "Interface" }],
@@ -78,29 +82,32 @@ const LoginPage = ({ navigation, onPress }) => {
         alt="logo"
       />
       <Input
+        bg={"blueGray.100"}
         placeholder="Username"
         value={username}
         onChangeText={(value) => setUsername(value)}
         mt={5}
       />
       <Input
+        bg={"blueGray.100"}
         placeholder="Password"
         value={password}
         onChangeText={(value) => setPassword(value)}
         secureTextEntry={true}
         mt={2}
       />
+      {isLoading && <Spinner />}
       <Button onPress={handleLogin} bg={"primary.600"} w={"1/2"} mt={"2"}>
-        <Text style={styles.text1}>Log In</Text> 
+        <Text style={styles.text1}>Log In</Text>
       </Button>
       <Button onPress={onSignUp} bg={"dark.700"} w={"3/4"} mt={1}>
         <Text color={"black"}>Create new account</Text>
       </Button>
       <Button
-      bg={"danger.600"}
+        bg={"danger.600"}
         onPress={() => {
           setUsername("admin");
-          setPassword("admin")
+          setPassword("admin");
           socket.emit("login", { username: "admin", password: "admin" });
         }}
         mt={5}

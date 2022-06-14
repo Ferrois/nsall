@@ -278,7 +278,7 @@ function LeaveStatusCard() {
   return (
     <HomeCard
       icon={<Icon as={AntDesign} name="form" size={50} />}
-      title="Leaves Status"
+      title="Leave Status"
     >
       {store.userInfo.leaves.length != 0 ? (
         store.userInfo.leaves.map(({ date, status_, reason }) => {
