@@ -3,16 +3,13 @@ import {
   Button,
   Center,
   HStack,
-  Input,
   Slider,
   Spinner,
   Text,
   VStack,
   Flex,
-  Spacer,
   ScrollView,
   Heading,
-  Container,
   Divider,
   Icon,
 } from "native-base";
@@ -20,7 +17,6 @@ import React, { useEffect, useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { StyleSheet } from "react-native";
 import returnMinsec from "../../Helpers/returnMinsec";
-import useFetch from "../../Hooks/useFetch";
 
 export default function IpptCalPage({ navigation }) {
   const [age, setAge] = useState(20);

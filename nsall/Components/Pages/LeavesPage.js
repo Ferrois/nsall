@@ -1,11 +1,10 @@
 import {
   Box,
   Button,
-  Center,
   HStack,
   Text,
   TextArea,
-  useToast,
+  Toast,
 } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
@@ -15,7 +14,6 @@ import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "../Modals/ToastMsg";
 
 export default function LeavesPage() {
-  const toast = useToast();
   const { storeCtx } = useContext(StoreContext);
   const [store, setStore] = storeCtx;
   const [show, setShow] = useState(false);
@@ -50,7 +48,7 @@ export default function LeavesPage() {
     });
   };
   const sendToast = ({ title, desc, stat }) => {
-    toast.show({
+    Toast.show({
       render: () => <ToastMsg title={title} desc={desc} stat={stat} />,
       placement: "top",
     });

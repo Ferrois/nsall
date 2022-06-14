@@ -7,8 +7,6 @@ import {
   Icon,
   Text,
   Toast,
-  useToast,
-  View,
 } from "native-base";
 import { PermissionsAndroid, StyleSheet } from "react-native";
 import React, { useContext, useEffect, useState } from "react";

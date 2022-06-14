@@ -120,6 +120,17 @@ export default function IpptRecPage({ navigation }) {
                                 {returnMinsec(run)[1]}`
                               </Text>
                             </Box>
+                            <Box
+                              alignItems={"center"}
+                              overflow="hidden"
+                              borderColor="primary.400"
+                              borderWidth="2"
+                              bg="primary.200"
+                            >
+                              <Text>
+                                Score: {score}
+                              </Text>
+                            </Box>
                           </Box>
                         </Flex>
                       </Box>

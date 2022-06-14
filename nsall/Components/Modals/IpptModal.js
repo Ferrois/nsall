@@ -58,7 +58,7 @@ export default function IpptModal({ showModal, handleCloseModal }) {
       pushups,
       situps,
       run,
-      score,
+      score:score.total,
     });
     setPushups("");
     setSitups("");
@@ -124,7 +124,7 @@ export default function IpptModal({ showModal, handleCloseModal }) {
           <FormControl>
             <FormControl.Label>Situps</FormControl.Label>
             <Input
-              value={pushups}
+              value={situps}
               keyboardType={"numeric"}
               onChangeText={(value) => setSitups(value)}
             />
@@ -132,7 +132,7 @@ export default function IpptModal({ showModal, handleCloseModal }) {
           <FormControl>
             <FormControl.Label>{"Run (In seconds)"}</FormControl.Label>
             <Input
-              value={pushups}
+              value={run}
               keyboardType={"numeric"}
               onChangeText={(value) => setRun(value)}
             />

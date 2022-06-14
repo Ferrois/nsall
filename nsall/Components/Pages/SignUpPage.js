@@ -6,7 +6,7 @@ import {
   Select,
   Spinner,
   Text,
-  useToast,
+  Toast,
   VStack,
 } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
@@ -24,9 +24,8 @@ export default function SignUpPage({ navigation }) {
   const [nric, setNRIC] = useState("");
   const [ethnicity, setEthnicity] = useState("");
   const [group, setGroup] = useState("1");
-  const toast = useToast();
   const sendToast = (desc) => {
-    toast.show({
+    Toast.show({
       render: () => (
         <ToastMsg title={"Missing Information!"} desc={desc} stat="F" />
       ),
