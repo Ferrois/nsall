@@ -58,9 +58,9 @@ function Home() {
           name="IpptCal"
           component={IpptCalPage}
           options={{
-            headerShown: true,
-            headerBackVisible: true,
-            title: "IPPT Score Calculator",
+            headerShown: false,
+            // headerBackVisible: true,
+            // title: "IPPT Score Calculator",
           }}
         />
       </Stack.Navigator>

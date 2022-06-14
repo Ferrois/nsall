@@ -192,6 +192,19 @@ io.on("connection", (socket) => {
       socket.emit("addmedinfo-return",{status_:"F"})
     }
   });
+  socket.on("goal-change",async ({id,goal})=>{
+    const userData = await UserSchema.findOne({id});
+    const updatedIppt = userData.ippt
+    updatedIppt.goal = goal
+    try{
+    const savedData = await UserSchema.findOneAndUpdate({id},{ippt:updatedIppt});
+    const updatedUserData = await UserSchema.findOne({id});
+    socket.emit("goal-change-return",({status_:"S",userInfo:updatedUserData}))
+    }catch(err){
+      console.log(err)
+    }
+    
+  })
 });
 
 server.listen(process.env.PORT || PORT, () => {

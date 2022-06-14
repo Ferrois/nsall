@@ -89,7 +89,7 @@ export default function Profile({ navigation }) {
                   source={{
                     uri: "https://wallpaperaccess.com/full/317501.jpg",
                   }}
-                  alt="Alternate Text"
+                  alt="Profile Picture"
                 />
                 <Text fontSize={"xl"} color="white" fontFamily={"Poppins"}>
                   {store.userInfo.name}
