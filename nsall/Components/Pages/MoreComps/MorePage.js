@@ -14,7 +14,7 @@ const moreData = [
   {
     id: 1,
     directory: "Emart",
-    title: "Emart",
+    title: "eMart",
   },
   {
     id: 2,
@@ -44,7 +44,6 @@ export default function MorePage({ navigation }) {
       }}
     >
       <Center>
-        <ScrollView w="100%">
           <Center mb={"20"}>
             <Text
               color={"white"}
@@ -56,7 +55,6 @@ export default function MorePage({ navigation }) {
               More
             </Text>
           </Center>
-        </ScrollView>
       </Center>
 
       <Box p={4} rounded={"2xl"} bg={"gray.100"} mx={"5"}>
@@ -79,7 +77,7 @@ export default function MorePage({ navigation }) {
                   justifyContent={"space-between"}
                   w={"80%"}
                 >
-                <Text color="black" ml={"5"} w="100%">
+                <Text color="black" ml={"5"} w="100%" fontSize={"lg"}>
                   {title}
                 </Text>
                 <Icon

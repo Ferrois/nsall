@@ -89,8 +89,10 @@ export default function Profile({ navigation }) {
                   size={120}
                   resizeMode={"contain"}
                   borderRadius={100}
+                  borderWidth={2}
+                  borderColor={"amber.400"}
                   source={{
-                    uri: "https://wallpaperaccess.com/full/317501.jpg",
+                    uri: "https://picsum.photos/200",
                   }}
                   alt="Profile Picture"
                 />
@@ -125,6 +127,14 @@ export default function Profile({ navigation }) {
                       fontFamily={"Poppins"}
                     >
                       NRIC: {store.userInfo.nric}
+                    </Text>
+                    <Text
+                      fontSize={"md"}
+                      fontWeight={"bold"}
+                      color="darkBlue.900"
+                      fontFamily={"Poppins"}
+                    >
+                      Group: {store.userInfo.group}
                     </Text>
                   </Box>
                 </Box>
@@ -205,8 +215,7 @@ export default function Profile({ navigation }) {
                     shadow={"9"}
                     mb={"12"}
                   >
-                    <HStack justifyContent={"space-between"} >
-                      
+                    <HStack justifyContent={"space-between"}>
                       <Box
                         py={1}
                         px={4}
@@ -215,7 +224,7 @@ export default function Profile({ navigation }) {
                         alignItems={"center"}
                       >
                         <Text
-                          color={"black"}
+                          color={"darkBlue.900"}
                           fontSize={"2xl"}
                           fontWeight={"bold"}
                           fontFamily="Poppins"

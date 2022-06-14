@@ -1,12 +1,4 @@
-import {
-  Image,
-  Button,
-  Box,
-  Input,
-  Text,
-  Spinner,
-  Toast,
-} from "native-base";
+import { Image, Button, Box, Input, Text, Spinner, Toast } from "native-base";
 import { StyleSheet, useWindowDimensions, Pressable } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import Logo from "../../assets/NSALLlogo.png";
@@ -111,6 +103,20 @@ const LoginPage = ({ navigation, onPress }) => {
         mt={5}
       >
         Navigate into app as admin:admin
+      </Button>
+      <Text bottom={"0"} left={"0"} position={"absolute"}>
+        v1.0.0 production
+      </Text>
+      <Button
+        bottom={"0"}
+        right={"0"}
+        position={"absolute"}
+        bg={"white:alpha.0"}
+        onPress={()=>navigation.navigate("Dev")}
+      >
+        <Text fontSize={"xs"} underline>
+          dev's info
+        </Text>
       </Button>
     </Box>
     // </ScrollView>

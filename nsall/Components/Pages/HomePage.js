@@ -27,6 +27,9 @@ import { useContext } from "react";
 import { StyleSheet } from "react-native";
 import { StoreContext } from "../../Store/StoreContext";
 import IpptTGPage from "./IpptTGPage";
+import returnHighestScore from "../../Helpers/returnHighestScore";
+import VitalsCard from "./VitalsCard";
+import VitalsPage from "./VitalsPage";
 
 //Naviagator in the home widgets
 const Stack = createNativeStackNavigator();
@@ -55,9 +58,12 @@ function Home() {
           component={IpptCalPage}
           options={{
             headerShown: false,
-            // headerBackVisible: true,
-            // title: "IPPT Score Calculator",
           }}
+        />
+        <Stack.Screen
+          name="Vitals"
+          component={VitalsPage}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -89,6 +95,7 @@ function HomePage({ navigation }) {
               Home
             </Text>
             <CountdownCard />
+            <VitalsCard navigation={navigation} />
             <IpptCard navigation={navigation} />
             <LeaveStatusCard />
           </Center>
@@ -222,12 +229,22 @@ function IpptCard({ navigation }) {
           fontFamily={"Poppins"}
           pr="4"
         >
-          40 / {store.userInfo.ippt.goal} Pts
+          {returnHighestScore(store.userInfo.ippt.record)} /{" "}
+          {store.userInfo.ippt.goal} Pts
         </Text>
       </HStack>
       <Center w="100%">
         <Box w="100%">
-          <Progress size="md" shadow={2} mb={4} value={40*100 / store.userInfo.ippt.goal} mx="4" />
+          <Progress
+            size="md"
+            shadow={2}
+            mb={4}
+            value={
+              (returnHighestScore(store.userInfo.ippt.record) * 100) /
+              store.userInfo.ippt.goal
+            }
+            mx="4"
+          />
         </Box>
       </Center>
       <Divider mb={4} />
