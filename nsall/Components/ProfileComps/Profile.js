@@ -137,7 +137,7 @@ export default function Profile({ navigation }) {
                     <AspectRatio ratio={2.5} flex={0.5}>
                       <Button
                         onPress={() => handleSignOut()}
-                        bg={"dark.300"}
+                        bg={"blueGray.500"}
                         flex={1}
                       >
                         <Icon
@@ -164,15 +164,17 @@ export default function Profile({ navigation }) {
                     mb={"12"}
                   >
                     <HStack justifyContent={"space-between"}>
+                  <Box py={1} px={4} rounded={"xl"} bg={"gray.100:alpha.80"} alignItems={"center"}>
+
                       <Text
                         color={"darkBlue.900"}
                         fontSize={"2xl"}
                         fontWeight={"bold"}
                         fontFamily="Poppins"
-                        marginLeft={"3"}
                       >
                         Medical History
                       </Text>
+                      </Box>
                       <AspectRatio ratio={1}>
                         <Button
                           borderRadius={"2xl"}

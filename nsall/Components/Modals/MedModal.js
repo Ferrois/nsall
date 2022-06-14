@@ -33,7 +33,7 @@ export default function MedModal({ showModal, handleCloseModal }) {
             <FormControl.Label>Disease</FormControl.Label>
             <Input value={disease} onChangeText={value=>setDisease(value)}/>
           </FormControl>
-          <FormControl mt="3">
+          <FormControl mt="2">
             <FormControl.Label>Severity</FormControl.Label>
             <Select
               selectedValue={severity}
@@ -49,7 +49,7 @@ export default function MedModal({ showModal, handleCloseModal }) {
               <Select.Item label="Mild" value="Mild" />
             </Select>
           </FormControl>
-          <Button onPress={handleSubmit}>Submit</Button>
+          <Button onPress={handleSubmit} mt={2}>Submit</Button>
         </Modal.Body>
       </Modal.Content>
     </Modal>

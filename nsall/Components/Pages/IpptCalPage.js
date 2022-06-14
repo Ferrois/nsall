@@ -179,7 +179,6 @@ export default function IpptCalPage({ navigation }) {
               onPress={() => handleCalc()}
               mt={"2"}
               height={"10"}
-              width={"30%"}
             >
               <Text fontWeight={"bold"} color="white">
                 Calculate

@@ -145,7 +145,7 @@ export default function NSafePage() {
       <Box
         flex={0.25}
         bg={"light.100"}
-        borderTopColor={"violet.300"}
+        borderTopColor={"violet.100"}
         borderTopWidth={"4"}
       >
         <Center>
