@@ -21,6 +21,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import MedModal from "../Modals/MedModal";
 import { socket } from "../../Helpers/socket";
 import ToastMsg from "../Modals/ToastMsg";
+import returnSeverityColor from "../../Helpers/returnSeverityColor";
 
 export default function Profile({ navigation }) {
   const { storeCtx } = useContext(StoreContext);
@@ -64,9 +65,9 @@ export default function Profile({ navigation }) {
           safeArea
           bg={{
             linearGradient: {
-              colors: ["red.600", "orange.400"],
-              start: [1, 0.3],
-              end: [0, 0],
+              colors: ["emerald.500", "cyan.400"],
+              start: [0.8, 0],
+              end: [0.2, 0.9],
             },
           }}
         >
@@ -75,7 +76,7 @@ export default function Profile({ navigation }) {
             <Animated.View entering={FadeInDown}>
               <Center>
                 <Text
-                  fontSize={"3xl"}
+                  fontSize={"40"}
                   mb="4"
                   fontFamily={"Poppins"}
                   color="white"
@@ -91,9 +92,18 @@ export default function Profile({ navigation }) {
                   }}
                   alt="Alternate Text"
                 />
-                <Text fontSize={"xl"} color="white" fontFamily={"Poppins"}>
+                <Box alignItems={"center"} mt={2}>
+                  <Box py={1} px={4} rounded={"xl"} bg={"gray.100:alpha.80"} alignItems={"center"}>
+                <Text fontSize={"30"} fontWeight={"bold"} color="darkBlue.900" fontFamily={"Poppins"}>
                   {store.userInfo.name}
+                  </Text>
+                  <Text fontSize={"md"} fontWeight={"bold"} color="darkBlue.900" fontFamily={"Poppins"}>
+                  Ethinicity: {store.userInfo.ethnicity}
                 </Text>
+                <Text fontSize={"md"} fontWeight={"bold"} color="darkBlue.900" fontFamily={"Poppins"}>
+                  NRIC: {store.userInfo.nric}
+                </Text></Box>
+                </Box>
               </Center>
             </Animated.View>
             <Animated.View
@@ -101,7 +111,7 @@ export default function Profile({ navigation }) {
               style={{ flex: 1, width: "100%" }}
             >
               <Box
-                bg={"light.100"}
+                bg={"dark.900"}
                 w="100%"
                 mt="2"
                 flex={1}
@@ -113,34 +123,40 @@ export default function Profile({ navigation }) {
                     <AspectRatio ratio={2.5} flex={0.5}>
                       <Button
                         onPress={() => navigation.navigate("Settings")}
-                        bg={"gray.700"}
+                        bg={"dark.300"}
                         flex={1}
                       >
                         <Icon
                           as={Ionicons}
                           name="settings-outline"
                           size={50}
-                          color={"gray.300"}
+                          color={"white"}
                         />
                       </Button>
                     </AspectRatio>
                     <AspectRatio ratio={2.5} flex={0.5}>
                       <Button
                         onPress={() => handleSignOut()}
-                        bg={"gray.700"}
+                        bg={"dark.300"}
                         flex={1}
                       >
                         <Icon
                           as={Ionicons}
-                          name="settings-outline"
+                          name="log-out-outline"
                           size={50}
-                          color={"gray.300"}
+                          color={"white"}
                         />
                       </Button>
                     </AspectRatio>
                   </HStack>
                   <Box
-                    bg={"coolGray.300"}
+                    bg={{
+                      linearGradient: {
+                        colors: ["emerald.500", "cyan.400"],
+                        start: [0.8, 0],
+                        end: [0.2, 0.9],
+                      },
+                    }}
                     rounded={"2xl"}
                     p="1"
                     mt={"2"}
@@ -149,24 +165,26 @@ export default function Profile({ navigation }) {
                   >
                     <HStack justifyContent={"space-between"}>
                       <Text
-                        color={"black"}
-                        fontSize={"3xl"}
+                        color={"darkBlue.900"}
+                        fontSize={"2xl"}
+                        fontWeight={"bold"}
                         fontFamily="Poppins"
+                        marginLeft={"3"}
                       >
                         Medical History
                       </Text>
                       <AspectRatio ratio={1}>
                         <Button
                           borderRadius={"2xl"}
-                          bg={"amber.100"}
+                          bg={"dark.300"}
                           onPress={() => handleAddMed()}
                           p={"2"}
                         >
                           <Icon
                             as={AntDesign}
-                            size={50}
+                            size={10}
                             name="plus"
-                            color={"gray.600"}
+                            color={"white"}
                           />
                         </Button>
                       </AspectRatio>
@@ -176,20 +194,23 @@ export default function Profile({ navigation }) {
                         store.userInfo.medicalHist.map(
                           ({ disease, has, severity }) => {
                             return (
-                              <AspectRatio ratio={1} h={"40"} key={disease}>
                                 <Box
-                                  bg={"gray.400"}
+                                  bg={"dark.50:alpha.60"}
                                   m="1"
                                   p="2"
+                                  
                                   borderRadius={"xl"}
+                                  key={disease}
+                                  w={"80%"}
                                 >
-                                  <Text fontFamily={"Poppins"} fontSize={"lg"}>
+                                  <Box ml={"4"}>
+                                  <Text color={"white"} fontFamily={"Poppins"} fontSize={"25"}>
                                     {disease}
                                   </Text>
-                                  <Text>Ongoing: {JSON.stringify(has)}</Text>
-                                  <Text>Severity: {severity}</Text>
+                                  <Text color={"white"} fontSize={"18"}>Ongoing: {JSON.stringify(has)}</Text>
+                                  <Text color={returnSeverityColor(severity)} fontSize={"18"}>Severity: {severity}</Text>
+                               </Box>
                                 </Box>
-                              </AspectRatio>
                             );
                           }
                         )
