@@ -238,7 +238,7 @@ io.on("connection", (socket) => {
   socket.on("addipptinfo", async ({ id, date, pushups, situps, run, score })=>{
     const userData = await UserSchema.findOne({id});
     const ipptData = userData.ippt;
-    ipptData.record.push({date,pushups,situps,run,score});
+    ipptData.record.push({date,pushups,situps,run,score,idx:v4()});
     try{
       const saveData = await UserSchema.findOneAndUpdate({id},{ippt:ipptData})
       const updatedUser = await UserSchema.findOne({id});
