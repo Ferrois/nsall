@@ -235,17 +235,43 @@ io.on("connection", (socket) => {
       socket.emit("retrieve-info-return", { status_: "F", info: {} });
     }
   });
-  socket.on("addipptinfo", async ({ id, date, pushups, situps, run, score })=>{
-    const userData = await UserSchema.findOne({id});
-    const ipptData = userData.ippt;
-    ipptData.record.push({date,pushups,situps,run,score,idx:v4()});
-    try{
-      const saveData = await UserSchema.findOneAndUpdate({id},{ippt:ipptData})
-      const updatedUser = await UserSchema.findOne({id});
-      socket.emit("addipptinfo-return",{status_:"S",userInfo:updatedUser})
-    }catch(err){
-      console.log(err)
-      socket.emit("addipptinfo-return",{status_:"F"})
+  socket.on(
+    "addipptinfo",
+    async ({ id, date, pushups, situps, run, score }) => {
+      const userData = await UserSchema.findOne({ id });
+      const ipptData = userData.ippt;
+      ipptData.record.push({ date, pushups, situps, run, score, idx: v4() });
+      try {
+        const saveData = await UserSchema.findOneAndUpdate(
+          { id },
+          { ippt: ipptData }
+        );
+        const updatedUser = await UserSchema.findOne({ id });
+        socket.emit("addipptinfo-return", {
+          status_: "S",
+          userInfo: updatedUser,
+        });
+      } catch (err) {
+        console.log(err);
+        socket.emit("addipptinfo-return", { status_: "F" });
+      }
+    }
+  );
+
+  socket.on("set-adtime", async ({ id, adtime }) => {
+    const userData = await UserSchema.findOne({ id });
+    const updatedSettings = userData.settings;
+    updatedSettings.adtime = adtime;
+    try {
+      const saveData = await UserSchema.findOneAndUpdate(
+        { id },
+        { settings: updatedSettings }
+      );
+      const userData = await UserSchema.findOne({ id });
+      socket.emit("set-adtime-return", { status_: "S", userInfo: userData });
+    } catch (err) {
+      console.log(err);
+      socket.emit("set-adtime-return", { status_: "F" });
     }
   });
 });
