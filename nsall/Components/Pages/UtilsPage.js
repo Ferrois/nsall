@@ -27,7 +27,7 @@ export default function UtilsPage() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Video"
+          name="Videos"
           component={VideosPage}
           options={{ headerShown: false }}
         />
