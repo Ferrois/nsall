@@ -1,4 +1,5 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
+import axios from "axios";
 import {
   Button,
   FormControl,
@@ -49,16 +50,14 @@ export default function IpptModal({ showModal, handleCloseModal }) {
         desc: "You must input a numeric amount of run timing in seconds",
         stat: "F",
       });
-    const score = await fetch(
-      `https://ippt.vercel.app/api?age=18&situps=${situps}&pushups=${pushups}&run=${run}`
-    );
+    const scores = await axios.get(`https://ippt.vercel.app/api?age=18&situps=${situps}&pushups=${pushups}&run=${run}`)
     socket.emit("addipptinfo", {
       id: store.userInfo.id,
       date,
       pushups,
       situps,
       run,
-      score:score.total,
+      score:scores.data.total,
     });
     setPushups("");
     setSitups("");

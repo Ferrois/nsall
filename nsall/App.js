@@ -19,6 +19,7 @@ import NSafePage from "./Components/Pages/NSafePage.js";
 import UtilsPage from "./Components/Pages/UtilsPage.js";
 import { StoreContext, StoreProvider } from "./Store/StoreContext.js";
 import SignUpPage from "./Components/Pages/SignUpPage.js";
+import DevPage from "./Components/Pages/DevPage.js";
 //Socket.io configuration (Websocket connection to the server.)
 
 //Navigation options
@@ -165,6 +166,11 @@ export default function App() {
               name="Interface"
               component={HomeInterface}
               options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Dev"
+              component={DevPage}
+              options={{ headerShown: true,title:"Developers' Information" }}
             />
           </Stack.Navigator>
         </NavigationContainer>

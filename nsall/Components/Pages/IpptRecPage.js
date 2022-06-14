@@ -14,6 +14,7 @@ import { StoreContext } from "../../Store/StoreContext";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import returnMinsec from "./../../Helpers/returnMinsec.js";
 import IpptModal from "../Modals/IpptModal";
+import returnHighestScore from "../../Helpers/returnHighestScore";
 
 export default function IpptRecPage({ navigation }) {
   // Local store
@@ -65,14 +66,15 @@ export default function IpptRecPage({ navigation }) {
             >
               <Icon as={AntDesign} size={10} name="plus" color={"white"} />
             </Button>
+            <Text fontSize={"md"} fontWeight="bold">Highest Score: {returnHighestScore(store.userInfo.ippt.record)}</Text>
             <ScrollView w={"100%"}>
               <Center>
                 {store.userInfo.ippt.record.map(
-                  ({ date, pushups, situps, run, score }) => {
+                  ({ date, pushups, situps, run, score,idx }) => {
                     return (
                       <Box
                         justifyContent={"space-between"}
-                        key={date}
+                        key={idx}
                         mt={2}
                         w={"3/4"}
                       >
@@ -87,7 +89,7 @@ export default function IpptRecPage({ navigation }) {
                             >
                               <Text>
                                 {/* {dayDate.toDateString()} */}
-                                {date}
+                                {new Date(date).toDateString()}
                               </Text>
                             </Box>
                             <Box
@@ -113,7 +115,7 @@ export default function IpptRecPage({ navigation }) {
                               overflow="hidden"
                               borderColor="primary.400"
                               borderWidth="2"
-                              bg="primary.200"
+                              bg="primary.300"
                             >
                               <Text>
                                 2.4km Run: {returnMinsec(run)[0]}``
