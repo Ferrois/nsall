@@ -14,8 +14,10 @@ import {
   Heading,
   Container,
   Divider,
+  Icon,
 } from "native-base";
 import React, { useEffect, useState } from "react";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { StyleSheet } from "react-native";
 import returnMinsec from "../../Helpers/returnMinsec";
 import useFetch from "../../Hooks/useFetch";
@@ -68,12 +70,18 @@ export default function IpptCalPage({ navigation }) {
               w={"3/4"}
             >
               <Button
-                bg={"danger.500"}
+                
                 onPress={() => {
                   navigation.navigate("HomePage");
                 }}
+                bg={"gray.100"}
               >
-                Back
+                <Icon
+                as={AntDesign}
+                name="back"
+                size={"4xl"}
+                color="black"
+              />
               </Button>
               <Text fontSize={"2xl"} fontFamily={"Poppins"}>
                 Target Setting

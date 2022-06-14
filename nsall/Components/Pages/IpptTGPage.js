@@ -4,12 +4,14 @@ import {
   Center,
   Divider,
   HStack,
+  Icon,
   Slider,
   Text,
   useToast,
   VStack,
 } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { socket } from "../../Helpers/socket";
 import { StoreContext } from "../../Store/StoreContext";
 import ToastMsg from "../Modals/ToastMsg";
@@ -73,7 +75,13 @@ export default function IpptTGPage({navigation}) {
       <Box p={4} rounded={"2xl"} bg={"gray.100"} mx={5}>
         <Center>
           <HStack mb={2} alignItems={"center"} justifyContent={"space-between"} w={"3/4"}>
-            <Button bg={"danger.500"} onPress={()=>{navigation.navigate("HomePage")}} >Back</Button>
+            <Button bg={"gray.100"} onPress={()=>{navigation.navigate("HomePage")}} >
+              <Icon
+                as={AntDesign}
+                name="back"
+                size={"4xl"}
+                color="black"
+              /></Button>
           <Text fontSize={"2xl"} fontFamily={"Poppins"}>Target Setting</Text>
           </HStack>
           <Divider/>
