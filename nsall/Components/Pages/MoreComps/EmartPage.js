@@ -1,7 +1,7 @@
 import { Box, Button, Center, HStack, Icon, Text } from "native-base";
 import React from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import OpenURLButton from "../../UI/OpenUrlButton";
+import OpenURLButton from "../../UI/OpenURLButton";
 
 export default function EmartPage({navigation}) {
   return (
