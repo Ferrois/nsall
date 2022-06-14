@@ -9,10 +9,10 @@ import {
   Text,
   View,
 } from "native-base";
-import React, { useCallback } from "react";
+import React from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { Alert, Linking, StyleSheet } from "react-native";
-import OpenURLButton from "../../UI/OpenUrlButton";
+import {  StyleSheet } from "react-native";
+import OpenURLButton from "../../UI/OpenURLButton";
 
 const videoArr = [
   {
