@@ -1,6 +1,6 @@
-import { Box, Button, Center, HStack, ScrollView, Text } from "native-base";
+import { Box, Center, HStack, ScrollView, Text } from "native-base";
 import React from "react";
-import OpenURLButton from "../UI/OpenUrlButton";
+import OpenURLButton from "../UI/OpenURLButton";
 
 const data = [
   {
